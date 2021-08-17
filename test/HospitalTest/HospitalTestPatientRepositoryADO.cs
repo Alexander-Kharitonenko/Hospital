@@ -10,8 +10,9 @@ namespace Hospital.XUnitTest
     public class HospitalTestPatientRepositoryADO
     {
         DataBaseConfigurationManager config = new DataBaseConfigurationManager();
-       
-        public HospitalTestPatientRepositoryADO() 
+
+        [SetUp]
+        public void Stert()
         {
             config.LoadDataBase();
         }
@@ -20,91 +21,90 @@ namespace Hospital.XUnitTest
         public void MethodGet_ParamsVoid_returnCollectionEntityPatient()
         {
             // Arrange
-            
+
             PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
 
             // Act
             IEnumerable<Patient> result = doc.Get();
 
             // Assert
-            Assert.NotEmpty(result);
-          
-        }
-
-        [Test]
-        [MemberData(nameof(PatientData))]
-        public void MethodCreateEntity_ParamsObjPatient_returnInt_1(Patient entity)
-        {
-            // Arrange
-           
-            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
-
-            // Act
-            var result = doc.CreateEntity(entity);
-
-            // Assert
-            
-        }
-
-        [Test]
-        [MemberData(nameof(PatientData))]
-        public void MethodUpdateEntity_ParamsObjPatient_returnInt_1(Patient entity)
-        {
-            // Arrange
-         
-            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
-
-            // Act
-            var result = doc.Update(entity);
-
-            // Assert
-           
+            Assert.NotNull(result);
 
         }
 
         [Test]
-        [MemberData(nameof(PatientData))]
-        public void MethodDelete_ParamsObjPatient_returnInt_1(Patient entity)
+        public void MethodCreateEntity_ParamsObjPatient_returnInt_1()
         {
             // Arrange
-         
+
             PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
 
             // Act
-            var result = doc.Delete(entity);
+            var result = doc.CreateEntity(PatientData);
 
             // Assert
-            
+
+        }
+
+        [Test]
+        public void MethodUpdateEntity_ParamsObjPatient_returnInt_1()
+        {
+            // Arrange
+
+            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
+
+            // Act
+            var result = doc.Update(PatientData);
+
+            // Assert
+
+
+        }
+
+        [Test]
+       
+        public void MethodDelete_ParamsObjPatient_returnInt_1()
+        {
+            // Arrange
+
+            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
+
+            // Act
+            var result = doc.Delete(PatientData);
+
+            // Assert
+
         }
 
         [Test]
         public void MethodGetAllEntityById_ParamsVoid_returnCollectionEntityPatient()
         {
             // Arrange
-          
+
             PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
 
             // Act
             IEnumerable<Patient> result = doc.GetAllEntityBy(el => el.Id == 5);
 
             // Assert
-           
+
+            Assert.NotNull(result);
+
         }
 
 
 
-        public static IEnumerable<object[]> PatientData
+        public static Patient PatientData
         {
             get
             {
-                return new List<object[]>
-                {
-                  new object[] {  new Patient() { Id = 3, FirstName = "TestFirstName", Patronymic= "TestPatronymic", LastName= "TestLastName", Gender= "TestGender", ResidenceAddress= "TestResidenceAddress" } }
-                };
+                return new Patient() { Id = 3, FirstName = "TestFirstName", Patronymic = "TestPatronymic", LastName = "TestLastName", Gender = "TestGender", ResidenceAddress = "TestResidenceAddress" };
+               
             }
         }
 
-        ~HospitalTestPatientRepositoryADO()
+        [TearDown]
+        public void End()
         {
             config.DropDataBase();
         }

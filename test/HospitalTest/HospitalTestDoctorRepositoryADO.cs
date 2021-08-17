@@ -13,7 +13,8 @@ namespace Hospital.XUnitTest
     {
         DataBaseConfigurationManager config = new DataBaseConfigurationManager();
 
-        public void Stert() 
+        [SetUp]
+        public void Stert()
         {
             config.LoadDataBase();
         }
@@ -22,48 +23,46 @@ namespace Hospital.XUnitTest
         public void MethodGet_ParamsVoid_returnCollectionEntityDoctor()
         {
             // Arrange
-            
-            
+
+
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
 
             // Act
-            var result =  doc.Get();
+            var result = doc.Get();
 
             // Assert
-            Assert.NotEmpty(result);
-             
+
+            Assert.IsNotNull(result);
         }
 
         [Test]
-        
-        public void MethodCreateEntity_ParamsObjDoctor_returnInt_1()
+        public async Task MethodCreateEntity_ParamsObjDoctor_returnInt_1()
         {
             // Arrange
-            
+
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
 
             // Act
-            var result =  doc.CreateEntity(entity);
+            await doc.CreateEntity(DoctorData);
 
             // Assert
-            
-          
+
+
         }
 
         [Test]
-       
-        public void MethodUpdateEntity_ParamsObjDoctor_returnInt_1(Doctor entity)
+        public async Task MethodUpdateEntity_ParamsObjDoctor_returnInt_1()
         {
             // Arrange
-           
+
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
 
             // Act
-            var result =  doc.Update(entity);
+            await doc.Update(DoctorData);
 
             // Assert
+
             
-            config.DropDataBase();
 
         }
 
@@ -71,32 +70,31 @@ namespace Hospital.XUnitTest
         public void MethodGetAllEntityById_ParamsVoid_returnCollectionEntityDoctor()
         {
             // Arrange
-           
+
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
 
             // Act
             var result = doc.GetAllEntityBy(el => el.Id == 5);
 
             // Assert
-            Assert.NotEmpty(result);
-          
+            Assert.IsNotNull(result);
+
 
         }
 
         [Test]
-        
-        public void MethodDelete_ParamsObjDoctor_returnInt_1(Doctor entity)
+        public async Task  MethodDelete_ParamsObjDoctor_returnInt_1()
         {
             // Arrange
-            
+
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
 
             //Act
-            var result = doc.Delete(DoctorData);
+             await doc.Delete(DoctorData);
 
             //Assert
-           
-            
+
+
 
 
         }
@@ -109,7 +107,8 @@ namespace Hospital.XUnitTest
             }
         }
 
-        ~HospitalTestDoctorRepositoryADO()
+        [TearDown]
+        public void End()
         {
             config.DropDataBase();
         }

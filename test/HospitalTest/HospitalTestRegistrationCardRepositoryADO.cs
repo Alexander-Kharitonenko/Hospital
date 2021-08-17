@@ -13,9 +13,10 @@ namespace Hospital.XUnitTest
     {
 
         DataBaseConfigurationManager config = new DataBaseConfigurationManager();
-        
 
-        public HospitalTestRegistrationCardRepositoryADO() 
+
+        [SetUp]
+        public void Stert()
         {
             config.LoadDataBase();
         }
@@ -24,92 +25,88 @@ namespace Hospital.XUnitTest
         public void MethodGet_ParamsVoid_returnCollectionEntityRegistrationCard()
         {
             // Arrange
-            
+
             RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
 
             // Act
             IEnumerable<RegistrationCard> result = doc.Get();
 
             // Assert
-          
+            Assert.NotNull(result);
         }
 
         [Test]
-        [MemberData(nameof(RegistrationCardData))]
-        public void MethodCreateEntity_ParamsObjRegistrationCard_returnInt_1(RegistrationCard entity)
+        public void MethodCreateEntity_ParamsObjRegistrationCard_returnInt_1()
         {
             // Arrange
-     
+
             RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
 
             // Act
-            var result = doc.CreateEntity(entity);
+            var result = doc.CreateEntity(RegistrationCardData);
 
             // Assert
-           
-        }
-
-        [Test]
-        [MemberData(nameof(RegistrationCardData))]
-        public void MethodUpdateEntity_ParamsObjRegistrationCard_returnInt_1(RegistrationCard entity)
-        {
-            // Arrange
-           
-            RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
-
-            // Act
-            var result = doc.Update(entity);
-
-            // Assert
-          
 
         }
 
         [Test]
-        [MemberData(nameof(RegistrationCardData))]
-        public void MethodDelete_ParamsObjRegistrationCard_returnInt_1(RegistrationCard entity)
+        public void MethodUpdateEntity_ParamsObjRegistrationCard_returnInt_1()
         {
             // Arrange
-           
+
             RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
 
             // Act
-            var result = doc.Delete(entity);
+            var result = doc.Update(RegistrationCardData);
 
             // Assert
-           
+
+
+        }
+
+        [Test]
+        public void MethodDelete_ParamsObjRegistrationCard_returnInt_1()
+        {
+            // Arrange
+
+            RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
+
+            // Act
+            var result = doc.Delete(RegistrationCardData);
+
+            // Assert
+
         }
 
         [Test]
         public void MethodGetAllEntityById_ParamsVoid_returnCollectionEntityRegistrationCard()
         {
             // Arrange
-            
+
             RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
 
             // Act
             IEnumerable<RegistrationCard> result = doc.GetAllEntityBy(el => el.Id == 5);
 
             // Assert
-           
+            Assert.NotNull(result);
+
         }
 
 
 
-        public static IEnumerable<object[]> RegistrationCardData
+        public static RegistrationCard RegistrationCardData
         {
             get
             {
-                return new List<object[]>
-                {
-                  new object[] {  new RegistrationCard() { Id = 3, PatientId = 3 , DoctorId = 3 , DiagnosisId = 2 , DateAdmission = DateTime.Now } }
-                };
+                return new RegistrationCard() { Id = 3, PatientId = 3, DoctorId = 3, DiagnosisId = 2, DateAdmission = DateTime.Now };  
             }
         }
 
-        ~HospitalTestRegistrationCardRepositoryADO()
+        [TearDown]
+        public void End()
         {
-            config.LoadDataBase();
+            config.DropDataBase();
         }
     }
 }

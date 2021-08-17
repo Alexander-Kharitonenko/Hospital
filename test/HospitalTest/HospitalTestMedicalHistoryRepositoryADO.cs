@@ -13,7 +13,9 @@ namespace Hospital.XUnitTest
     public class HospitalTestMedicalHistoryRepositoryADO
     {
         DataBaseConfigurationManager config = new DataBaseConfigurationManager();
-        public HospitalTestMedicalHistoryRepositoryADO() 
+
+        [SetUp]
+        public void Stert()
         {
             config.LoadDataBase();
         }
@@ -22,92 +24,89 @@ namespace Hospital.XUnitTest
         public void MethodGet_ParamsVoid_returnCollectionEntityMedicalHistory()
         {
             // Arrange
-           
+
             MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
 
             // Act
             var result = doc.Get();
 
             // Assert
-            Assert.NotEmpty(result);
-            
-        }
-
-        [Test]
-        [MemberData(nameof(MedicalHistoryData))]
-        public void MethodCreateEntity_ParamsObjMedicalHistory_returnInt_1(MedicalHistory entity)
-        {
-            // Arrange
-           
-            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
-
-            // Act
-            var result = doc.CreateEntity(entity);
-
-            // Assert
-           
-        }
-
-        [Test]
-        [MemberData(nameof(MedicalHistoryData))]
-        public void MethodUpdateEntity_ParamsObjMedicalHistory_returnInt_1(MedicalHistory entity)
-        {
-            // Arrange
-          
-            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
-
-            // Act
-            var result = doc.Update(entity);
-
-            // Assert
-           
-            
+            Assert.IsNotNull(result);
 
         }
 
         [Test]
-        [MemberData(nameof(MedicalHistoryData))]
-        public void MethodDelete_ParamsObjMedicalHistory_returnInt_1(MedicalHistory entity)
+       
+        public void MethodCreateEntity_ParamsObjMedicalHistory_returnInt_1()
         {
             // Arrange
-           
+
             MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
 
             // Act
-            var result = doc.Delete(entity);
+            var result = doc.CreateEntity(MedicalHistoryData);
 
             // Assert
-            
+
+        }
+
+        [Test]   
+        public void MethodUpdateEntity_ParamsObjMedicalHistory_returnInt_1()
+        {
+            // Arrange
+
+            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
+
+            // Act
+            var result = doc.Update(MedicalHistoryData);
+
+            // Assert
+
+
+
+        }
+
+        [Test]
+        public void MethodDelete_ParamsObjMedicalHistory_returnInt_1()
+        {
+            // Arrange
+
+            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
+
+            // Act
+            var result = doc.Delete(MedicalHistoryData);
+
+            // Assert
+
         }
 
         [Test]
         public void MethodGetAllEntityById_ParamsVoid_returnCollectionEntityMedicalHistory()
         {
             // Arrange
-         
+
             MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
 
             // Act
             var result = doc.GetAllEntityBy(el => el.Id == 5);
 
             // Assert
-           
+            Assert.IsNotNull(result);
         }
 
 
 
-        public static IEnumerable<object[]> MedicalHistoryData
+        public static MedicalHistory MedicalHistoryData
         {
             get
             {
-                return new List<object[]>
-                {
-                  new object[] {  new MedicalHistory() { Id = 3, Diagnosis = "TestDiagnosis" } }
-                };
+                return new MedicalHistory() { Id = 3, Diagnosis = "TestDiagnosis" };
+
             }
         }
 
-        ~HospitalTestMedicalHistoryRepositoryADO()
+        [TearDown]
+        public void End()
         {
             config.DropDataBase();
         }
