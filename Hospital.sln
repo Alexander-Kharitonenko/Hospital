@@ -8,6 +8,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{169829D7-364B-499F-9AB9-5993D89DD010}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8B964CF4-E4ED-4015-A346-8431B00DC9D8}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\..\#\test\Hospital.XUnitTest\appsettings.json = ..\..\..\..\..\..\#\test\Hospital.XUnitTest\appsettings.json
+		..\..\..\..\..\..\#\test\Hospital.XUnitTest\DataBaseConfigurationManager.cs = ..\..\..\..\..\..\#\test\Hospital.XUnitTest\DataBaseConfigurationManager.cs
+		..\..\..\..\..\..\#\test\Hospital.XUnitTest\Hospital.XUnitTest.csproj = ..\..\..\..\..\..\#\test\Hospital.XUnitTest\Hospital.XUnitTest.csproj
+		..\..\..\..\..\..\#\test\Hospital.XUnitTest\HospitalTestDoctorRepositoryADO.cs = ..\..\..\..\..\..\#\test\Hospital.XUnitTest\HospitalTestDoctorRepositoryADO.cs
+		..\..\..\..\..\..\#\test\Hospital.XUnitTest\HospitalTestMedicalHistoryRepositoryADO.cs = ..\..\..\..\..\..\#\test\Hospital.XUnitTest\HospitalTestMedicalHistoryRepositoryADO.cs
+		..\..\..\..\..\..\#\test\Hospital.XUnitTest\HospitalTestPatientRepositoryADO.cs = ..\..\..\..\..\..\#\test\Hospital.XUnitTest\HospitalTestPatientRepositoryADO.cs
+		..\..\..\..\..\..\#\test\Hospital.XUnitTest\HospitalTestRegistrationCardRepositoryADO.cs = ..\..\..\..\..\..\#\test\Hospital.XUnitTest\HospitalTestRegistrationCardRepositoryADO.cs
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.DataAccess", "src\Hospital.DataAccess\Hospital.DataAccess.csproj", "{1341DE35-EDB6-483C-AD50-1F154735ED0A}"
 EndProject
