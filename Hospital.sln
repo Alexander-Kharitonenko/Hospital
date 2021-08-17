@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Hospital.DataBase", "src\Hospital.DataBase\Hospital.DataBase.sqlproj", "{8B59D0C9-6440-4E2E-9878-428107BCF8DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{169829D7-364B-499F-9AB9-5993D89DD010}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8B964CF4-E4ED-4015-A346-8431B00DC9D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +24,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8B59D0C9-6440-4E2E-9878-428107BCF8DB} = {169829D7-364B-499F-9AB9-5993D89DD010}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A0FE247-D0AA-412A-AA71-7A1B1BA9CB2E}
