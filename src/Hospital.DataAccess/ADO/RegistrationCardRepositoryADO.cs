@@ -1,8 +1,8 @@
 ﻿using DataAccess.Entity;
-using Microsoft.Data.SqlClient;
 using RepositoryADO.InterfaceForRepository;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -15,44 +15,37 @@ namespace RepositoryADO.ImplementationRepository
         public RegistrationCardRepositoryADO(string connectionString) : base(connectionString)
         { }
 
-        public override int CreateEntity(RegistrationCard entity)
+        public async override Task CreateEntity(RegistrationCard entity)
         {
             if (entity != null)
             {
                 string sqlExpression = $"INSERT INTO RegistrationСard (PatientId,DoctorId,DiagnosisId,DateAdmission) VALUES ('{entity.PatientId}','{entity.DoctorId}', '{entity.DiagnosisId}', '{entity.DateAdmission}')";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
-                    connection.Open();
+                    await connection.OpenAsync();
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
-                    int number = command.ExecuteNonQuery();
-                    return number;
+                    command.ExecuteNonQuery();
+                    
                 }
             }
-            else
-            {
-                return 0;
-            }
+           
 
         }
 
-        public override int Delete(RegistrationCard entity)
+        public async override Task Delete(RegistrationCard entity)
         {
             if (entity != null)
             {
                 string sqlExpression = $"DELETE FROM RegistrationСard WHERE Id= {entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
-                    connection.Open();
+                    await connection.OpenAsync();
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
-                    int number = command.ExecuteNonQuery();
-                    return number;
+                    command.ExecuteNonQuery();
+                    
 
 
                 }
-            }
-            else
-            {
-                return 0;
             }
 
         }
@@ -115,7 +108,7 @@ namespace RepositoryADO.ImplementationRepository
             }
         }
 
-        public override int Update(RegistrationCard entity)
+        public async override Task Update(RegistrationCard entity)
         {
             if (entity != null)
             {
@@ -123,7 +116,7 @@ namespace RepositoryADO.ImplementationRepository
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     string GetAllId = "SELECT * FROM RegistrationСard Id";
-                    connection.Open();
+                    await connection.OpenAsync();
                     SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
                     SqlDataReader readerId = commandforGetAllId.ExecuteReader();
                     List<int> Id = new List<int>();
@@ -135,19 +128,13 @@ namespace RepositoryADO.ImplementationRepository
                     if (Id.Any(el => el >= entity.Id && entity.Id > 0))
                     {
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
-                        int number = command.ExecuteNonQuery();
-                        return number;
+                       command.ExecuteNonQuery();
+                        
                     }
-                    else
-                    {
-                        return 0;
-                    }
+                  
                 }
             }
-            else
-            {
-                return 0;
-            }
+          
         }
 
     }

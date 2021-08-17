@@ -1,6 +1,5 @@
 ﻿using DataAccess.Entity;
-using Microsoft.Data.SqlClient;
-using Repository.InterfaceForRepositoryADO;
+using Hospital.DataAccess.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RepositoryADO.InterfaceForRepository
 {
-    public abstract class BaseRepositoryADO<T> : IRepositoryADO<T> where T : class ,IEntity
+    public abstract class BaseRepositoryADO<T> : IRepository<T> where T : class ,IEntity
     {
         protected readonly string ConnectionString;
 
@@ -19,10 +18,10 @@ namespace RepositoryADO.InterfaceForRepository
             ConnectionString = connectionString;
         }
 
-        public abstract int CreateEntity(T entity);
+        public abstract Task CreateEntity(T entity);
 
 
-        public abstract int Delete(T entity);
+        public abstract Task Delete(T entity);
 
 
         public abstract IEnumerable<T> Get();
@@ -30,6 +29,8 @@ namespace RepositoryADO.InterfaceForRepository
 
         public abstract IEnumerable<T> GetAllEntityBy(Expression<Func<T, bool>> predicate);
 
-        public abstract int Update(T entity);
+        public abstract Task Update(T entity);
+
+       
     }
 }

@@ -1,6 +1,6 @@
 ﻿using DataAccess.Entity;
+using Hospital.DataAccess.Interface;
 using Microsoft.EntityFrameworkCore;
-using Repository.InterfaceForRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Repository
+namespace Hospital.DataAccess.EntityFramework
 {
     public abstract class Repository<T> : IRepository<T> where T : class, IEntity
     {
@@ -31,14 +31,14 @@ namespace DataAccess.Repository
             Table.Remove(result);
         }
 
-        public IQueryable<T> Get()
+        public IEnumerable<T> Get()
         {
-            return Table.AsNoTracking();
+            return Table.AsNoTracking().ToList();
         }
 
-        public IQueryable<T> GetAllEntityBy(Expression<Func<T, bool>> predicate)
+        public IEnumerable<T> GetAllEntityBy(Expression<Func<T, bool>> predicate)
         {
-            IQueryable<T> GetAllEntity = Table.Where(predicate);
+            IEnumerable<T> GetAllEntity = Table.Where(predicate).ToList();
             return GetAllEntity;
             
         }

@@ -1,8 +1,8 @@
 ﻿using DataAccess.Entity;
-using Microsoft.Data.SqlClient;
 using RepositoryADO.InterfaceForRepository;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -15,27 +15,24 @@ namespace RepositoryADO.ImplementationRepository
         public MedicalHistoryRepositoryADO(string connectionString) : base(connectionString)
         {
         }
-        public override int CreateEntity(MedicalHistory entity)
+        public async override Task CreateEntity(MedicalHistory entity)
         {
             if (entity != null)
             {
                 string sqlExpression = $"INSERT INTO MedicalHistory (Diagnosis) VALUES ('{entity.Diagnosis}')";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
-                    connection.Open();
+                   await connection.OpenAsync();
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
-                    int number = command.ExecuteNonQuery();
-                    return number;
+                    command.ExecuteNonQuery();
+                   
                 }
             }
-            else
-            {
-                return 0;
-            }
+          
 
         }
 
-        public override int Delete(MedicalHistory entity)
+        public async override Task Delete(MedicalHistory entity)
         {
             List<MedicalHistory> result = new List<MedicalHistory>();
             string GetAllId = "SELECT * FROM MedicalHistory Id";
@@ -46,7 +43,7 @@ namespace RepositoryADO.ImplementationRepository
                 string sqlExpression = $"DELETE FROM MedicalHistory WHERE Id= {entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
-                    connection.Open();
+                    await connection.OpenAsync();
 
                     SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
                     SqlDataReader readerId = commandforGetAllId.ExecuteReader();
@@ -60,24 +57,18 @@ namespace RepositoryADO.ImplementationRepository
                     {
 
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
-                        int number = command.ExecuteNonQuery();
-                        return number;
+                        command.ExecuteNonQuery();
+                        
                     }
-                    else
-                    {
-                        return 0;
-                    }
+                   
 
 
                 }
             }
-            else
-            {
-                return 0;
-            }
+           
         }
 
-        public override IEnumerable<MedicalHistory> Get()
+        public  override  IEnumerable<MedicalHistory> Get()
         {
             List<MedicalHistory> result = new List<MedicalHistory>();
             string sqlExpression = "SELECT * FROM MedicalHistory";
@@ -135,14 +126,14 @@ namespace RepositoryADO.ImplementationRepository
             }
         }
 
-        public override int Update(MedicalHistory entity)
+        public async override Task Update(MedicalHistory entity)
         {
             if (entity != null)
             {
                 string sqlExpression = $"UPDATE MedicalHistory SET Diagnosis = '{entity.Diagnosis}'";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
-                    connection.Open();
+                    await connection.OpenAsync();
                     string GetAllId = "SELECT * FROM MedicalHistory Id";
 
                     SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
@@ -156,19 +147,13 @@ namespace RepositoryADO.ImplementationRepository
                     if (Id.Any(el => el >= entity.Id && entity.Id > 0))
                     {
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
-                        int number = command.ExecuteNonQuery();
-                        return number;
+                        command.ExecuteNonQuery();
+                     
                     }
-                    else
-                    {
-                        return 0;
-                    }
+                   
                 }
             }
-            else
-            {
-                return 0;
-            }
+          
         }
     }
 }

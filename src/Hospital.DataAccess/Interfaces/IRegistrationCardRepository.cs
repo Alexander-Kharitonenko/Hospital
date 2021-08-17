@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository.InterfaceForRepository
+namespace Hospital.DataAccess.Interface
 {
     public interface IRegistrationCardRepository : IRepository<RegistrationCard>
     {

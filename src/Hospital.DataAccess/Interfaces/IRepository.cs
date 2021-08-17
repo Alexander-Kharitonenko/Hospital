@@ -6,12 +6,12 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository.InterfaceForRepository
+namespace Hospital.DataAccess.Interface
 {
     public interface IRepository<T> where T : class, IEntity
     {
-        public IQueryable<T> GetAllEntityBy(Expression<Func<T, bool>> predicate);
-        IQueryable<T> Get();
+        public IEnumerable<T> GetAllEntityBy(Expression<Func<T, bool>> predicate);
+        public IEnumerable<T> Get();
         public Task Update(T entity);
         public Task Delete(T entity);
         public Task CreateEntity(T entity);

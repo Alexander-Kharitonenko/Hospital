@@ -1,12 +1,12 @@
 ﻿using DataAccess.Entity;
-using Repository.InterfaceForRepository;
+using Hospital.DataAccess.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository.ImplementationRepository
+namespace Hospital.DataAccess.EntityFramework
 {
     public interface IUnitOfWork
     {
