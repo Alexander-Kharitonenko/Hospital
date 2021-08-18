@@ -17,5 +17,9 @@ namespace Hospital.DataAccess.EntityFramework
         IPatientRepository patientRepository { get; }
 
         IRegistrationCardRepository registrationCardRepository { get; }
+
+        public  Task<int> SaveChangesAsync();
+
+        public void Dispose();
     }
 }

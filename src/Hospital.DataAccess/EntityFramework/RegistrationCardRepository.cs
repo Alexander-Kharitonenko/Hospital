@@ -1,4 +1,5 @@
 ﻿using DataAccess.Entity;
+using Hospital.DataAccess.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Hospital.DataAccess.EntityFramework
 {
-    public class RegistrationCardRepository : Repository<RegistrationCard>
+    public class RegistrationCardRepository : Repository<RegistrationCard>, IRegistrationCardRepository
     {
         public RegistrationCardRepository(HospitalContext contextDb) : base(contextDb) 
         {

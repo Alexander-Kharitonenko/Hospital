@@ -20,7 +20,7 @@ namespace RepositoryADO.ImplementationRepository
             var x = entity.DateAdmission.ToShortDateString().Replace(".","-");
             if (entity != null)
             {
-                string sqlExpression = $"INSERT INTO RegistrationСard (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', {x})";
+                string sqlExpression = $"INSERT INTO RegistrationСard (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', '{x}')";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();

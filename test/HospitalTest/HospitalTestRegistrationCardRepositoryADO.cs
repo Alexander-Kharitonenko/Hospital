@@ -55,32 +55,37 @@ namespace Hospital.XUnitTest
         }
 
         [Test]
-        public void MethodUpdateEntity_ParamsObjRegistrationCard_returnInt_1()
+        public async Task Update_WhenRegistrationCard_ThenUpdateRegistrationCard()
         {
             // Arrange
-
+            List<RegistrationCard> registrationCards = new List<RegistrationCard>();
             RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
 
             // Act
-            var result = doc.Update(RegistrationCardData);
+            await doc.Update(RegistrationCardData);
+            var result = doc.GetAllEntityBy(el => el.Id == 3);
+            foreach (var i in result)
+            {
+                registrationCards.Add(i);
+            }
 
             // Assert
 
-
+            Assert.AreEqual(RegistrationCardData.PatientId, registrationCards[0].PatientId);
         }
 
         [Test]
-        public void MethodDelete_ParamsObjRegistrationCard_returnInt_1()
+        public async Task Delete_WheneRegistrationCard_ThenDeleteRegistrationCard()
         {
             // Arrange
-
+            List<RegistrationCard> registrationCards = new List<RegistrationCard>();
             RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
 
             // Act
-            var result = doc.Delete(RegistrationCardData);
-
+            await doc.Delete(RegistrationCardData);
+            var result = doc.GetAllEntityBy(el => el.Id == 3);
             // Assert
-
+            Assert.IsNull(result);
         }
 
         [Test]
