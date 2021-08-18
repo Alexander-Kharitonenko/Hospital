@@ -35,12 +35,12 @@ namespace RepositoryADO.ImplementationRepository
         public async override Task Delete(Patient entity)
         {
             List<MedicalHistory> result = new List<MedicalHistory>();
-            string GetAllId = "SELECT * FROM MedicalHistory Id";
+            string GetAllId = "SELECT * FROM Patient Id";
 
 
             if (entity != null)
             {
-                string sqlExpression = $"DELETE FROM MedicalHistory WHERE Id= {entity.Id}";
+                string sqlExpression = $"DELETE FROM Patient WHERE Id= {entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();

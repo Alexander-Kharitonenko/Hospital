@@ -8,12 +8,29 @@ using System.Threading.Tasks;
 
 namespace Hospital.DataAccess.Interface
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IRepository<T> where T : class, IEntity
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         public IEnumerable<T> GetAllEntityBy(Expression<Func<T, bool>> predicate);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<T> Get();
+
         public Task Update(T entity);
+
         public Task Delete(T entity);
+
         public Task CreateEntity(T entity);
     }
 }

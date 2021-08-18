@@ -20,12 +20,9 @@ namespace RepositoryADO.InterfaceForRepository
 
         public abstract Task CreateEntity(T entity);
 
-
         public abstract Task Delete(T entity);
 
-
         public abstract IEnumerable<T> Get();
-
 
         public abstract IEnumerable<T> GetAllEntityBy(Expression<Func<T, bool>> predicate);
 

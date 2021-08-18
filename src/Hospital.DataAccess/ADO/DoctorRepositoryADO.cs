@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hospital.DataAccess.ADO
@@ -15,21 +14,20 @@ namespace Hospital.DataAccess.ADO
         public DoctorRepositoryADO(string connectionString) : base(connectionString)
         {
         }
-        public async override Task  CreateEntity(Doctor entity)
+
+        public async override Task CreateEntity(Doctor entity)
         {
             if (entity != null)
             {
                 string sqlExpression = $"INSERT INTO Doctor (FirstName,Patronymic,LastName,NumberPhone) VALUES ('{entity.FirstName}','{entity.Patronymic}', '{entity.LastName}', '{entity.NumberPhone}')";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
-                   await connection.OpenAsync();
+                    await connection.OpenAsync();
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.ExecuteNonQuery();
-                   
+
                 }
             }
-           
-
         }
 
         public async override Task Delete(Doctor entity)
@@ -59,14 +57,11 @@ namespace Hospital.DataAccess.ADO
 
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
                         command.ExecuteNonQuery();
-                       
+
                     }
-                   
-
-
                 }
             }
-          
+
         }
 
         public override IEnumerable<Doctor> Get()
@@ -75,7 +70,7 @@ namespace Hospital.DataAccess.ADO
             string sqlExpression = "SELECT * FROM Doctor";
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
-                 connection.Open();
+                connection.Open();
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
@@ -93,7 +88,7 @@ namespace Hospital.DataAccess.ADO
             string argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
             var x = int.TryParse(argument, out item);
             string predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
-            string sqlExpression =  $"SELECT * FROM Doctor WHERE {predicateString}";
+            string sqlExpression = $"SELECT * FROM Doctor WHERE {predicateString}";
 
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
@@ -116,7 +111,7 @@ namespace Hospital.DataAccess.ADO
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        result.Add(new Doctor() { Id = reader.GetInt32(0), FirstName = reader.GetString(3), Patronymic = reader.GetString(1), LastName = reader.GetString(2), NumberPhone = reader.GetString(4) });
+                        result.Add(new Doctor() { Id = reader.GetInt32(0), FirstName = reader.GetString(2), Patronymic = reader.GetString(3), LastName = reader.GetString(1), NumberPhone = reader.GetString(4) });
                     }
                     return result;
                 }
@@ -149,12 +144,12 @@ namespace Hospital.DataAccess.ADO
                     {
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
                         command.ExecuteNonQuery();
-                        
+
                     }
-                   
+
                 }
             }
-           
+
         }
     }
 }

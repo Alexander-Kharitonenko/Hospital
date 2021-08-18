@@ -13,7 +13,9 @@ namespace Hospital.DataAccess.EntityFramework
     public abstract class Repository<T> : IRepository<T> where T : class, IEntity
     {
         protected readonly HospitalContext ContextDb;
+
         protected readonly DbSet<T> Table;
+
         public Repository(HospitalContext contextDb) 
         {
             ContextDb = contextDb;

@@ -20,12 +20,11 @@ namespace Hospital.XUnitTest
         }
 
         [Test]
-        public void MethodGet_ParamsVoid_returnCollectionEntityDoctor()
+        public void Get_WhenGetDoctor_ThenReturnDoctor()
         {
             // Arrange
-
-
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
+            
 
             // Act
             var result = doc.Get();
@@ -36,38 +35,53 @@ namespace Hospital.XUnitTest
         }
 
         [Test]
-        public async Task MethodCreateEntity_ParamsObjDoctor_returnInt_1()
+        public async Task CreateEntity_WhenAddingDoctor_ThenDoctorAdded()
         {
             // Arrange
-
+            List<Doctor> doctor = new List<Doctor>();
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
-
+            
+         
             // Act
             await doc.CreateEntity(DoctorData);
+            IEnumerable<Doctor> result = doc.GetAllEntityBy(el => el.Id == 6);
+            foreach(var i in result) 
+            {
+                doctor.Add(i);
+            }
+            
 
             // Assert
 
-
-        }
-
-        [Test]
-        public async Task MethodUpdateEntity_ParamsObjDoctor_returnInt_1()
-        {
-            // Arrange
-
-            DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
-
-            // Act
-            await doc.Update(DoctorData);
-
-            // Assert
-
+            Assert.AreEqual(doctor[0].LastName, DoctorData.LastName);
+           
             
 
         }
 
         [Test]
-        public void MethodGetAllEntityById_ParamsVoid_returnCollectionEntityDoctor()
+        public async Task UpdateDoctor_WhenDoctorApdates_ThenDoctorUpdated()
+        {
+            // Arrange
+            List<Doctor> doctor = new List<Doctor>();
+            DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
+
+            // Act
+            await doc.Update(DoctorData);
+            IEnumerable<Doctor> result = doc.GetAllEntityBy(el => el.Id == 3);
+            foreach (var i in result)
+            {
+                doctor.Add(i);
+            }
+
+            // Assert
+            Assert.AreEqual(doctor[0].LastName, DoctorData.LastName);
+
+
+        }
+
+        [Test]
+        public void GetAllEntityById_WenId_5_ThenReturnDoctorWhisId_5()
         {
             // Arrange
 
@@ -83,17 +97,19 @@ namespace Hospital.XUnitTest
         }
 
         [Test]
-        public async Task  MethodDelete_ParamsObjDoctor_returnInt_1()
+        public async Task Delete_WenId_Doctor_3_ThenDeleteDoctor()
         {
             // Arrange
-
+           
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
+           
 
             //Act
              await doc.Delete(DoctorData);
+             var result = doc.GetAllEntityBy(el => el.Id == 3);
 
             //Assert
-
+            Assert.IsNull(result);
 
 
 

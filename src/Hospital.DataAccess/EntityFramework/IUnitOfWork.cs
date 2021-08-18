@@ -10,10 +10,12 @@ namespace Hospital.DataAccess.EntityFramework
 {
     public interface IUnitOfWork
     {
-        
         IDoctorRepository doctorRepository { get; }
+
         IMedicalHistoryRepository medicalHistoryRepository { get; }
+
         IPatientRepository patientRepository { get; }
+
         IRegistrationCardRepository registrationCardRepository { get; }
     }
 }

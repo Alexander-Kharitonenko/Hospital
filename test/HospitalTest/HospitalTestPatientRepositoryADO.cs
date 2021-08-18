@@ -18,7 +18,7 @@ namespace Hospital.XUnitTest
         }
 
         [Test]
-        public void MethodGet_ParamsVoid_returnCollectionEntityPatient()
+        public void Get_WhenGet_HenGetAllPatient()
         {
             // Arrange
 
@@ -33,47 +33,58 @@ namespace Hospital.XUnitTest
         }
 
         [Test]
-        public void MethodCreateEntity_ParamsObjPatient_returnInt_1()
+        public async Task CreateEntity_WhenCreatePatient_ThenCreatePatient()
         {
             // Arrange
-
+            List<Patient> patients = new List<Patient>();
             PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
 
             // Act
-            var result = doc.CreateEntity(PatientData);
+            await doc.CreateEntity(PatientData);
+            var result = doc.GetAllEntityBy(el => el.Id == 6);
+            foreach (var i in result)
+            {
+                patients.Add(i);
+            }
 
             // Assert
-
+            Assert.AreEqual(patients[0].LastName, PatientData.LastName);
         }
 
         [Test]
-        public void MethodUpdateEntity_ParamsObjPatient_returnInt_1()
+        public async Task UpdateEntity_WhenPatient_ThenUpdatePatient()
         {
             // Arrange
-
+            List<Patient> patients = new List<Patient>();
             PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
 
             // Act
-            var result = doc.Update(PatientData);
-
+            await doc.Update(PatientData);
+            var result = doc.GetAllEntityBy(el => el.Id == 3);
+            foreach (var i in result)
+            {
+                patients.Add(i);
+            }
             // Assert
-
+            Assert.AreEqual(patients[0].LastName, PatientData.LastName);
 
         }
 
         [Test]
        
-        public void MethodDelete_ParamsObjPatient_returnInt_1()
+        public async Task Delete_WhenPatient_ThenDeletePatient()
         {
             // Arrange
-
+            List<Patient> patients = new List<Patient>();
             PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
 
             // Act
-            var result = doc.Delete(PatientData);
+            await doc.Delete(PatientData);
+            var result = doc.GetAllEntityBy(el => el.Id == 3);
+
 
             // Assert
-
+            Assert.IsNull(result);
         }
 
         [Test]

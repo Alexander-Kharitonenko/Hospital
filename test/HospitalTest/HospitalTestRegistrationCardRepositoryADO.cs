@@ -22,7 +22,7 @@ namespace Hospital.XUnitTest
         }
 
         [Test]
-        public void MethodGet_ParamsVoid_returnCollectionEntityRegistrationCard()
+        public void Get_WhenGet_ThenReturnAllRegistrationCard()
         {
             // Arrange
 
@@ -36,17 +36,22 @@ namespace Hospital.XUnitTest
         }
 
         [Test]
-        public void MethodCreateEntity_ParamsObjRegistrationCard_returnInt_1()
+        public async Task CreateEntity_WhenRegistrationCar_ThewCreateRegistrationCar()
         {
             // Arrange
-
+            List<RegistrationCard> registrationCards = new List<RegistrationCard>();
             RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
 
             // Act
-            var result = doc.CreateEntity(RegistrationCardData);
+            await doc.CreateEntity(RegistrationCardData);
+            var result = doc.GetAllEntityBy(el => el.Id == 6);
+            foreach (var i in result)
+            {
+                registrationCards.Add(i);
+            }
 
             // Assert
-
+            Assert.AreEqual(RegistrationCardData.PatientId, registrationCards[0].PatientId);
         }
 
         [Test]
@@ -99,7 +104,7 @@ namespace Hospital.XUnitTest
         {
             get
             {
-                return new RegistrationCard() { Id = 3, PatientId = 3, DoctorId = 3, DiagnosisId = 2, DateAdmission = DateTime.Now };  
+                return new RegistrationCard() { Id = 3, PatientId = 3, DoctorId = 3, DiagnosisId = 2, DateAdmission = DateTime.UtcNow.Date };  
             }
         }
 

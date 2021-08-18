@@ -17,9 +17,10 @@ namespace RepositoryADO.ImplementationRepository
 
         public async override Task CreateEntity(RegistrationCard entity)
         {
+            
             if (entity != null)
             {
-                string sqlExpression = $"INSERT INTO RegistrationСard (PatientId,DoctorId,DiagnosisId,DateAdmission) VALUES ('{entity.PatientId}','{entity.DoctorId}', '{entity.DiagnosisId}', '{entity.DateAdmission}')";
+                string sqlExpression = $"INSERT INTO RegistrationСard (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', {entity.DateAdmission.Date})";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();

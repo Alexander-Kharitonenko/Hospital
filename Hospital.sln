@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8B964CF4-E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hospital.DataAccess", "src\Hospital.DataAccess\Hospital.DataAccess.csproj", "{1341DE35-EDB6-483C-AD50-1F154735ED0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalTest", "test\HospitalTest\HospitalTest.csproj", "{4D15A956-9130-47DD-9B70-E29C805768E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalTest", "test\HospitalTest\HospitalTest.csproj", "{4D15A956-9130-47DD-9B70-E29C805768E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
