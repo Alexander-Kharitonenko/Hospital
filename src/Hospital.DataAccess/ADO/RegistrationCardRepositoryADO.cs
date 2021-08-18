@@ -17,10 +17,10 @@ namespace RepositoryADO.ImplementationRepository
 
         public async override Task CreateEntity(RegistrationCard entity)
         {
-            
+            var x = entity.DateAdmission.ToShortDateString().Replace(".","-");
             if (entity != null)
             {
-                string sqlExpression = $"INSERT INTO RegistrationСard (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', {entity.DateAdmission.Date})";
+                string sqlExpression = $"INSERT INTO RegistrationСard (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', {x})";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
