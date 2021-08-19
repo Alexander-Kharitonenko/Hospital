@@ -32,8 +32,9 @@ namespace HospitalTest
             // Arrange
 
             DbContextOptions<HospitalContext> options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+            HospitalContext context = new HospitalContext(options);
 
-            IUnitOfWork repositorys = new UnitOfWork(new DoctorRepository(new HospitalContext(options)), new MedicalHistoryRepository(new HospitalContext(options)), new PatientRepository(new HospitalContext(options)), new RegistrationCardRepository(new HospitalContext(options)));
+            IUnitOfWork repositorys = new UnitOfWork(new DoctorRepository(context), new MedicalHistoryRepository(context), new PatientRepository(context), new RegistrationCardRepository(context));
 
             //Act
 
