@@ -32,5 +32,7 @@ namespace Hospital.DataAccess.Interface
         public Task Delete(T entity);
 
         public Task CreateEntity(T entity);
+
+        public Task<int> SaveChanges();
     }
 }

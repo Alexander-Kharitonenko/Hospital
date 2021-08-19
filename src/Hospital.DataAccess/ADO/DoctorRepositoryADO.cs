@@ -19,7 +19,7 @@ namespace Hospital.DataAccess.ADO
         {
             if (entity != null)
             {
-                string sqlExpression = $"INSERT INTO Doctor (FirstName,Patronymic,LastName,NumberPhone) VALUES ('{entity.FirstName}','{entity.Patronymic}', '{entity.LastName}', '{entity.NumberPhone}')";
+                string sqlExpression = $"INSERT INTO Doctors (FirstName,Patronymic,LastName,NumberPhone) VALUES ('{entity.FirstName}','{entity.Patronymic}', '{entity.LastName}', '{entity.NumberPhone}')";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
@@ -33,12 +33,12 @@ namespace Hospital.DataAccess.ADO
         public async override Task Delete(Doctor entity)
         {
             List<Doctor> result = new List<Doctor>();
-            string GetAllId = "SELECT * FROM Doctor Id";
+            string GetAllId = "SELECT * FROM Doctors Id";
 
 
             if (entity != null)
             {
-                string sqlExpression = $"DELETE FROM Doctor WHERE Id={entity.Id}";
+                string sqlExpression = $"DELETE FROM Doctors WHERE Id={entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
@@ -67,7 +67,7 @@ namespace Hospital.DataAccess.ADO
         public override IEnumerable<Doctor> Get()
         {
             List<Doctor> result = new List<Doctor>();
-            string sqlExpression = "SELECT * FROM Doctor";
+            string sqlExpression = "SELECT * FROM Doctors";
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
@@ -88,13 +88,13 @@ namespace Hospital.DataAccess.ADO
             string argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
             var x = int.TryParse(argument, out item);
             string predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
-            string sqlExpression = $"SELECT * FROM Doctor WHERE {predicateString}";
+            string sqlExpression = $"SELECT * FROM Doctors WHERE {predicateString}";
 
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string GetAllId = "SELECT * FROM Doctor Id";
+                string GetAllId = "SELECT * FROM Doctors Id";
 
                 SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
                 SqlDataReader readerId = commandforGetAllId.ExecuteReader();
@@ -126,11 +126,11 @@ namespace Hospital.DataAccess.ADO
         {
             if (entity != null)
             {
-                string sqlExpression = $"UPDATE Doctor SET FirstName = '{entity.FirstName}',Patronymic = '{entity.Patronymic}',LastName = '{entity.LastName}',NumberPhone = '{entity.NumberPhone}' WHERE Id={entity.Id}";
+                string sqlExpression = $"UPDATE Doctors SET FirstName = '{entity.FirstName}',Patronymic = '{entity.Patronymic}',LastName = '{entity.LastName}',NumberPhone = '{entity.NumberPhone}' WHERE Id={entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
-                    string GetAllId = "SELECT * FROM Doctor Id";
+                    string GetAllId = "SELECT * FROM Doctors Id";
 
                     SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
                     SqlDataReader readerId = commandforGetAllId.ExecuteReader();

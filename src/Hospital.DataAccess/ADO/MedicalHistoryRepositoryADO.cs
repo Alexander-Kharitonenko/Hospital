@@ -19,7 +19,7 @@ namespace RepositoryADO.ImplementationRepository
         {
             if (entity != null)
             {
-                string sqlExpression = $"INSERT INTO MedicalHistory (Diagnosis) VALUES ('{entity.Diagnosis}')";
+                string sqlExpression = $"INSERT INTO MedicalHistorys (Diagnosis) VALUES ('{entity.Diagnosis}')";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                    await connection.OpenAsync();
@@ -35,12 +35,12 @@ namespace RepositoryADO.ImplementationRepository
         public async override Task Delete(MedicalHistory entity)
         {
             List<MedicalHistory> result = new List<MedicalHistory>();
-            string GetAllId = "SELECT * FROM MedicalHistory Id";
+            string GetAllId = "SELECT * FROM MedicalHistorys Id";
 
 
             if (entity != null)
             {
-                string sqlExpression = $"DELETE FROM MedicalHistory WHERE Id= {entity.Id}";
+                string sqlExpression = $"DELETE FROM MedicalHistorys WHERE Id= {entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
@@ -71,7 +71,7 @@ namespace RepositoryADO.ImplementationRepository
         public  override  IEnumerable<MedicalHistory> Get()
         {
             List<MedicalHistory> result = new List<MedicalHistory>();
-            string sqlExpression = "SELECT * FROM MedicalHistory";
+            string sqlExpression = "SELECT * FROM MedicalHistorys";
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
@@ -92,13 +92,13 @@ namespace RepositoryADO.ImplementationRepository
             string argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
             var x = int.TryParse(argument, out item);
             string predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
-            string sqlExpression = $"SELECT * FROM MedicalHistory WHERE {predicateString}";
+            string sqlExpression = $"SELECT * FROM MedicalHistorys WHERE {predicateString}";
 
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string GetAllId = "SELECT * FROM MedicalHistory Id";
+                string GetAllId = "SELECT * FROM MedicalHistorys Id";
 
                 SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
                 SqlDataReader readerId = commandforGetAllId.ExecuteReader();
@@ -130,11 +130,11 @@ namespace RepositoryADO.ImplementationRepository
         {
             if (entity != null)
             {
-                string sqlExpression = $"UPDATE MedicalHistory SET Diagnosis = '{entity.Diagnosis}'";
+                string sqlExpression = $"UPDATE MedicalHistorys SET Diagnosis = '{entity.Diagnosis}'";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
-                    string GetAllId = "SELECT * FROM MedicalHistory Id";
+                    string GetAllId = "SELECT * FROM MedicalHistorys Id";
 
                     SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
                     SqlDataReader readerId = commandforGetAllId.ExecuteReader();

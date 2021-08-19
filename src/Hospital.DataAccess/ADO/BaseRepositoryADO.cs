@@ -26,6 +26,11 @@ namespace RepositoryADO.InterfaceForRepository
 
         public abstract IEnumerable<T> GetAllEntityBy(Expression<Func<T, bool>> predicate);
 
+        public Task<int> SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
         public abstract Task Update(T entity);
 
        

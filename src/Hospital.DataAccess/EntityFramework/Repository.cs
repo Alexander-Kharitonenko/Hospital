@@ -45,6 +45,12 @@ namespace Hospital.DataAccess.EntityFramework
             
         }
 
+        public async Task<int> SaveChanges()
+        {
+           var result = await ContextDb.SaveChangesAsync();
+           return result;
+        }
+
         public async Task Update(T entity)
         {
             T result = await Table.FirstOrDefaultAsync(el => el.Id == entity.Id);

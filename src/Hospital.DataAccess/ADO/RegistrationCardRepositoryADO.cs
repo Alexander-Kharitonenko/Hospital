@@ -20,7 +20,7 @@ namespace RepositoryADO.ImplementationRepository
             var x = entity.DateAdmission.ToShortDateString().Replace(".","-");
             if (entity != null)
             {
-                string sqlExpression = $"INSERT INTO RegistrationСard (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', '{x}')";
+                string sqlExpression = $"INSERT INTO RegistrationСards (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', {x})";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
@@ -37,7 +37,7 @@ namespace RepositoryADO.ImplementationRepository
         {
             if (entity != null)
             {
-                string sqlExpression = $"DELETE FROM RegistrationСard WHERE Id= {entity.Id}";
+                string sqlExpression = $"DELETE FROM RegistrationСards WHERE Id= {entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
@@ -54,7 +54,7 @@ namespace RepositoryADO.ImplementationRepository
         public override IEnumerable<RegistrationCard> Get()
         {
             List<RegistrationCard> result = new List<RegistrationCard>();
-            string sqlExpression = "SELECT * FROM RegistrationСard";
+            string sqlExpression = "SELECT * FROM RegistrationСards";
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
@@ -75,13 +75,13 @@ namespace RepositoryADO.ImplementationRepository
             string argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
             var x = int.TryParse(argument, out item);
             string predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
-            string sqlExpression = $"SELECT * FROM RegistrationСard WHERE {predicateString}";
+            string sqlExpression = $"SELECT * FROM RegistrationСards WHERE {predicateString}";
 
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string GetAllId = "SELECT * FROM RegistrationСard Id";
+                string GetAllId = "SELECT * FROM RegistrationСards Id";
 
                 SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
                 SqlDataReader readerId = commandforGetAllId.ExecuteReader();
@@ -113,10 +113,12 @@ namespace RepositoryADO.ImplementationRepository
         {
             if (entity != null)
             {
-                string sqlExpression = $"UPDATE RegistrationСard SET PatientId = '{entity.PatientId}',DoctorId = '{entity.DoctorId}',DiagnosisId = '{entity.DiagnosisId}',DateAdmission = '{entity.DateAdmission}' WHERE Id={entity.Id}";
+                var x = entity.DateAdmission.ToShortDateString().Replace(".", "-");
+                string sqlExpression = $"UPDATE RegistrationСards SET PatientId = '{entity.PatientId}',DoctorId = '{entity.DoctorId}',DiagnosisId = '{entity.DiagnosisId}',DateAdmission = {x} WHERE Id={entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
-                    string GetAllId = "SELECT * FROM RegistrationСard Id";
+                    
+                    string GetAllId = "SELECT * FROM RegistrationСards Id";
                     await connection.OpenAsync();
                     SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
                     SqlDataReader readerId = commandforGetAllId.ExecuteReader();

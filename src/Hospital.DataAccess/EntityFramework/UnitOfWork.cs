@@ -10,18 +10,19 @@ namespace Hospital.DataAccess.EntityFramework
 {
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
-        private readonly HospitalContext contextDb;
+        private readonly HospitalContext ContextDb;
         private readonly IDoctorRepository DoctorRepository;
         private readonly IMedicalHistoryRepository MedicalHistoryRepository;
         private readonly IPatientRepository PatientRepository;
         private readonly IRegistrationCardRepository RegistrationCardRepository;
 
-        public UnitOfWork(IDoctorRepository doctorRepository, IMedicalHistoryRepository medicalHistoryRepository, IPatientRepository patientRepository, IRegistrationCardRepository registrationCardRepository) 
+        public UnitOfWork(IDoctorRepository doctorRepository, IMedicalHistoryRepository medicalHistoryRepository, IPatientRepository patientRepository, IRegistrationCardRepository registrationCardRepository, HospitalContext contextDb) 
         {
             DoctorRepository = doctorRepository;
             MedicalHistoryRepository = medicalHistoryRepository;
             PatientRepository = patientRepository;
             RegistrationCardRepository = registrationCardRepository;
+            ContextDb = contextDb;
         }
         public IDoctorRepository doctorRepository { get { return DoctorRepository; } }
 
@@ -33,13 +34,14 @@ namespace Hospital.DataAccess.EntityFramework
 
         public void Dispose()
         {
-            contextDb?.Dispose();
+            ContextDb?.Dispose();
             GC.SuppressFinalize(this);
 
         }
         public async Task<int> SaveChangesAsync()
         {
-            return await contextDb.SaveChangesAsync();
+           var result = await ContextDb.SaveChangesAsync();
+            return result;
         }
     }
 }

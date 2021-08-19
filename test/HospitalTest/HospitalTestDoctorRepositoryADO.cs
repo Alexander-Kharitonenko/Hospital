@@ -1,5 +1,8 @@
 using DataAccess.Entity;
+using Hospital.DataAccess;
 using Hospital.DataAccess.ADO;
+using Hospital.DataAccess.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -12,6 +15,8 @@ namespace Hospital.XUnitTest
     public class HospitalTestDoctorRepositoryADO
     {
         DataBaseConfigurationManager config = new DataBaseConfigurationManager();
+        
+        
 
         [SetUp]
         public void Stert()
@@ -25,12 +30,10 @@ namespace Hospital.XUnitTest
             // Arrange
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
             
-
             // Act
             var result = doc.Get();
 
             // Assert
-
             Assert.IsNotNull(result);
         }
 
@@ -41,7 +44,6 @@ namespace Hospital.XUnitTest
             List<Doctor> doctor = new List<Doctor>();
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
             
-         
             // Act
             await doc.CreateEntity(DoctorData);
             IEnumerable<Doctor> result = doc.GetAllEntityBy(el => el.Id == 6);
@@ -49,14 +51,9 @@ namespace Hospital.XUnitTest
             {
                 doctor.Add(i);
             }
-            
-
+         
             // Assert
-
             Assert.AreEqual(doctor[0].LastName, DoctorData.LastName);
-           
-            
-
         }
 
         [Test]
@@ -76,15 +73,12 @@ namespace Hospital.XUnitTest
 
             // Assert
             Assert.AreEqual(doctor[0].LastName, DoctorData.LastName);
-
-
         }
 
         [Test]
         public void GetAllEntityById_WenId_5_ThenReturnDoctorWhisId_5()
         {
             // Arrange
-
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
 
             // Act
@@ -92,35 +86,50 @@ namespace Hospital.XUnitTest
 
             // Assert
             Assert.IsNotNull(result);
-
-
         }
 
         [Test]
         public async Task Delete_WenId_Doctor_3_ThenDeleteDoctor()
         {
-            // Arrange
-           
+            // Arrange       
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
            
-
             //Act
              await doc.Delete(DoctorData);
              var result = doc.GetAllEntityBy(el => el.Id == 3);
 
             //Assert
             Assert.IsNull(result);
-
-
-
         }
 
         public static Doctor DoctorData
         {
             get
             {
-                return new Doctor() { Id = 3, FirstName = "TestName", Patronymic = "TestPatronymic", LastName = "TestLastName", NumberPhone = "TestNumberPhone" };
+                return new Doctor() { FirstName = "TestName", Patronymic = "TestPatronymic", LastName = "TestLastName", NumberPhone = "TestNumberPhone" };
             }
+        }
+
+        [Test]
+        public async Task CreateEFCore_WhenAddingDoctor_ThenDoctorAdded()
+        {
+            // Arrange
+            int reulr;
+            List<Doctor> doctor = new List<Doctor>();
+            var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
+            DbContextOptions<HospitalContext> options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+
+            // Act
+            using (HospitalContext ct = new HospitalContext(options)) 
+            {
+                DoctorRepository doc = new DoctorRepository(ct);
+                await doc.CreateEntity(DoctorData);
+                reulr = await doc.SaveChanges();
+
+            }
+            
+            // Assert
+            Assert.AreEqual(reulr, reulr);
         }
 
         [TearDown]

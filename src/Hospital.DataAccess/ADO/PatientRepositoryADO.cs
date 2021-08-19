@@ -19,7 +19,7 @@ namespace RepositoryADO.ImplementationRepository
         {
             if (entity != null)
             {
-                string sqlExpression = $"INSERT INTO Patient (FirstName,Patronymic,LastName,Gender,ResidenceAddress) VALUES ('{entity.FirstName}','{entity.Patronymic}', '{entity.LastName}', '{entity.Gender}','{entity.ResidenceAddress}')";
+                string sqlExpression = $"INSERT INTO Patients (FirstName,Patronymic,LastName,Gender,ResidenceAddress) VALUES ('{entity.FirstName}','{entity.Patronymic}', '{entity.LastName}', '{entity.Gender}','{entity.ResidenceAddress}')";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                    await connection.OpenAsync();
@@ -35,12 +35,12 @@ namespace RepositoryADO.ImplementationRepository
         public async override Task Delete(Patient entity)
         {
             List<MedicalHistory> result = new List<MedicalHistory>();
-            string GetAllId = "SELECT * FROM Patient Id";
+            string GetAllId = "SELECT * FROM Patients Id";
 
 
             if (entity != null)
             {
-                string sqlExpression = $"DELETE FROM Patient WHERE Id= {entity.Id}";
+                string sqlExpression = $"DELETE FROM Patients WHERE Id= {entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
@@ -70,7 +70,7 @@ namespace RepositoryADO.ImplementationRepository
         public override IEnumerable<Patient> Get()
         {
             List<Patient> result = new List<Patient>();
-            string sqlExpression = "SELECT * FROM Patient";
+            string sqlExpression = "SELECT * FROM Patients";
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
@@ -91,13 +91,13 @@ namespace RepositoryADO.ImplementationRepository
             string argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
             var x = int.TryParse(argument, out item);
             string predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
-            string sqlExpression = $"SELECT * FROM Patient WHERE {predicateString}";
+            string sqlExpression = $"SELECT * FROM Patients WHERE {predicateString}";
 
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string GetAllId = "SELECT * FROM Patient Id";
+                string GetAllId = "SELECT * FROM Patients Id";
 
                 SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
                 SqlDataReader readerId = commandforGetAllId.ExecuteReader();
@@ -129,11 +129,11 @@ namespace RepositoryADO.ImplementationRepository
         {
             if (entity != null)
             {
-                string sqlExpression = $"UPDATE Patient SET FirstName = '{entity.FirstName}',Patronymic = '{entity.Patronymic}',LastName = '{entity.LastName}',Gender = '{entity.Gender}',ResidenceAddress = '{entity.ResidenceAddress}' WHERE Id={entity.Id}";
+                string sqlExpression = $"UPDATE Patients SET FirstName = '{entity.FirstName}',Patronymic = '{entity.Patronymic}',LastName = '{entity.LastName}',Gender = '{entity.Gender}',ResidenceAddress = '{entity.ResidenceAddress}' WHERE Id={entity.Id}";
 
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
-                    string GetAllId = "SELECT * FROM Patient Id";
+                    string GetAllId = "SELECT * FROM Patients Id";
                     await connection.OpenAsync();
                     SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
                     SqlDataReader readerId = commandforGetAllId.ExecuteReader();

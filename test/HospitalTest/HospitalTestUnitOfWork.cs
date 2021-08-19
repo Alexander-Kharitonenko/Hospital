@@ -13,11 +13,11 @@ namespace HospitalTest
 {
     public class HospitalTestUnitOfWork
     {
+
+
         DataBaseConfigurationManager config = new DataBaseConfigurationManager();
-        DbContextOptionsBuilder<HospitalContext> optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-
-
         
+
 
         [SetUp]
         public void Stert()
@@ -30,23 +30,22 @@ namespace HospitalTest
         public async Task SaveChanges_WenAddEntity_ThenSaveChangesEntity()
         {
             // Arrange
-
+            var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             DbContextOptions<HospitalContext> options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
-            HospitalContext context = new HospitalContext(options);
 
-            IUnitOfWork repositorys = new UnitOfWork(new DoctorRepository(context), new MedicalHistoryRepository(context), new PatientRepository(context), new RegistrationCardRepository(context));
+            using (HospitalContext context = new HospitalContext(options))
+            {
+                IUnitOfWork repositorys = new UnitOfWork(new DoctorRepository(context), new MedicalHistoryRepository(context), new PatientRepository(context), new RegistrationCardRepository(context), context);
+                await repositorys.doctorRepository.CreateEntity(DoctorData);
+                await repositorys.registrationCardRepository.CreateEntity(RegistrationCardData);
+                var result = await repositorys.SaveChangesAsync();
+                Assert.NotNull(result);
+            }
 
             //Act
 
-            await repositorys.doctorRepository.CreateEntity(DoctorData);
-            await repositorys.registrationCardRepository.CreateEntity(RegistrationCardData);
-            var result = await repositorys.SaveChangesAsync();
-
+           
             //Assert
-
-            Assert.NotNull(result);
-
-
 
         }
 
@@ -67,10 +66,10 @@ namespace HospitalTest
             }
         }
 
-        [TearDown]
-        public void End()
-        {
-            config.DropDataBase();
-        }
+        //[TearDown]
+        //public void End()
+        //{
+        //    config.DropDataBase();
+        //}
     }
 }
