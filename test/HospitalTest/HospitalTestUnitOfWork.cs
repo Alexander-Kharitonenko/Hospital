@@ -14,8 +14,10 @@ namespace HospitalTest
     public class HospitalTestUnitOfWork
     {
         DataBaseConfigurationManager config = new DataBaseConfigurationManager();
-        static HospitalContext context = new HospitalContext(new DbContextOptions<HospitalContext>());
+        DbContextOptionsBuilder<HospitalContext> optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
 
+
+        
 
         [SetUp]
         public void Stert()
@@ -28,12 +30,14 @@ namespace HospitalTest
         public async Task SaveChanges_WenAddEntity_ThenSaveChangesEntity()
         {
             // Arrange
-           
-            IUnitOfWork repositorys = new UnitOfWork(new DoctorRepository(context), new MedicalHistoryRepository(context), new PatientRepository(context), new RegistrationCardRepository(context));
+
+            DbContextOptions<HospitalContext> options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+
+            IUnitOfWork repositorys = new UnitOfWork(new DoctorRepository(new HospitalContext(options)), new MedicalHistoryRepository(new HospitalContext(options)), new PatientRepository(new HospitalContext(options)), new RegistrationCardRepository(new HospitalContext(options)));
 
             //Act
 
-            await  repositorys.doctorRepository.CreateEntity(DoctorData);
+            await repositorys.doctorRepository.CreateEntity(DoctorData);
             await repositorys.registrationCardRepository.CreateEntity(RegistrationCardData);
             var result = await repositorys.SaveChangesAsync();
 

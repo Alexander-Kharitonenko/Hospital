@@ -9,10 +9,11 @@
 // </summary>
 //-----------------------------------------------------------------------
 
+using Hospital.DataAccess;
+using Microsoft.Extensions.Configuration;
 using Microsoft.SqlServer.Dac;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text.Json;
@@ -30,32 +31,28 @@ namespace TicketManagement.IntegrationTests
         /// store connection string.
         /// </summary>
         private string _connectionString;
+
         private string _dacPacString;
 
         /// <summary>
         /// store connection string.
         /// </summary>
         public string ConnectionString { get { return _connectionString; } }
+
         public string DacPacString { get { return _dacPacString; } }
+
+        public IConfiguration Configuration { get; }
 
         public DataBaseConfigurationManager()
         {
-            string Path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "..//..//..//appsettings.json";
+          
+            Configuration = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "..//..//..//").AddJsonFile("appsettings.json").Build();
+            string connectionStrings = Configuration["ConnectionStrings:DefaultConnection"];
+            var dacPacPath = Configuration["AppSettings:dacpacFilePath"];
+            _connectionString = connectionStrings;
+            _dacPacString = dacPacPath;
+            
 
-            using (StreamReader sr = new StreamReader(Path)) 
-            {
-                string json = sr.ReadToEnd();
-                using (JsonDocument document = JsonDocument.Parse(json))
-                {
-                    JsonElement root = document.RootElement;
-                    var connectionStrings = root.GetProperty("ConnectionStrings").GetProperty("DefaultConnection").GetString();
-                    var dacPacPath = root.GetProperty("AppSettings").GetProperty("dacpacFilePath").GetString();
-                    _connectionString = connectionStrings;
-                    _dacPacString = dacPacPath;
-                    
-                }
-
-            }  
         }
 
         /// <summary>
@@ -73,7 +70,7 @@ namespace TicketManagement.IntegrationTests
             var dacServiceInstance = new DacServices(_connectionString);
 
             //ConfigurationManager.AppSettings["dacpacFilePath"];
-            var dacpacPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "..//..//..//..//..//" + DacPacString;
+            var dacpacPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + DacPacString;
 
 
 
