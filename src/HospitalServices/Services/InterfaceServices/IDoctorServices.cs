@@ -11,15 +11,13 @@ namespace Services.InterfaceServicec
     {
         public Task Add(Doctor doctor);
 
-        public void AddRange(IEnumerable<Doctor> doctors);
-
         public IEnumerable<Doctor> GedDoctorById(int Id);
 
         public IEnumerable<Doctor> GetAllDoctor();
 
-        public void UpdateDoctor();
+        public Task UpdateDoctor(Doctor doctor);
 
-        public void DeleteDoctor();
+        public Task DeleteDoctor(Doctor doctor);
 
     }
 }

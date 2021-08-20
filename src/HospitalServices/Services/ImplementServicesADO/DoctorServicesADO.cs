@@ -1,5 +1,6 @@
 ﻿using DataAccess.Entity;
-using Hospital.DataAccess.Interface;
+using Hospital.DataAccess.ADO;
+using RepositoryADO.InterfaceForRepository;
 using Services.InterfaceServicec;
 using System;
 using System.Collections.Generic;
@@ -7,13 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.ImplementServices
+namespace Services.ImplementServicesADO
 {
-    public class DoctorServices : IDoctorServices
+    public class DoctorServicesADO  : IDoctorServices
     {
-        private readonly IDoctorRepository Context;
-
-        public DoctorServices(IDoctorRepository context) 
+        public readonly DoctorRepositoryADO Context;
+        public DoctorServicesADO(DoctorRepositoryADO context) 
         {
             Context = context;
         }
@@ -21,15 +21,9 @@ namespace Services.ImplementServices
         public async Task Add(Doctor doctor)
         {
             await Context.CreateEntity(doctor);
-            await  Context.SaveChanges();
         }
 
-        public void AddRange(IEnumerable<Doctor> doctors)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteDoctor()
+        public Task DeleteDoctor(Doctor doctor)
         {
             throw new NotImplementedException();
         }
@@ -44,7 +38,7 @@ namespace Services.ImplementServices
             throw new NotImplementedException();
         }
 
-        public void UpdateDoctor()
+        public Task UpdateDoctor(Doctor doctor)
         {
             throw new NotImplementedException();
         }
