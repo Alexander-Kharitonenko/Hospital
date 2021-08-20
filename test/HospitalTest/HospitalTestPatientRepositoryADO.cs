@@ -9,19 +9,29 @@ namespace Hospital.XUnitTest
 {
     public class HospitalTestPatientRepositoryADO
     {
+        /// <summary>
+        ///object for database management
+        /// </summary>
         DataBaseConfigurationManager config = new DataBaseConfigurationManager();
 
+        /// <summary>
+        /// runs at the beginning of the test and creates the database
+        /// </summary>
+        /// <returns>void</returns>
         [SetUp]
-        public void Stert()
+        public void Start()
         {
             config.LoadDataBase();
         }
 
+        /// <summary>
+        /// method to test get method
+        /// </summary>
+        /// <returns>IEnumerable<Doctor></returns>
         [Test]
-        public void Get_WhenGet_HenGetAllPatient()
+        public void Get_WhenGet_ThenGetAllPatient()
         {
             // Arrange
-
             PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
 
             // Act
@@ -29,9 +39,12 @@ namespace Hospital.XUnitTest
 
             // Assert
             Assert.NotNull(result);
-
         }
 
+        /// <summary>
+        /// method to test Create method
+        /// </summary>
+        /// <returns>IEnumerable<Doctor></returns>
         [Test]
         public async Task CreateEntity_WhenCreatePatient_ThenCreatePatient()
         {
@@ -51,6 +64,10 @@ namespace Hospital.XUnitTest
             Assert.AreEqual(patients[0].LastName, PatientData.LastName);
         }
 
+        /// <summary>
+        /// method to test Update method
+        /// </summary>
+        /// <returns>void</returns>
         [Test]
         public async Task UpdateEntity_WhenPatient_ThenUpdatePatient()
         {
@@ -65,13 +82,16 @@ namespace Hospital.XUnitTest
             {
                 patients.Add(i);
             }
+
             // Assert
             Assert.AreEqual(patients[0].LastName, PatientData.LastName);
-
         }
 
+        /// <summary>
+        ///  method to test Delete method
+        /// </summary>
+        /// <returns>void</returns>
         [Test]
-       
         public async Task Delete_WhenPatient_ThenDeletePatient()
         {
             // Arrange
@@ -82,25 +102,21 @@ namespace Hospital.XUnitTest
             await doc.Delete(PatientData);
             var result = doc.GetAllEntityBy(el => el.Id == 3);
 
-
             // Assert
             Assert.IsNull(result);
         }
 
         [Test]
-        public void MethodGetAllEntityById_ParamsVoid_returnCollectionEntityPatient()
+        public void GetAllEntityById_WhenId_5_ThenReturnPatientWhithId_5()
         {
             // Arrange
-
             PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
 
             // Act
             IEnumerable<Patient> result = doc.GetAllEntityBy(el => el.Id == 5);
 
             // Assert
-
             Assert.NotNull(result);
-
         }
 
 
@@ -110,7 +126,6 @@ namespace Hospital.XUnitTest
             get
             {
                 return new Patient() { Id = 3, FirstName = "TestFirstName", Patronymic = "TestPatronymic", LastName = "TestLastName", Gender = "TestGender", ResidenceAddress = "TestResidenceAddress" };
-               
             }
         }
 
@@ -119,7 +134,5 @@ namespace Hospital.XUnitTest
         {
             config.DropDataBase();
         }
-
-
     }
 }

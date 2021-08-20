@@ -63,7 +63,7 @@
     <Build Include="Table\Doctors.sql" />
     <Build Include="Table\MedicalHistories.sql" />
     <Build Include="Table\Patients.sql" />
-    <Build Include="Table\RegistrationCards.sql" />
+    <Build Include="Table\RegistrationСards.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment\Script.PostDeployment.sql" />

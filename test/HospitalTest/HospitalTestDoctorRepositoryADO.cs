@@ -14,48 +14,65 @@ namespace Hospital.XUnitTest
 {
     public class HospitalTestDoctorRepositoryADO
     {
+        /// <summary>
+        ///object for database management
+        /// </summary>
         DataBaseConfigurationManager config = new DataBaseConfigurationManager();
-        
-        
 
+        /// <summary>
+        /// runs at the beginning of the test and creates the database
+        /// </summary>
+        /// <returns>void</returns>
         [SetUp]
-        public void Stert()
+        public void Start()
         {
             config.LoadDataBase();
         }
 
+        /// <summary>
+        /// method to test get method
+        /// </summary>
+        /// <returns>IEnumerable<Doctor></returns>
         [Test]
-        public void Get_WhenGetDoctor_ThenReturnDoctor()
+        public void Get_WhenGetDoctor_ThenGetDoctor()
         {
             // Arrange
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
-            
+
             // Act
-            var result = doc.Get();
+            IEnumerable<Doctor> result = doc.Get();
 
             // Assert
             Assert.IsNotNull(result);
         }
 
+        /// <summary>
+        /// method to test Create method
+        /// </summary>
+        /// <returns>IEnumerable<Doctor></returns>
         [Test]
         public async Task CreateEntity_WhenAddingDoctor_ThenDoctorAdded()
         {
             // Arrange
             List<Doctor> doctor = new List<Doctor>();
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
-            
+
             // Act
             await doc.CreateEntity(DoctorData);
             IEnumerable<Doctor> result = doc.GetAllEntityBy(el => el.Id == 6);
-            foreach(var i in result) 
+            foreach (var i in result)
             {
                 doctor.Add(i);
             }
-         
+
             // Assert
             Assert.AreEqual(doctor[0].LastName, DoctorData.LastName);
         }
 
+        /// <summary>
+        /// method to test Update method
+        /// </summary>
+        /// <returns>void</returns>
         [Test]
         public async Task UpdateDoctor_WhenDoctorApdates_ThenDoctorUpdated()
         {
@@ -75,68 +92,59 @@ namespace Hospital.XUnitTest
             Assert.AreEqual(doctor[0].LastName, DoctorData.LastName);
         }
 
+        /// <summary>
+        /// method to test GetBy method
+        /// </summary>
+        /// <returns>IEnumerable<Doctor></returns>
         [Test]
-        public void GetAllEntityById_WenId_5_ThenReturnDoctorWhisId_5()
+        public void GetAllEntityById_WhenId_5_ThenReturnDoctorWhisId_5()
         {
             // Arrange
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
 
             // Act
-            var result = doc.GetAllEntityBy(el => el.Id == 5);
+            IEnumerable<Doctor> result = doc.GetAllEntityBy(el => el.Id == 5);
 
             // Assert
             Assert.IsNotNull(result);
         }
 
+        /// <summary>
+        ///  method to test Delete method
+        /// </summary>
+        /// <returns>void</returns>
         [Test]
-        public async Task Delete_WenId_Doctor_3_ThenDeleteDoctor()
+        public async Task Delete_WhenId_Doctor_3_ThenDeleteDoctor()
         {
             // Arrange       
             DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
-           
+
             //Act
-             await doc.Delete(DoctorData);
-             var result = doc.GetAllEntityBy(el => el.Id == 3);
+            await doc.Delete(DoctorData);
+            var result = doc.GetAllEntityBy(el => el.Id == 3);
 
             //Assert
             Assert.IsNull(result);
         }
 
+        /// <summary>
+        /// initial data
+        /// </summary>
         public static Doctor DoctorData
         {
             get
             {
-                return new Doctor() { FirstName = "TestName", Patronymic = "TestPatronymic", LastName = "TestLastName", NumberPhone = "TestNumberPhone" };
+                return new Doctor() { Id = 3, FirstName = "TestName", Patronymic = "TestPatronymic", LastName = "TestLastName", NumberPhone = "TestNumberPhone" };
             }
         }
 
-        [Test]
-        public async Task CreateEFCore_WhenAddingDoctor_ThenDoctorAdded()
-        {
-            // Arrange
-            int reulr;
-            List<Doctor> doctor = new List<Doctor>();
-            var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-            DbContextOptions<HospitalContext> options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
-
-            // Act
-            using (HospitalContext ct = new HospitalContext(options)) 
-            {
-                DoctorRepository doc = new DoctorRepository(ct);
-                await doc.CreateEntity(DoctorData);
-                reulr = await doc.SaveChanges();
-
-            }
-            
-            // Assert
-            Assert.AreEqual(reulr, reulr);
-        }
-
+        /// <summary>
+        /// runs at the end of the test and drops the database
+        /// </summary>
         [TearDown]
         public void End()
         {
             config.DropDataBase();
         }
-
     }
 }

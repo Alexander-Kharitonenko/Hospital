@@ -11,21 +11,29 @@ namespace Hospital.XUnitTest
 {
     public class HospitalTestRegistrationCardRepositoryADO
     {
-
+        /// <summary>
+        ///object for database management
+        /// </summary>
         DataBaseConfigurationManager config = new DataBaseConfigurationManager();
 
-
+        /// <summary>
+        /// runs at the beginning of the test and creates the database
+        /// </summary>
+        /// <returns>void</returns>
         [SetUp]
-        public void Stert()
+        public void Start()
         {
             config.LoadDataBase();
         }
 
+        /// <summary>
+        /// method to test Get method
+        /// </summary>
+        /// <returns>IEnumerable<Doctor></returns>
         [Test]
         public void Get_WhenGet_ThenReturnAllRegistrationCard()
         {
             // Arrange
-
             RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
 
             // Act
@@ -35,8 +43,12 @@ namespace Hospital.XUnitTest
             Assert.NotNull(result);
         }
 
+        /// <summary>
+        /// method to test Create method
+        /// </summary>
+        /// <returns>IEnumerable<Doctor></returns>
         [Test]
-        public async Task CreateEntity_WhenRegistrationCar_ThewCreateRegistrationCar()
+        public async Task CreateEntity_WhenRegistrationCar_ThenCreateRegistrationCar()
         {
             // Arrange
             List<RegistrationCard> registrationCards = new List<RegistrationCard>();
@@ -54,6 +66,10 @@ namespace Hospital.XUnitTest
             Assert.AreEqual(RegistrationCardData.PatientId, registrationCards[0].PatientId);
         }
 
+        /// <summary>
+        /// method to test Update method
+        /// </summary>
+        /// <returns>void</returns>
         [Test]
         public async Task Update_WhenRegistrationCard_ThenUpdateRegistrationCard()
         {
@@ -70,12 +86,15 @@ namespace Hospital.XUnitTest
             }
 
             // Assert
-
             Assert.AreEqual(RegistrationCardData.PatientId, registrationCards[0].PatientId);
         }
 
+        /// <summary>
+        ///  method to test Delete method
+        /// </summary>
+        /// <returns>void</returns>
         [Test]
-        public async Task Delete_WheneRegistrationCard_ThenDeleteRegistrationCard()
+        public async Task Delete_WhenRegistrationCard_ThenDeleteRegistrationCard()
         {
             // Arrange
             List<RegistrationCard> registrationCards = new List<RegistrationCard>();
@@ -84,15 +103,19 @@ namespace Hospital.XUnitTest
             // Act
             await doc.Delete(RegistrationCardData);
             var result = doc.GetAllEntityBy(el => el.Id == 3);
+
             // Assert
             Assert.IsNull(result);
         }
 
+        /// <summary>
+        /// method to test GetBy method
+        /// </summary>
+        /// <returns>IEnumerable<Doctor></returns>
         [Test]
-        public void MethodGetAllEntityById_ParamsVoid_returnCollectionEntityRegistrationCard()
+        public void GetAllEntityById_WhenId_5_ThenReturnRegistrationCardWhithId_5()
         {
             // Arrange
-
             RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
 
             // Act
@@ -100,11 +123,11 @@ namespace Hospital.XUnitTest
 
             // Assert
             Assert.NotNull(result);
-
         }
 
-
-
+        /// <summary>
+        /// initial data
+        /// </summary>
         public static RegistrationCard RegistrationCardData
         {
             get
@@ -113,6 +136,9 @@ namespace Hospital.XUnitTest
             }
         }
 
+        /// <summary>
+        /// runs at the end of the test and drops the database
+        /// </summary>
         [TearDown]
         public void End()
         {

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Hospital.DataAccess.EntityFramework
 {
-    public class RegistrationCardRepository : Repository<RegistrationCard>, IRegistrationCardRepository
+    public class RegistrationСardRepository : Repository<RegistrationCard>, IRegistrationCardRepository
     {
-        public RegistrationCardRepository(HospitalContext contextDb) : base(contextDb) 
+        public RegistrationСardRepository(HospitalContext contextDb) : base(contextDb) 
         {
 
         }

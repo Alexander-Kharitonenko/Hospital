@@ -11,6 +11,9 @@ namespace RepositoryADO.InterfaceForRepository
 {
     public abstract class BaseRepositoryADO<T> : IRepository<T> where T : class ,IEntity
     {
+        /// <summary>
+        /// field contains сonnection string
+        /// </summary>
         protected readonly string ConnectionString;
 
         public BaseRepositoryADO(string connectionString) 
