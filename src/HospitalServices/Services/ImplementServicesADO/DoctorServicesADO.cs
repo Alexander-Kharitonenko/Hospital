@@ -23,14 +23,15 @@ namespace Services.ImplementServicesADO
             await Context.CreateEntity(doctor);
         }
 
-        public Task DeleteDoctor(Doctor doctor)
+        public async Task DeleteDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+           await Context.Delete(doctor);
         }
 
         public IEnumerable<Doctor> GedDoctorById(int Id)
         {
-            throw new NotImplementedException();
+           var result = Context.GetAllEntityBy(el => el.Id == Id);
+           return result;
         }
 
         public IEnumerable<Doctor> GetAllDoctor()
