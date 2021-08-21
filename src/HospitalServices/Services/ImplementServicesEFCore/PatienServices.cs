@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Services.ImplementServices
 {
-    public class PatientServices : IPatienServices
+    public class PatientServices : IPatientServices
     {
         private readonly IPatientRepository Context;
 

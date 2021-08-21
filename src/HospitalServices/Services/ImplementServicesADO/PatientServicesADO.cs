@@ -1,6 +1,8 @@
 ﻿using DataAccess.Entity;
 using Hospital.DataAccess.ADO;
+using RepositoryADO.ImplementationRepository;
 using RepositoryADO.InterfaceForRepository;
+using Services.ImplementServices;
 using Services.InterfaceServicec;
 using System;
 using System.Collections.Generic;
@@ -10,41 +12,41 @@ using System.Threading.Tasks;
 
 namespace Services.ImplementServicesADO
 {
-    public class DoctorServicesADO  : IDoctorServices
+    public class PatientServicesADO : IPatientServices
     {
-        public readonly DoctorRepositoryADO Context;
-        public DoctorServicesADO(DoctorRepositoryADO context) 
+        public readonly PatientRepositoryADO Context;
+        public PatientServicesADO(PatientRepositoryADO context) 
         {
             Context = context;
         }
 
-        public async Task Add(Doctor doctor)
+        public async Task Add(Patient patient)
         {
-            await Context.CreateEntity(doctor);
+            await Context.CreateEntity(patient);
             await Context.SaveChanges();
         }
 
-        public async Task DeleteDoctor(Doctor doctor)
+        public async Task DeletePatient(Patient patient)
         {
-           await Context.Delete(doctor);
-            await Context.SaveChanges();
+           await Context.Delete(patient);
+           await Context.SaveChanges();
         }
 
-        public IEnumerable<Doctor> GedDoctorById(int Id)
+        public IEnumerable<Patient> GedPatientById(int Id)
         {
            var result = Context.GetAllEntityBy(el => el.Id == Id);
            return result;
         }
 
-        public IEnumerable<Doctor> GetAllDoctor()
+        public IEnumerable<Patient> GetAllPatient()
         {
            var result = Context.Get();
            return result;
         }
 
-        public async Task UpdateDoctor(Doctor doctor)
+        public async Task UpdatePatient(Patient patien)
         {
-           await Context.Update(doctor);
+           await  Context.Update(patien);
            await Context.SaveChanges();
         }
     }

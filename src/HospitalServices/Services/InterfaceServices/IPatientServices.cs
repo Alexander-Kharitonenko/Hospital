@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Services.InterfaceServicec
 {
-    public interface IPatienServices
+    public interface IPatientServices
     {
         public Task Add(Patient doctor);
 
