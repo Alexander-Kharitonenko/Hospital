@@ -1,6 +1,6 @@
 
-using DataAccess.Entity;
 using Hospital.DataAccess.ADO;
+using Hospital.DataAccess.Entity;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
