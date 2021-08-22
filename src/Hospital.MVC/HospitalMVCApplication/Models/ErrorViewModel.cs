@@ -1,6 +1,6 @@
 using System;
 
-namespace Hospital.MVCApplication.Models
+namespace HospitalMVCApplication.Models
 {
     public class ErrorViewModel
     {
