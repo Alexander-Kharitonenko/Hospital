@@ -1,6 +1,6 @@
-using DataAccess.Entity;
+using Hospital.DataAccess.ADO;
+using Hospital.DataAccess.Entity;
 using NUnit.Framework;
-using RepositoryADO.ImplementationRepository;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
