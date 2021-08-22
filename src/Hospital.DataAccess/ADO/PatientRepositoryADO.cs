@@ -1,4 +1,4 @@
-﻿using DataAccess.Entity;
+﻿using Hospital.DataAccess.Entity;
 using RepositoryADO.InterfaceForRepository;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RepositoryADO.ImplementationRepository
+namespace Hospital.DataAccess.ADO
 {
     public class PatientRepositoryADO : BaseRepositoryADO<Patient>
     {

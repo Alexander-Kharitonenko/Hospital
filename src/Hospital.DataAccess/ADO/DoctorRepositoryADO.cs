@@ -1,4 +1,4 @@
-﻿using DataAccess.Entity;
+﻿using Hospital.DataAccess.Entity;
 using RepositoryADO.InterfaceForRepository;
 using System;
 using System.Collections.Generic;

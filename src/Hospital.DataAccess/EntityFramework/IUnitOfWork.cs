@@ -1,5 +1,4 @@
-﻿using DataAccess.Entity;
-using Hospital.DataAccess.Interface;
+﻿using Hospital.DataAccess.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;

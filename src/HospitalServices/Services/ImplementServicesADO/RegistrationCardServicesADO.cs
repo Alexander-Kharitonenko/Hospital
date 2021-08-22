@@ -1,6 +1,5 @@
 ﻿using DataAccess.Entity;
 using Hospital.DataAccess.ADO;
-using RepositoryADO.ImplementationRepository;
 using RepositoryADO.InterfaceForRepository;
 using Services.InterfaceServicec;
 using Services.InterfaceServices;
