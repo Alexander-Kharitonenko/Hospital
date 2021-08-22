@@ -33,7 +33,7 @@ namespace HospitalTest
             // Act 
             using (HospitalContext ct = new HospitalContext(options))
             {
-                RegistrationСardRepository doc = new RegistrationСardRepository(ct);
+                RegistrationCardRepository doc = new RegistrationCardRepository(ct);
                 result = doc.Get();
             }
 
@@ -52,7 +52,7 @@ namespace HospitalTest
             // Act 
             using (HospitalContext ct = new HospitalContext(options))
             {
-                RegistrationСardRepository doc = new RegistrationСardRepository(ct);
+                RegistrationCardRepository doc = new RegistrationCardRepository(ct);
                 result = doc.GetAllEntityBy(el => el.Id == 4);
 
             }
@@ -72,7 +72,7 @@ namespace HospitalTest
             //Act
             using (HospitalContext context = new HospitalContext(options))
             {
-                IUnitOfWork repositorys = new UnitOfWork(new DoctorRepository(context), new MedicalHistoryRepository(context), new PatientRepository(context), new RegistrationСardRepository(context), context);
+                IUnitOfWork repositorys = new UnitOfWork(new DoctorRepository(context), new MedicalHistoryRepository(context), new PatientRepository(context), new RegistrationCardRepository(context), context);
                 await repositorys.doctorRepository.CreateEntity(DoctorData);
                 await repositorys.registrationCardRepository.CreateEntity(RegistrationCardData);
                 result = await repositorys.SaveChangesAsync();
@@ -94,7 +94,7 @@ namespace HospitalTest
             // Act 
             using (HospitalContext ct = new HospitalContext(options))
             {
-                RegistrationСardRepository Rc = new RegistrationСardRepository(ct);
+                RegistrationCardRepository Rc = new RegistrationCardRepository(ct);
                 await Rc.CreateEntity(RegistrationCardData);
                 result = await Rc.SaveChanges();
 
@@ -117,7 +117,7 @@ namespace HospitalTest
             using (HospitalContext ct = new HospitalContext(options))
             {
 
-                RegistrationСardRepository Rc = new RegistrationСardRepository(ct);
+                RegistrationCardRepository Rc = new RegistrationCardRepository(ct);
                 await Rc.Delete(card);
                 result = await Rc.SaveChanges();
 
@@ -140,7 +140,7 @@ namespace HospitalTest
             using (HospitalContext ct = new HospitalContext(options))
             {
 
-                RegistrationСardRepository Rc = new RegistrationСardRepository(ct);
+                RegistrationCardRepository Rc = new RegistrationCardRepository(ct);
                 await Rc.Update(card);
                 result = await Rc.SaveChanges();
 

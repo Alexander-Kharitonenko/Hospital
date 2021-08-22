@@ -1,4 +1,4 @@
-﻿using DataAccess.Entity;
+﻿using Hospital.DataAccess.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,5 @@
-﻿using DataAccess.Entity;
+﻿
+using Hospital.DataAccess.Entity;
 using Hospital.DataAccess.Interface;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RepositoryADO.InterfaceForRepository
 {
-    public abstract class BaseRepositoryADO<T> : IRepository<T> where T : class ,IEntity
+    public abstract class BaseRepositoryADO<T> : IRepository<T> where T : class, IEntity
     {
         /// <summary>
         /// field contains сonnection string

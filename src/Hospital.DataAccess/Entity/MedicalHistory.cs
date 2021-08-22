@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Entity
+namespace Hospital.DataAccess.Entity
 {
     public class MedicalHistory : IEntity
     {

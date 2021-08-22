@@ -1,6 +1,5 @@
-﻿using DataAccess.Entity;
-using Hospital.DataAccess.ADO;
-using RepositoryADO.InterfaceForRepository;
+﻿using Hospital.DataAccess.ADO;
+using Hospital.DataAccess.Entity;
 using Services.InterfaceServicec;
 using System;
 using System.Collections.Generic;
@@ -26,26 +25,27 @@ namespace Services.ImplementServicesADO
 
         public async Task DeleteDoctor(Doctor doctor)
         {
-           await Context.Delete(doctor);
+            await Context.Delete(doctor);
             await Context.SaveChanges();
         }
 
         public IEnumerable<Doctor> GedDoctorById(int Id)
         {
-           var result = Context.GetAllEntityBy(el => el.Id == Id);
-           return result;
+            var result = Context.GetAllEntityBy(el => el.Id == Id);
+            return result;
         }
 
         public IEnumerable<Doctor> GetAllDoctor()
         {
-           var result = Context.Get();
-           return result;
+            var result = Context.Get();
+            return result;
         }
 
         public async Task UpdateDoctor(Doctor doctor)
         {
-           await Context.Update(doctor);
-           await Context.SaveChanges();
+            await Context.Update(doctor);
+            await Context.SaveChanges();
         }
+
     }
 }
