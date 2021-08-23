@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RepositoryADO.InterfaceForRepository;
+using Services.ImplementServices;
+using Services.InterfaceServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,8 +51,15 @@ namespace Hospital.MVCApplication
             //RepositoryADO
             services.AddScoped<BaseRepositoryADO<Doctor>>(option => new DoctorRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<BaseRepositoryADO<Patient>>(option => new PatientRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<BaseRepositoryADO<MedicalHistory>>(option => new MedicalHistoryRepositoryADO(Configuration.GetConnectionString("DefaultConnection"))); ;
-            services.AddScoped<BaseRepositoryADO<RegistrationCard>>(option => new RegistrationCardRepositoryADO(Configuration.GetConnectionString("DefaultConnection"))); ;
+            services.AddScoped<BaseRepositoryADO<MedicalHistory>>(option => new MedicalHistoryRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<BaseRepositoryADO<RegistrationCard>>(option => new RegistrationCardRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
+
+            //Services
+            services.AddScoped<IDoctorServices, DoctorServices>();
+            services.AddScoped<IMedicalHistoryServices, MedicalHistoryServices>();
+            services.AddScoped<IPatientServices, PatientServices>();
+            services.AddScoped<IRegistrationCardServices, RegistrationCardServices>();
+
             services.AddControllersWithViews();
         }
 

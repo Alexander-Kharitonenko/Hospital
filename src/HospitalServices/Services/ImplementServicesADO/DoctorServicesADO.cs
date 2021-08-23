@@ -1,6 +1,6 @@
 ﻿using Hospital.DataAccess.ADO;
 using Hospital.DataAccess.Entity;
-using Services.InterfaceServicec;
+using Services.InterfaceServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;

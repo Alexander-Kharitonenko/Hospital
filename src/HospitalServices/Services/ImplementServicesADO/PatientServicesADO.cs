@@ -2,7 +2,7 @@
 using Hospital.DataAccess.Entity;
 using RepositoryADO.InterfaceForRepository;
 using Services.ImplementServices;
-using Services.InterfaceServicec;
+using Services.InterfaceServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
