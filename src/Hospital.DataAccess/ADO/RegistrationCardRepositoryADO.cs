@@ -20,7 +20,7 @@ namespace Hospital.DataAccess.ADO
             var x = entity.DateAdmission.ToShortDateString().Replace(".", "-").ToString();
             if (entity != null)
             {
-                string sqlExpression = $"INSERT INTO RegistrationСards (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', '{x.ToString()}')";
+                string sqlExpression = $"INSERT INTO RegistrationСards (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', {x})";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
@@ -116,7 +116,7 @@ namespace Hospital.DataAccess.ADO
                 //'{x.ToString()}' and DATE
                 //{x} and DATETIME
                 var x = entity.DateAdmission.ToShortDateString().Replace(".", "-");
-                string sqlExpression = $"UPDATE RegistrationСards SET PatientId = '{entity.PatientId}',DoctorId = '{entity.DoctorId}',DiagnosisId = '{entity.DiagnosisId}',DateAdmission = '{x.ToString()}' WHERE Id={entity.Id}";
+                string sqlExpression = $"UPDATE RegistrationСards SET PatientId = '{entity.PatientId}',DoctorId = '{entity.DoctorId}',DiagnosisId = '{entity.DiagnosisId}',DateAdmission = {x} WHERE Id={entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     
