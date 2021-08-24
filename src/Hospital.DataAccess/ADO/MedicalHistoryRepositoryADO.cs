@@ -35,7 +35,7 @@ namespace Hospital.DataAccess.ADO
         public async override Task Delete(MedicalHistory entity)
         {
             List<MedicalHistory> result = new List<MedicalHistory>();
-            string GetAllId = "SELECT * FROM MedicalHistorys Id";
+            string GetEntityById = $"SELECT * FROM MedicalHistorys WHERE Id ={entity.Id}";
 
 
             if (entity != null)
@@ -45,7 +45,7 @@ namespace Hospital.DataAccess.ADO
                 {
                     await connection.OpenAsync();
 
-                    SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
+                    SqlCommand commandforGetAllId = new SqlCommand(GetEntityById, connection);
                     SqlDataReader readerId = commandforGetAllId.ExecuteReader();
                     List<int> Id = new List<int>();
                     while (readerId.Read())

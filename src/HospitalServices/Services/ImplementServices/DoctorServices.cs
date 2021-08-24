@@ -1,18 +1,19 @@
-﻿using Hospital.DataAccess.ADO;
-using Hospital.DataAccess.Entity;
-using Services.InterfaceServicec;
+﻿using Hospital.DataAccess.Entity;
+using Hospital.DataAccess.Interfaces;
+using Hospital.Services.InterfaceServicec;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.ImplementServicesADO
+namespace Hospital.Services.ImplementServices
 {
-    public class DoctorServicesADO  : IDoctorServices
+    public class DoctorServices : IDoctorServices
     {
-        public readonly DoctorRepositoryADO Context;
-        public DoctorServicesADO(DoctorRepositoryADO context) 
+        private readonly IDoctorRepository Context;
+
+        public DoctorServices(IDoctorRepository context) 
         {
             Context = context;
         }
@@ -20,7 +21,7 @@ namespace Services.ImplementServicesADO
         public async Task Add(Doctor doctor)
         {
             await Context.CreateEntity(doctor);
-            await Context.SaveChanges();
+            await  Context.SaveChanges();
         }
 
         public async Task DeleteDoctor(Doctor doctor)
@@ -31,14 +32,14 @@ namespace Services.ImplementServicesADO
 
         public IEnumerable<Doctor> GedDoctorById(int Id)
         {
-            var result = Context.GetAllEntityBy(el => el.Id == Id);
+           var result =  Context.GetAllEntityBy(el=>el.Id == Id);
             return result;
         }
 
         public IEnumerable<Doctor> GetAllDoctor()
         {
-            var result = Context.Get();
-            return result;
+           var result = Context.Get();
+           return result;
         }
 
         public async Task UpdateDoctor(Doctor doctor)
@@ -46,6 +47,5 @@ namespace Services.ImplementServicesADO
             await Context.Update(doctor);
             await Context.SaveChanges();
         }
-
     }
 }

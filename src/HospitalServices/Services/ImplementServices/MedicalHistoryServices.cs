@@ -1,20 +1,19 @@
-﻿using Hospital.DataAccess.ADO;
-using Hospital.DataAccess.Entity;
-using RepositoryADO.InterfaceForRepository;
-using Services.InterfaceServicec;
-using Services.InterfaceServices;
+﻿using Hospital.DataAccess.Entity;
+using Hospital.DataAccess.Interfaces;
+using Hospital.Services.InterfaceServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.ImplementServicesADO
+namespace Hospital.Services.ImplementServices
 {
-    public class MedicalHistoryServicesADO : IMedicalHistoryServices
+    public class MedicalHistoryServices : IMedicalHistoryServices
     {
-        public readonly MedicalHistoryRepositoryADO Context;
-        public MedicalHistoryServicesADO(MedicalHistoryRepositoryADO context) 
+        private readonly IMedicalHistoryRepository Context;
+
+        public MedicalHistoryServices(IMedicalHistoryRepository context) 
         {
             Context = context;
         }
@@ -28,13 +27,13 @@ namespace Services.ImplementServicesADO
         public async Task DeleteMedicalHistory(MedicalHistory medicalHistory)
         {
             await Context.Delete(medicalHistory);
-              await  Context.SaveChanges();
+            await Context.SaveChanges();
         }
 
         public IEnumerable<MedicalHistory> GedMedicalHistoryById(int Id)
         {
-           var result = Context.GetAllEntityBy(el => el.Id == Id);
-           return result;
+            var result = Context.GetAllEntityBy(el => el.Id == Id);
+            return result;
         }
 
         public IEnumerable<MedicalHistory> GetAllMedicalHistory()

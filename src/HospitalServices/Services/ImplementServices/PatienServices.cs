@@ -1,13 +1,13 @@
 ﻿using Hospital.DataAccess.Entity;
-using Hospital.DataAccess.Interface;
-using Services.InterfaceServicec;
+using Hospital.DataAccess.Interfaces;
+using Hospital.Services.InterfaceServicec;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.ImplementServices
+namespace Hospital.Services.ImplementServices
 {
     public class PatientServices : IPatientServices
     {

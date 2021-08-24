@@ -2,6 +2,7 @@
 using Hospital.DataAccess.ADO;
 using Hospital.DataAccess.Entity;
 using Hospital.DataAccess.EntityFramework;
+using Hospital.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;

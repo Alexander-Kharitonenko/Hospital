@@ -1,6 +1,6 @@
 ﻿
 using Hospital.DataAccess.Entity;
-using Hospital.DataAccess.Interface;
+using Hospital.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

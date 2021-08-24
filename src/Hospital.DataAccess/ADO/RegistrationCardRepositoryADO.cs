@@ -35,15 +35,32 @@ namespace Hospital.DataAccess.ADO
 
         public async override Task Delete(RegistrationCard entity)
         {
+            List<RegistrationCard> result = new List<RegistrationCard>();
+            string GetEntityById = $"SELECT * FROM RegistrationСards WHERE Id ={entity.Id}";
+
+
             if (entity != null)
             {
                 string sqlExpression = $"DELETE FROM RegistrationСards WHERE Id= {entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
-                    SqlCommand command = new SqlCommand(sqlExpression, connection);
-                    command.ExecuteNonQuery();
-                    
+
+                    SqlCommand commandforGetAllId = new SqlCommand(GetEntityById, connection);
+                    SqlDataReader readerId = commandforGetAllId.ExecuteReader();
+                    List<int> Id = new List<int>();
+                    while (readerId.Read())
+                    {
+                        Id.Add(readerId.GetInt32(0));
+                    }
+
+                    if (Id.Any(el => el == entity.Id && entity.Id > 0))
+                    {
+                        SqlCommand command = new SqlCommand(sqlExpression, connection);
+                        command.ExecuteNonQuery();
+
+                    }
+
 
 
                 }
