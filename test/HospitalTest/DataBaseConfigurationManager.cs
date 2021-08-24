@@ -58,7 +58,7 @@ namespace TicketManagement.IntegrationTests
         public DataBaseConfigurationManager()
         {
             Configuration = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "..//..//..//").AddJsonFile("appsettings.json").Build();
-            string connectionStrings = Configuration["ConnectionStrings:DefaultConnection"];
+            var connectionStrings = Configuration["ConnectionStrings:DefaultConnection"];
             var dacPacPath = Configuration["AppSettings:dacpacFilePath"];
             _connectionString = connectionStrings;
             _dacPacString = dacPacPath;

@@ -25,7 +25,7 @@ namespace Hospital.DataAccess.ADO
         {
             if (entity != null)
             {
-                string sqlExpression = $"INSERT INTO MedicalHistorys (Diagnosis) VALUES ('{entity.Diagnosis}')";
+                var sqlExpression = $"INSERT INTO MedicalHistorys (Diagnosis) VALUES ('{entity.Diagnosis}')";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
@@ -43,11 +43,11 @@ namespace Hospital.DataAccess.ADO
         public async override Task Delete(MedicalHistory entity)
         {
             List<MedicalHistory> result = new List<MedicalHistory>();
-            string getEntityById = $"SELECT * FROM MedicalHistorys WHERE Id ={entity.Id}";
+            var getEntityById = $"SELECT * FROM MedicalHistorys WHERE Id ={entity.Id}";
 
             if (entity != null)
             {
-                string sqlExpression = $"DELETE FROM MedicalHistorys WHERE Id= {entity.Id}";
+                var sqlExpression = $"DELETE FROM MedicalHistorys WHERE Id= {entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
@@ -76,7 +76,7 @@ namespace Hospital.DataAccess.ADO
         public override  IEnumerable<MedicalHistory> Get()
         {
             List<MedicalHistory> result = new List<MedicalHistory>();
-            string sqlExpression = "SELECT * FROM MedicalHistorys";
+            var sqlExpression = "SELECT * FROM MedicalHistorys";
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
@@ -99,15 +99,15 @@ namespace Hospital.DataAccess.ADO
         {
             List<MedicalHistory> result = new List<MedicalHistory>();
             int item;
-            string argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
+            var argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
             var x = int.TryParse(argument, out item);
-            string predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
-            string sqlExpression = $"SELECT * FROM MedicalHistorys WHERE {predicateString}";
+            var predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
+            var sqlExpression = $"SELECT * FROM MedicalHistorys WHERE {predicateString}";
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string getAllId = "SELECT * FROM MedicalHistorys Id";
+                var getAllId = "SELECT * FROM MedicalHistorys Id";
 
                 SqlCommand commandforGetAllId = new SqlCommand(getAllId, connection);
                 SqlDataReader readerId = commandforGetAllId.ExecuteReader();
@@ -119,7 +119,6 @@ namespace Hospital.DataAccess.ADO
 
                 if (Id.Any(el => el == item  && item > 0))
                 {
-
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
@@ -144,11 +143,11 @@ namespace Hospital.DataAccess.ADO
         {
             if (entity != null)
             {
-                string sqlExpression = $"UPDATE MedicalHistorys SET Diagnosis = '{entity.Diagnosis}'";
+                var sqlExpression = $"UPDATE MedicalHistorys SET Diagnosis = '{entity.Diagnosis}'";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
-                    string getAllId = "SELECT * FROM MedicalHistorys Id";
+                    var getAllId = "SELECT * FROM MedicalHistorys Id";
 
                     SqlCommand commandforGetAllId = new SqlCommand(getAllId, connection);
                     SqlDataReader readerId = commandforGetAllId.ExecuteReader();

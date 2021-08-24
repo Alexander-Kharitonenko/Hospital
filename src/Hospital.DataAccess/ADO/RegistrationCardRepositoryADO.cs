@@ -43,11 +43,11 @@ namespace Hospital.DataAccess.ADO
         public async override Task Delete(RegistrationCard entity)
         {
             List<RegistrationCard> result = new List<RegistrationCard>();
-            string getEntityById = $"SELECT * FROM RegistrationСards WHERE Id ={entity.Id}";
+            var getEntityById = $"SELECT * FROM RegistrationСards WHERE Id ={entity.Id}";
 
             if (entity != null)
             {
-                string sqlExpression = $"DELETE FROM RegistrationСards WHERE Id= {entity.Id}";
+                var sqlExpression = $"DELETE FROM RegistrationСards WHERE Id= {entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
@@ -75,7 +75,7 @@ namespace Hospital.DataAccess.ADO
         public override IEnumerable<RegistrationCard> Get()
         {
             List<RegistrationCard> result = new List<RegistrationCard>();
-            string sqlExpression = "SELECT * FROM RegistrationСards";
+            var sqlExpression = "SELECT * FROM RegistrationСards";
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
@@ -98,15 +98,15 @@ namespace Hospital.DataAccess.ADO
         {
             List<RegistrationCard> result = new List<RegistrationCard>();
             int item;
-            string argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
+            var argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
             var x = int.TryParse(argument, out item);
-            string predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
-            string sqlExpression = $"SELECT * FROM RegistrationСards WHERE {predicateString}";
+            var predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
+            var sqlExpression = $"SELECT * FROM RegistrationСards WHERE {predicateString}";
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string GetAllId = "SELECT * FROM RegistrationСards Id";
+                var GetAllId = "SELECT * FROM RegistrationСards Id";
 
                 SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
                 SqlDataReader readerId = commandforGetAllId.ExecuteReader();
@@ -145,10 +145,10 @@ namespace Hospital.DataAccess.ADO
                 //'{x.ToString()}' and DATE
                 //{x} and DATETIME
                 var x = entity.DateAdmission.ToShortDateString().Replace(".", "-");
-                string sqlExpression = $"UPDATE RegistrationСards SET PatientId = '{entity.PatientId}',DoctorId = '{entity.DoctorId}',DiagnosisId = '{entity.DiagnosisId}',DateAdmission = {x} WHERE Id={entity.Id}";
+                var sqlExpression = $"UPDATE RegistrationСards SET PatientId = '{entity.PatientId}',DoctorId = '{entity.DoctorId}',DiagnosisId = '{entity.DiagnosisId}',DateAdmission = {x} WHERE Id={entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
-                    string GetAllId = "SELECT * FROM RegistrationСards Id";
+                    var GetAllId = "SELECT * FROM RegistrationСards Id";
                     await connection.OpenAsync();
                     SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
                     SqlDataReader readerId = commandforGetAllId.ExecuteReader();
