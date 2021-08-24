@@ -1,4 +1,5 @@
 ﻿using Hospital.DataAccess.Entity;
+using Hospital.DataAccess.Interfaces;
 using RepositoryADO.InterfaceForRepository;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Hospital.DataAccess.ADO
 {
-    public class MedicalHistoryRepositoryADO : BaseRepositoryADO<MedicalHistory>
+    public class MedicalHistoryRepositoryADO : BaseRepositoryADO<MedicalHistory> , IMedicalHistoryRepository
     {
         public MedicalHistoryRepositoryADO(string connectionString) : base(connectionString)
         {

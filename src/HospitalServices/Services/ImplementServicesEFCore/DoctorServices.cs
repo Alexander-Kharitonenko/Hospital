@@ -1,13 +1,14 @@
 ﻿using Hospital.DataAccess.Entity;
-using Hospital.DataAccess.Interface;
-using Services.InterfaceServices;
+using Hospital.DataAccess.Interfaces;
+using Hospital.Services.InterfaceServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.ImplementServices
+namespace Hospital.Services.ImplementServices
 {
     public class DoctorServices : IDoctorServices
     {
@@ -30,9 +31,10 @@ namespace Services.ImplementServices
             await Context.SaveChanges();
         }
 
-        public IEnumerable<Doctor> GedDoctorById(int Id)
+        public IEnumerable<Doctor> GedDoctorById(int id)
         {
-           var result =  Context.GetAllEntityBy(el=>el.Id == Id);
+           int Id = id;
+           var result =  Context.GetAllEntityBy(el => el.Id == Id);
             return result;
         }
 

@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Hospital.DataAccess\Hospital.DataAccess.csproj" />
-    <ProjectReference Include="..\..\HospitalServices\Services\Services.csproj" />
+    <ProjectReference Include="..\..\HospitalServices\Services\Hospital.Services.csproj" />
   </ItemGroup>
 
 </Project>

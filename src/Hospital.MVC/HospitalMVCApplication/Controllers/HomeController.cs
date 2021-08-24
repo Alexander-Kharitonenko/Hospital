@@ -1,11 +1,11 @@
-﻿using Hospital.DataAccess.EntityFramework;
+﻿using Hospital.DataAccess.Interfaces;
 using HospitalMVCApplication.Models;
 using HospitalMVCApplication.Models.ModelForMedicalHistory;
 using HospitalMVCApplication.Models.ModelForPatent;
 using HospitalMVCApplication.Models.ModelForRegistrationCard;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Services.InterfaceServices;
+using Hospital.Services.InterfaceServices;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,9 +16,9 @@ namespace HospitalMVCApplication.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUnitOfWork CardServices;
+        private readonly IRegistrationCardServices CardServices;
 
-        public HomeController(IUnitOfWork cardServices)
+        public HomeController(IRegistrationCardServices cardServices)
         {
             CardServices = cardServices;
         }
@@ -26,7 +26,7 @@ namespace HospitalMVCApplication.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewModelForCard Model = new ViewModelForCard() { AllCard = CardServices.registrationCardRepository.Get() };
+            ViewModelForCard Model = new ViewModelForCard() { AllCard = CardServices.GetAllRegistrationCard() };
             return View(Model);
         }
 

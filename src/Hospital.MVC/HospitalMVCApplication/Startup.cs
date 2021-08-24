@@ -2,7 +2,7 @@ using Hospital.DataAccess;
 using Hospital.DataAccess.ADO;
 using Hospital.DataAccess.Entity;
 using Hospital.DataAccess.EntityFramework;
-using Hospital.DataAccess.Interface;
+using Hospital.DataAccess.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,8 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RepositoryADO.InterfaceForRepository;
-using Services.ImplementServices;
-using Services.InterfaceServices;
+using Hospital.Services.ImplementServices;
+using Hospital.Services.InterfaceServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,18 +41,25 @@ namespace Hospital.MVCApplication
             services.AddScoped<IRepository<RegistrationCard>, RegistrationCardRepository>();
 
 
+
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IMedicalHistoryRepository, MedicalHistoryRepository>();
             services.AddScoped<IRegistrationCardRepository, RegistrationCardRepository>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //RepositoryADO
-            services.AddScoped<BaseRepositoryADO<Doctor>>(option => new DoctorRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<BaseRepositoryADO<Patient>>(option => new PatientRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<BaseRepositoryADO<MedicalHistory>>(option => new MedicalHistoryRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<BaseRepositoryADO<RegistrationCard>>(option => new RegistrationCardRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddScoped<BaseRepositoryADO<Doctor>>(option => new DoctorRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddScoped<BaseRepositoryADO<Patient>>(option => new PatientRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddScoped<BaseRepositoryADO<MedicalHistory>>(option => new MedicalHistoryRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddScoped<BaseRepositoryADO<RegistrationCard>>(option => new RegistrationCardRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddScoped<IDoctorRepository>(option => new DoctorRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddScoped<IPatientRepository>(option => new PatientRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddScoped<IMedicalHistoryRepository>(option => new MedicalHistoryRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddScoped<IRegistrationCardRepository>(option => new RegistrationCardRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
 
             //Services
             services.AddScoped<IDoctorServices, DoctorServices>();

@@ -1,6 +1,7 @@
-﻿using Hospital.DataAccess.EntityFramework;
+﻿using Hospital.DataAccess.Interfaces;
 using HospitalMVCApplication.Models.ModelForPatent;
 using Microsoft.AspNetCore.Mvc;
+using Hospital.Services.InterfaceServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace HospitalMVCApplication.Controllers
 {
     public class PatientController : Controller
     {
-        private readonly IUnitOfWork PatientServices;
-        public PatientController(IUnitOfWork patientServices) 
+        private readonly IPatientServices PatientServices;
+        public PatientController(IPatientServices patientServices) 
         {
             PatientServices = patientServices;
         }
@@ -19,7 +20,7 @@ namespace HospitalMVCApplication.Controllers
         [HttpGet]
         public IActionResult GetAllPatient()
         {
-            ViewModelForPatient Model = new ViewModelForPatient() { AllPatient = PatientServices.patientRepository.Get() };
+            ViewModelForPatient Model = new ViewModelForPatient() { AllPatient = PatientServices.GetAllPatient() };
             return View(Model);
         }
     }

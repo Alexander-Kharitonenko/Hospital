@@ -1,6 +1,7 @@
-﻿using Hospital.DataAccess.EntityFramework;
+﻿using Hospital.DataAccess.Interfaces;
 using HospitalMVCApplication.Models.ModelForMedicalHistory;
 using Microsoft.AspNetCore.Mvc;
+using Hospital.Services.InterfaceServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +11,15 @@ namespace HospitalMVCApplication.Controllers
 {
     public class MedicalHistoryController : Controller
     {
-        private readonly IUnitOfWork MedicalHistoryServices;
-        public MedicalHistoryController(IUnitOfWork medicalHistoryServices) 
+        private readonly IMedicalHistoryServices MedicalHistoryServices;
+        public MedicalHistoryController(IMedicalHistoryServices medicalHistoryServices) 
         {
             MedicalHistoryServices = medicalHistoryServices;
         }
         [HttpGet]
         public IActionResult GetAllMedicalHistory()
         {
-            ViewModelForMedicalHistory Model = new ViewModelForMedicalHistory() { AllMedicalHistories = MedicalHistoryServices.medicalHistoryRepository.Get() };
+            ViewModelForMedicalHistory Model = new ViewModelForMedicalHistory() { AllMedicalHistories = MedicalHistoryServices.GetAllMedicalHistory() };
             return View(Model);
         }
     }

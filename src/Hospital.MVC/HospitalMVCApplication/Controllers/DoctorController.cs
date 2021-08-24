@@ -1,8 +1,8 @@
 ﻿using Hospital.DataAccess.Entity;
-using Hospital.DataAccess.EntityFramework;
+using Hospital.DataAccess.Interfaces;
 using HospitalMVCApplication.Models.ModelForDoctor;
 using Microsoft.AspNetCore.Mvc;
-using Services.InterfaceServices;
+using Hospital.Services.InterfaceServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,9 @@ namespace HospitalMVCApplication.Controllers
 {
     public class DoctorController : Controller
     {
-        private readonly IUnitOfWork DoctorServices; 
+        private readonly IDoctorServices DoctorServices; 
 
-        public DoctorController(IUnitOfWork doctorServices) 
+        public DoctorController(IDoctorServices doctorServices) 
         {
             DoctorServices = doctorServices;
         }
@@ -22,14 +22,14 @@ namespace HospitalMVCApplication.Controllers
         [HttpGet]
         public IActionResult GetAllDoctor()
         {
-            ViewModelForDoctor model = new ViewModelForDoctor() { AllDoctors = DoctorServices.doctorRepository.Get() };
+            ViewModelForDoctor model = new ViewModelForDoctor() { AllDoctors = DoctorServices.GetAllDoctor() };
             return View(model);
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var result = DoctorServices.doctorRepository.GetAllEntityBy(el => el.Id == id);
+            var result = DoctorServices.GedDoctorById(id);
             return View(result.FirstOrDefault());
         }
 
@@ -44,7 +44,7 @@ namespace HospitalMVCApplication.Controllers
                 NumberPhone = request.NumberPhone,
                 Patronymic = request.Patronymic
             };
-            DoctorServices.doctorRepository.Update(doc);
+            DoctorServices.UpdateDoctor(doc);
 
             return View(request);
         }
