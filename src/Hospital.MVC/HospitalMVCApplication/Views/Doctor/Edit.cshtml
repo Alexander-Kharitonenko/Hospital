@@ -1,0 +1,24 @@
+﻿@model Doctor
+
+<div>
+    <form asp-action="Edit" asp-controller="Doctor" method="post">
+
+        <select id="select_value" onchange="onSelectRegion()" form="data">
+            <option value="@Model.FirstName">@Model.FirstName</option>
+            <option value="@Model.LastName">@Model.LastName</option>
+            <option value="@Model.NumberPhone">@Model.NumberPhone</option>
+            <option value="@Model.Patronymic">@Model.Patronymic</option>
+        </select>
+        <input asp-for="@Model.FirstName" type="text" value="">
+        <p><input type="submit" value="Отправить"></p>
+    </form>
+    <p id="x"></p>
+</div>
+
+<script>
+    function onSelectRegion() {
+         x.innerHTML = select_value.value;
+        debugger
+    }   
+</script>
+
