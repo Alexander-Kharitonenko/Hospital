@@ -5,8 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hospital.DataAccess.Interface
+namespace Hospital.DataAccess.Interfaces
 {
+    /// <summary>
+    /// interfaces for PatientRepository
+    /// </summary>
     public interface IPatientRepository : IRepository<Patient>
     {
     }

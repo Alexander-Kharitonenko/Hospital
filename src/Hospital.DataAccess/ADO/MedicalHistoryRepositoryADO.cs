@@ -15,37 +15,44 @@ namespace Hospital.DataAccess.ADO
         public MedicalHistoryRepositoryADO(string connectionString) : base(connectionString)
         {
         }
+
+        /// <summary>
+        /// add a new object to the database
+        /// </summary>
+        /// <param name="entity">object to add</param>
+        /// <returns>void</returns>
         public async override Task CreateEntity(MedicalHistory entity)
         {
             if (entity != null)
             {
-                string sqlExpression = $"INSERT INTO MedicalHistorys (Diagnosis) VALUES ('{entity.Diagnosis}')";
+                var sqlExpression = $"INSERT INTO MedicalHistorys (Diagnosis) VALUES ('{entity.Diagnosis}')";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
-                   await connection.OpenAsync();
+                    await connection.OpenAsync();
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.ExecuteNonQuery();
-                   
                 }
             }
-          
-
         }
 
+        /// <summary>
+        /// Delete a object to the database
+        /// </summary>
+        /// <param name="entity">object to Delete</param>
+        /// <returns>void</returns>
         public async override Task Delete(MedicalHistory entity)
         {
             List<MedicalHistory> result = new List<MedicalHistory>();
-            string GetAllId = "SELECT * FROM MedicalHistorys Id";
-
+            var getEntityById = $"SELECT * FROM MedicalHistorys WHERE Id ={entity.Id}";
 
             if (entity != null)
             {
-                string sqlExpression = $"DELETE FROM MedicalHistorys WHERE Id= {entity.Id}";
+                var sqlExpression = $"DELETE FROM MedicalHistorys WHERE Id= {entity.Id}";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
 
-                    SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
+                    SqlCommand commandforGetAllId = new SqlCommand(getEntityById, connection);
                     SqlDataReader readerId = commandforGetAllId.ExecuteReader();
                     List<int> Id = new List<int>();
                     while (readerId.Read())
@@ -55,23 +62,21 @@ namespace Hospital.DataAccess.ADO
 
                     if (Id.Any(el => el == entity.Id && entity.Id > 0))
                     {
-
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
                         command.ExecuteNonQuery();
-                        
                     }
-                   
-
-
                 }
-            }
-           
+            }         
         }
 
-        public  override  IEnumerable<MedicalHistory> Get()
+        /// <summary>
+        /// get all object from database
+        /// </summary>
+        /// <returns>void</returns>
+        public override  IEnumerable<MedicalHistory> Get()
         {
             List<MedicalHistory> result = new List<MedicalHistory>();
-            string sqlExpression = "SELECT * FROM MedicalHistorys";
+            var sqlExpression = "SELECT * FROM MedicalHistorys";
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
@@ -85,22 +90,26 @@ namespace Hospital.DataAccess.ADO
             }
         }
 
+        /// <summary>
+        /// returns all elements that match a condition
+        /// </summary>
+        /// <param name="predicate">condition</param>
+        /// <returns>IEnumerable<Doctor></returns>
         public override IEnumerable<MedicalHistory> GetAllEntityBy(Expression<Func<MedicalHistory, bool>> predicate)
         {
             List<MedicalHistory> result = new List<MedicalHistory>();
             int item;
-            string argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
+            var argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
             var x = int.TryParse(argument, out item);
-            string predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
-            string sqlExpression = $"SELECT * FROM MedicalHistorys WHERE {predicateString}";
-
+            var predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
+            var sqlExpression = $"SELECT * FROM MedicalHistorys WHERE {predicateString}";
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string GetAllId = "SELECT * FROM MedicalHistorys Id";
+                var getAllId = "SELECT * FROM MedicalHistorys Id";
 
-                SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
+                SqlCommand commandforGetAllId = new SqlCommand(getAllId, connection);
                 SqlDataReader readerId = commandforGetAllId.ExecuteReader();
                 List<int> Id = new List<int>();
                 while (readerId.Read())
@@ -110,7 +119,6 @@ namespace Hospital.DataAccess.ADO
 
                 if (Id.Any(el => el == item  && item > 0))
                 {
-
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
@@ -126,17 +134,22 @@ namespace Hospital.DataAccess.ADO
             }
         }
 
+        /// <summary>
+        /// Update a object to the database
+        /// </summary>
+        /// <param name="entity">object to Update</param>
+        /// <returns>void</returns>
         public async override Task Update(MedicalHistory entity)
         {
             if (entity != null)
             {
-                string sqlExpression = $"UPDATE MedicalHistorys SET Diagnosis = '{entity.Diagnosis}'";
+                var sqlExpression = $"UPDATE MedicalHistorys SET Diagnosis = '{entity.Diagnosis}'";
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
-                    string GetAllId = "SELECT * FROM MedicalHistorys Id";
+                    var getAllId = "SELECT * FROM MedicalHistorys Id";
 
-                    SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
+                    SqlCommand commandforGetAllId = new SqlCommand(getAllId, connection);
                     SqlDataReader readerId = commandforGetAllId.ExecuteReader();
                     List<int> Id = new List<int>();
                     while (readerId.Read())
@@ -148,12 +161,9 @@ namespace Hospital.DataAccess.ADO
                     {
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
                         command.ExecuteNonQuery();
-                     
-                    }
-                   
+                    } 
                 }
             }
-          
         }
     }
 }

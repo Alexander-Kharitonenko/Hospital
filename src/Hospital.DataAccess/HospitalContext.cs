@@ -27,7 +27,7 @@ namespace Hospital.DataAccess
         /// <summary>
         /// property for referencing the table MedicalHistories
         /// </summary>
-        public DbSet<MedicalHistory> MedicalHistorys { get; set; }
+        public DbSet<MedicalHistory> MedicalHistories { get; set; }
 
         /// <summary>
         /// property for referencing the table Patients

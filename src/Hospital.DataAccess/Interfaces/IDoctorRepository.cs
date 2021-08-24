@@ -5,10 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hospital.DataAccess.Interface
+namespace Hospital.DataAccess.Interfaces
 {
+    /// <summary>
+    /// interfaces for DoctorRepository
+    /// </summary>
     public interface IDoctorRepository : IRepository<Doctor>
     {
-
     }
 }

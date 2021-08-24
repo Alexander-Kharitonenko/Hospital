@@ -1,5 +1,4 @@
-﻿
-using Hospital.DataAccess.Interface;
+﻿using Hospital.DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,7 +88,7 @@ namespace Hospital.DataAccess.EntityFramework
         public async Task<int> SaveChangesAsync()
         {
            var result = await ContextDb.SaveChangesAsync();
-            return result;
+           return result;
         }
     }
 }
