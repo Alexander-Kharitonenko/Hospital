@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hospital.DataAccess", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalTest", "test\HospitalTest\HospitalTest.csproj", "{4D15A956-9130-47DD-9B70-E29C805768E5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hospital.Services", "src\HospitalServices\Services\Hospital.Services.csproj", "{2E688C6B-85D1-4A4E-A1D3-8EEEC107CB0D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{4D15A956-9130-47DD-9B70-E29C805768E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D15A956-9130-47DD-9B70-E29C805768E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D15A956-9130-47DD-9B70-E29C805768E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E688C6B-85D1-4A4E-A1D3-8EEEC107CB0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E688C6B-85D1-4A4E-A1D3-8EEEC107CB0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E688C6B-85D1-4A4E-A1D3-8EEEC107CB0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E688C6B-85D1-4A4E-A1D3-8EEEC107CB0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,7 +41,6 @@ Global
 		{8B59D0C9-6440-4E2E-9878-428107BCF8DB} = {169829D7-364B-499F-9AB9-5993D89DD010}
 		{1341DE35-EDB6-483C-AD50-1F154735ED0A} = {169829D7-364B-499F-9AB9-5993D89DD010}
 		{4D15A956-9130-47DD-9B70-E29C805768E5} = {8B964CF4-E4ED-4015-A346-8431B00DC9D8}
-		{2E688C6B-85D1-4A4E-A1D3-8EEEC107CB0D} = {169829D7-364B-499F-9AB9-5993D89DD010}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A0FE247-D0AA-412A-AA71-7A1B1BA9CB2E}

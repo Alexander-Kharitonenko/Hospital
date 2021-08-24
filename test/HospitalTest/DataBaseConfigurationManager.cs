@@ -32,27 +32,36 @@ namespace TicketManagement.IntegrationTests
         /// </summary>
         private string _connectionString;
 
+        /// <summary>
+        /// store dacPac string.
+        /// </summary>
         private string _dacPacString;
 
         /// <summary>
-        /// store connection string.
+        /// property connection string.
         /// </summary>
         public string ConnectionString { get { return _connectionString; } }
 
+        /// <summary>
+        /// property DacPac string.
+        /// </summary>
         public string DacPacString { get { return _dacPacString; } }
 
+        /// <summary>
+        /// property for Configuration 
+        /// </summary>
         public IConfiguration Configuration { get; }
 
+        /// <summary>
+        /// constructor DataBaseConfigurationManager
+        /// </summary>
         public DataBaseConfigurationManager()
         {
-          
             Configuration = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "..//..//..//").AddJsonFile("appsettings.json").Build();
             string connectionStrings = Configuration["ConnectionStrings:DefaultConnection"];
             var dacPacPath = Configuration["AppSettings:dacpacFilePath"];
             _connectionString = connectionStrings;
             _dacPacString = dacPacPath;
-            
-
         }
 
         /// <summary>
@@ -69,10 +78,7 @@ namespace TicketManagement.IntegrationTests
 
             var dacServiceInstance = new DacServices(_connectionString);
 
-            //ConfigurationManager.AppSettings["dacpacFilePath"];
             var dacpacPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + DacPacString;
-
-
 
             if (File.Exists(dacpacPath))
             {

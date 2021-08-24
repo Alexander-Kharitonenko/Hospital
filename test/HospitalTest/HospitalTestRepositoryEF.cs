@@ -14,15 +14,25 @@ namespace HospitalTest
 {
     public class HospitalTestRepositoryEF
     {
+        /// <summary>
+        ///object for database management
+        /// </summary>
         DataBaseConfigurationManager config = new DataBaseConfigurationManager();
-        
 
+        /// <summary>
+        /// runs at the beginning of the test and creates the database
+        /// </summary>
+        /// <returns>void</returns>
         [SetUp]
         public void Start()
         {
             config.LoadDataBase();    
         }
 
+        /// <summary>
+        /// method to test Get method
+        /// </summary>
+        /// <returns>IEnumerable<Doctor></returns>
         [Test]
         public void Get_WhenGet_ThenGetAllEntity()
         {
@@ -42,6 +52,10 @@ namespace HospitalTest
             Assert.NotNull(result);
         }
 
+        /// <summary>
+        ///  method to test Delete method
+        /// </summary>
+        /// <returns>void</returns>
         [Test]
         public void GetBy_WhenGetByName_ThenGetAllEntityWhithName()
         {
@@ -55,12 +69,12 @@ namespace HospitalTest
             {
                 RegistrationCardRepository doc = new RegistrationCardRepository(ct);
                 result = doc.GetAllEntityBy(el => el.Id == 4);
-
             }
 
             // Assert
             Assert.NotNull(result);
         }
+
 
         [Test]
         public async Task SaveChanges_WenAddEntity_ThenSaveChangesEntity()
@@ -76,14 +90,17 @@ namespace HospitalTest
                 IUnitOfWork repositorys = new UnitOfWork(new DoctorRepository(context), new MedicalHistoryRepository(context), new PatientRepository(context), new RegistrationCardRepository(context), context);
                 await repositorys.doctorRepository.CreateEntity(DoctorData);
                 await repositorys.registrationCardRepository.CreateEntity(RegistrationCardData);
-                result = await repositorys.SaveChangesAsync();
-              
+                result = await repositorys.SaveChangesAsync(); 
             }
 
             //Assert
              Assert.NotNull(result);
         }
 
+        /// <summary>
+        /// method to test Create method
+        /// </summary>
+        /// <returns>IEnumerable<Doctor></returns>
         [Test]
         public async Task CreateEFCore_WhenAddingRegistrationСard_ThenRegistrationСardAdd()
         {
@@ -98,13 +115,16 @@ namespace HospitalTest
                 RegistrationCardRepository Rc = new RegistrationCardRepository(ct);
                 await Rc.CreateEntity(RegistrationCardData);
                 result = await Rc.SaveChanges();
-
             }
 
             // Assert
             Assert.AreEqual(1, result);
         }
 
+        /// <summary>
+        ///  method to test Delete method
+        /// </summary>
+        /// <returns>void</returns>
         [Test]
         public async Task DeleteEFCore_WhenRegistrationСard_ThenDeleteRegistrationСard()
         {
@@ -128,6 +148,10 @@ namespace HospitalTest
             Assert.AreEqual(1, result);
         }
 
+        /// <summary>
+        /// method to test Update method
+        /// </summary>
+        /// <returns>void</returns>
         [Test]
         public async Task UpdateEFCore_WhenRegistrationСard_ThenUpdateRegistrationСard()
         {
@@ -151,7 +175,9 @@ namespace HospitalTest
             Assert.AreEqual(1, result);
         }
 
-
+        /// <summary>
+        /// initial data
+        /// </summary>
         public static RegistrationCard RegistrationCardData
         {
             get
@@ -160,6 +186,9 @@ namespace HospitalTest
             }
         }
 
+        /// <summary>
+        /// initial data
+        /// </summary>
         public static Doctor DoctorData
         {
             get
@@ -168,6 +197,9 @@ namespace HospitalTest
             }
         }
 
+        /// <summary>
+        /// runs at the end of the test and drops the database
+        /// </summary>
         [TearDown]
         public void End()
         {

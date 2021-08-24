@@ -15,6 +15,11 @@ namespace Hospital.DataAccess.ADO
         {
         }
 
+        /// <summary>
+        /// add a new object to the database
+        /// </summary>
+        /// <param name="entity">object to add</param>
+        /// <returns>void</returns>
         public async override Task CreateEntity(Doctor entity)
         {
             if (entity != null)
@@ -25,16 +30,19 @@ namespace Hospital.DataAccess.ADO
                     await connection.OpenAsync();
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.ExecuteNonQuery();
-
                 }
             }
         }
 
+        /// <summary>
+        /// Delete a object to the database
+        /// </summary>
+        /// <param name="entity">object to Delete</param>
+        /// <returns>void</returns>
         public async override Task Delete(Doctor entity)
         {
             List<Doctor> result = new List<Doctor>();
             string GetEntityById = $"SELECT * FROM Doctors WHERE Id ={entity.Id}";
-
 
             if (entity != null)
             {
@@ -53,17 +61,18 @@ namespace Hospital.DataAccess.ADO
 
                     if (Id.Any(el => el == entity.Id && entity.Id > 0))
                     {
-
-
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
                         command.ExecuteNonQuery();
-
                     }
                 }
             }
 
         }
 
+        /// <summary>
+        /// get all object from database
+        /// </summary>
+        /// <returns>void</returns>
         public override IEnumerable<Doctor> Get()
         {
             List<Doctor> result = new List<Doctor>();
@@ -81,6 +90,11 @@ namespace Hospital.DataAccess.ADO
             }
         }
 
+        /// <summary>
+        /// returns all elements that match a condition
+        /// </summary>
+        /// <param name="predicate">condition</param>
+        /// <returns>IEnumerable<Doctor></returns>
         public override IEnumerable<Doctor> GetAllEntityBy(Expression<Func<Doctor, bool>> predicate)
         {
             List<Doctor> result = new List<Doctor>();
@@ -90,12 +104,10 @@ namespace Hospital.DataAccess.ADO
             string predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
             string sqlExpression = $"SELECT * FROM Doctors WHERE {predicateString}";
 
-
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
                 string GetAllId = "SELECT * FROM Doctors Id";
-
                 SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
                 SqlDataReader readerId = commandforGetAllId.ExecuteReader();
                 List<int> Id = new List<int>();
@@ -106,7 +118,6 @@ namespace Hospital.DataAccess.ADO
 
                 if (Id.Any(el => el == item && item > 0))
                 {
-
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
@@ -122,6 +133,11 @@ namespace Hospital.DataAccess.ADO
             }
         }
 
+        /// <summary>
+        /// Update a object to the database
+        /// </summary>
+        /// <param name="entity">object to Update</param>
+        /// <returns>void</returns>
         public async override Task Update(Doctor entity)
         {
             if (entity != null)
@@ -144,12 +160,10 @@ namespace Hospital.DataAccess.ADO
                     {
                         SqlCommand command = new SqlCommand(sqlExpression, connection);
                         command.ExecuteNonQuery();
-
                     }
 
                 }
             }
-
         }
     }
 }

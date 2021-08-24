@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Hospital.DataAccess.Interfaces
 {
+    /// <summary>
+    /// interfaces for MedicalHistoryRepository
+    /// </summary>
     public interface  IMedicalHistoryRepository : IRepository<MedicalHistory>
     {
 

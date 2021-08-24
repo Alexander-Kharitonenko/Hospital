@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Hospital.DataAccess.Interfaces
 {
+    /// <summary>
+    /// interfaces for RegistrationCardRepository
+    /// </summary>
     public interface IRegistrationCardRepository : IRepository<RegistrationCard>
     {
     }

@@ -1,5 +1,4 @@
-﻿
-using Hospital.DataAccess.Entity;
+﻿using Hospital.DataAccess.Entity;
 using Hospital.DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -22,12 +21,31 @@ namespace RepositoryADO.InterfaceForRepository
             ConnectionString = connectionString;
         }
 
+        /// <summary>
+        /// add a new object to the database
+        /// </summary>
+        /// <param name="entity">object to add</param>
+        /// <returns>void</returns>
         public abstract Task CreateEntity(T entity);
 
+        /// <summary>
+        /// Delete a object to the database
+        /// </summary>
+        /// <param name="entity">object to Delete</param>
+        /// <returns>void</returns>
         public abstract Task Delete(T entity);
 
+        /// <summary>
+        /// get all object from database
+        /// </summary>
+        /// <returns>void</returns>
         public abstract IEnumerable<T> Get();
 
+        /// <summary>
+        /// returns all elements that match a condition
+        /// </summary>
+        /// <param name="predicate">condition</param>
+        /// <returns>IEnumerable<Doctor></returns>
         public abstract IEnumerable<T> GetAllEntityBy(Expression<Func<T, bool>> predicate);
 
         public Task<int> SaveChanges()
@@ -35,8 +53,11 @@ namespace RepositoryADO.InterfaceForRepository
             throw new NotImplementedException();
         }
 
-        public abstract Task Update(T entity);
-
-       
+        /// <summary>
+        /// Update a object to the database
+        /// </summary>
+        /// <param name="entity">object to Update</param>
+        /// <returns>void</returns>
+        public abstract Task Update(T entity);  
     }
 }

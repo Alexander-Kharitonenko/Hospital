@@ -9,7 +9,11 @@ using System.Threading.Tasks;
 namespace Hospital.DataAccess.EntityFramework
 {
     public class DoctorRepository : Repository<Doctor> , IDoctorRepository
-    { 
+    {
+        /// <summary>
+        /// constructor for DoctorRepository
+        /// </summary>
+        /// <param name="contextDb">context for database</param>
         public DoctorRepository(HospitalContext contextDb) : base(contextDb) 
         {
         }
