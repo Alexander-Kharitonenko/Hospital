@@ -1,5 +1,4 @@
 ﻿using Hospital.DataAccess;
-using Hospital.DataAccess.ADO;
 using Hospital.DataAccess.Entity;
 using Hospital.DataAccess.EntityFramework;
 using Hospital.DataAccess.Interfaces;
@@ -12,6 +11,9 @@ using TicketManagement.IntegrationTests;
 
 namespace HospitalTest
 {
+    /// <summary>
+    /// class for test RepositoryEF
+    /// </summary>
     public class HospitalTestRepositoryEF
     {
         /// <summary>
@@ -26,7 +28,7 @@ namespace HospitalTest
         [SetUp]
         public void Start()
         {
-            config.LoadDataBase();    
+            config.LoadDataBase();
         }
 
         /// <summary>
@@ -39,12 +41,12 @@ namespace HospitalTest
             // Arrange
             IEnumerable<RegistrationCard> result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-            DbContextOptions<HospitalContext> options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+            var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
 
             // Act 
-            using (HospitalContext ct = new HospitalContext(options))
+            using (var ct = new HospitalContext(options))
             {
-                RegistrationCardRepository doc = new RegistrationCardRepository(ct);
+                var doc = new RegistrationCardRepository(ct);
                 result = doc.Get();
             }
 
@@ -62,12 +64,12 @@ namespace HospitalTest
             // Arrange
             IEnumerable<RegistrationCard> result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-            DbContextOptions<HospitalContext> options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+            var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
 
             // Act 
-            using (HospitalContext ct = new HospitalContext(options))
+            using (var ct = new HospitalContext(options))
             {
-                RegistrationCardRepository doc = new RegistrationCardRepository(ct);
+                var doc = new RegistrationCardRepository(ct);
                 result = doc.GetAllEntityBy(el => el.Id == 4);
             }
 
@@ -82,19 +84,19 @@ namespace HospitalTest
             // Arrange
             int result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-            DbContextOptions<HospitalContext> options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+            var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
 
             //Act
-            using (HospitalContext context = new HospitalContext(options))
+            using (var context = new HospitalContext(options))
             {
-                IUnitOfWork repositorys = new UnitOfWork(new DoctorRepository(context), new MedicalHistoryRepository(context), new PatientRepository(context), new RegistrationCardRepository(context), context);
+                var repositorys = new UnitOfWork(new DoctorRepository(context), new MedicalHistoryRepository(context), new PatientRepository(context), new RegistrationCardRepository(context), context);
                 await repositorys.doctorRepository.CreateEntity(DoctorData);
                 await repositorys.registrationCardRepository.CreateEntity(RegistrationCardData);
-                result = await repositorys.SaveChangesAsync(); 
+                result = await repositorys.SaveChangesAsync();
             }
 
             //Assert
-             Assert.NotNull(result);
+            Assert.NotNull(result);
         }
 
         /// <summary>
@@ -107,12 +109,12 @@ namespace HospitalTest
             // Arrange
             int result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-            DbContextOptions<HospitalContext> options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+            var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
 
             // Act 
-            using (HospitalContext ct = new HospitalContext(options))
+            using (var ct = new HospitalContext(options))
             {
-                RegistrationCardRepository Rc = new RegistrationCardRepository(ct);
+                var Rc = new RegistrationCardRepository(ct);
                 await Rc.CreateEntity(RegistrationCardData);
                 result = await Rc.SaveChanges();
             }
@@ -130,15 +132,15 @@ namespace HospitalTest
         {
             // Arrange
             int result;
-            RegistrationCard card = new  RegistrationCard() {Id = 3};
+            var card = new RegistrationCard() { Id = 3 };
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-            DbContextOptions<HospitalContext> options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+            var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
 
             // Act 
-            using (HospitalContext ct = new HospitalContext(options))
+            using (var ct = new HospitalContext(options))
             {
 
-                RegistrationCardRepository Rc = new RegistrationCardRepository(ct);
+                var Rc = new RegistrationCardRepository(ct);
                 await Rc.Delete(card);
                 result = await Rc.SaveChanges();
 
@@ -157,15 +159,15 @@ namespace HospitalTest
         {
             // Arrange
             int result;
-            RegistrationCard card = new RegistrationCard() { Id = 3 , DoctorId = 4, PatientId = 5, DiagnosisId = 4, DateAdmission = DateTime.UtcNow.Date };
+            var card = new RegistrationCard() { Id = 3, DoctorId = 4, PatientId = 5, DiagnosisId = 4, DateAdmission = DateTime.UtcNow.Date };
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-            DbContextOptions<HospitalContext> options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+            var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
 
             // Act 
-            using (HospitalContext ct = new HospitalContext(options))
+            using (var ct = new HospitalContext(options))
             {
 
-                RegistrationCardRepository Rc = new RegistrationCardRepository(ct);
+                var Rc = new RegistrationCardRepository(ct);
                 await Rc.Update(card);
                 result = await Rc.SaveChanges();
 
@@ -182,7 +184,7 @@ namespace HospitalTest
         {
             get
             {
-                return new RegistrationCard() { DoctorId = 3 , PatientId = 4, DiagnosisId = 2, DateAdmission = DateTime.UtcNow.Date };
+                return new RegistrationCard() { DoctorId = 3, PatientId = 4, DiagnosisId = 2, DateAdmission = DateTime.UtcNow.Date };
             }
         }
 

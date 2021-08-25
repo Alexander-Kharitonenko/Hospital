@@ -6,14 +6,20 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hospital.DataAccess.ADO
 {
-    public class RegistrationCardRepositoryADO : BaseRepositoryADO<RegistrationCard>, IRegistrationCardRepository
+    /// <summary>
+    /// contains the logic for working with RegistrationCardRepository using ADO technology
+    /// </summary>
+    public class RegistrationCardRepositoryAdo : BaseRepositoryAdo<RegistrationCard>, IRegistrationCardRepository
     {
-        public RegistrationCardRepositoryADO(string connectionString) : base(connectionString)
+        /// <summary>
+        /// constructor for initializing class fields
+        /// </summary>
+        /// <param name="connectionString">database connection field</param>
+        public RegistrationCardRepositoryAdo(string connectionString) : base(connectionString)
         { }
 
         /// <summary>
@@ -26,11 +32,11 @@ namespace Hospital.DataAccess.ADO
             var data = entity.DateAdmission.ToShortDateString().Replace(".", "-").ToString();
             if (entity != null)
             {
-                string sqlExpression = $"INSERT INTO RegistrationСards (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', {data})";
-                using (SqlConnection connection = new SqlConnection(ConnectionString))
+                var sqlExpression = $"INSERT INTO RegistrationСards (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', {data})";
+                using (var connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
-                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    var command = new SqlCommand(sqlExpression, connection);
                     command.ExecuteNonQuery();
                 }
             }
@@ -43,18 +49,18 @@ namespace Hospital.DataAccess.ADO
         /// <returns>void</returns>
         public async override Task Delete(RegistrationCard entity)
         {
-            List<RegistrationCard> result = new List<RegistrationCard>();
+            var result = new List<RegistrationCard>();
             var getEntityById = $"SELECT * FROM RegistrationСards WHERE Id ={entity.Id}";
 
             if (entity != null)
             {
                 var sqlExpression = $"DELETE FROM RegistrationСards WHERE Id= {entity.Id}";
-                using (SqlConnection connection = new SqlConnection(ConnectionString))
+                using (var connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
-                    SqlCommand commandforGetAllId = new SqlCommand(getEntityById, connection);
-                    SqlDataReader readerId = commandforGetAllId.ExecuteReader();
-                    List<int> Id = new List<int>();
+                    var commandforGetAllId = new SqlCommand(getEntityById, connection);
+                    var readerId = commandforGetAllId.ExecuteReader();
+                    var Id = new List<int>();
                     while (readerId.Read())
                     {
                         Id.Add(readerId.GetInt32(0));
@@ -75,13 +81,13 @@ namespace Hospital.DataAccess.ADO
         /// <returns>void</returns>
         public override IEnumerable<RegistrationCard> Get()
         {
-            List<RegistrationCard> result = new List<RegistrationCard>();
+            var result = new List<RegistrationCard>();
             var sqlExpression = "SELECT * FROM RegistrationСards";
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                SqlDataReader reader = command.ExecuteReader();
+                var command = new SqlCommand(sqlExpression, connection);
+                var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     result.Add(new RegistrationCard() { Id = reader.GetInt32(0), PatientId = reader.GetInt32(2), DoctorId = reader.GetInt32(1), DiagnosisId = reader.GetInt32(4), DateAdmission = reader.GetDateTime(3) });
@@ -97,21 +103,21 @@ namespace Hospital.DataAccess.ADO
         /// <returns>IEnumerable<Doctor></returns>
         public override IEnumerable<RegistrationCard> GetAllEntityBy(Expression<Func<RegistrationCard, bool>> predicate)
         {
-            List<RegistrationCard> result = new List<RegistrationCard>();
+            var result = new List<RegistrationCard>();
             int item;
             var argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
             var x = int.TryParse(argument, out item);
             var predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
             var sqlExpression = $"SELECT * FROM RegistrationСards WHERE {predicateString}";
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
                 var GetAllId = "SELECT * FROM RegistrationСards Id";
 
-                SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
-                SqlDataReader readerId = commandforGetAllId.ExecuteReader();
-                List<int> Id = new List<int>();
+                var commandforGetAllId = new SqlCommand(GetAllId, connection);
+                var readerId = commandforGetAllId.ExecuteReader();
+                var Id = new List<int>();
                 while (readerId.Read())
                 {
                     Id.Add(readerId.GetInt32(0));
@@ -119,8 +125,8 @@ namespace Hospital.DataAccess.ADO
 
                 if (Id.Any(el => el == item && item > 0))
                 {
-                    SqlCommand command = new SqlCommand(sqlExpression, connection);
-                    SqlDataReader reader = command.ExecuteReader();
+                    var command = new SqlCommand(sqlExpression, connection);
+                    var reader = command.ExecuteReader();
                     while (reader.Read())
                     {
                         result.Add(new RegistrationCard() { Id = reader.GetInt32(0), PatientId = reader.GetInt32(2), DoctorId = reader.GetInt32(1), DiagnosisId = reader.GetInt32(4), DateAdmission = reader.GetDateTime(3) });
@@ -145,15 +151,15 @@ namespace Hospital.DataAccess.ADO
             {
                 //'{x.ToString()}' and DATE
                 //{x} and DATETIME
-                var x = entity.DateAdmission.ToShortDateString().Replace(".", "-");
-                var sqlExpression = $"UPDATE RegistrationСards SET PatientId = '{entity.PatientId}',DoctorId = '{entity.DoctorId}',DiagnosisId = '{entity.DiagnosisId}',DateAdmission = {x} WHERE Id={entity.Id}";
-                using (SqlConnection connection = new SqlConnection(ConnectionString))
+                var data = entity.DateAdmission.ToShortDateString().Replace(".", "-");
+                var sqlExpression = $"UPDATE RegistrationСards SET PatientId = '{entity.PatientId}',DoctorId = '{entity.DoctorId}',DiagnosisId = '{entity.DiagnosisId}',DateAdmission = {data} WHERE Id={entity.Id}";
+                using (var connection = new SqlConnection(ConnectionString))
                 {
-                    var GetAllId = "SELECT * FROM RegistrationСards Id";
+                    var getAllId = "SELECT * FROM RegistrationСards Id";
                     await connection.OpenAsync();
-                    SqlCommand commandforGetAllId = new SqlCommand(GetAllId, connection);
-                    SqlDataReader readerId = commandforGetAllId.ExecuteReader();
-                    List<int> Id = new List<int>();
+                    var commandforGetAllId = new SqlCommand(getAllId, connection);
+                    var readerId = commandforGetAllId.ExecuteReader();
+                    var Id = new List<int>();
                     while (readerId.Read())
                     {
                         Id.Add(readerId.GetInt32(0));
@@ -161,8 +167,8 @@ namespace Hospital.DataAccess.ADO
 
                     if (Id.Any(el => el >= entity.Id && entity.Id > 0))
                     {
-                        SqlCommand command = new SqlCommand(sqlExpression, connection);
-                       command.ExecuteNonQuery();
+                        var command = new SqlCommand(sqlExpression, connection);
+                        command.ExecuteNonQuery();
                     }
                 }
             }

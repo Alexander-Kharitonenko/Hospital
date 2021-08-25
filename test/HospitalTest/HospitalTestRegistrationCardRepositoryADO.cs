@@ -1,4 +1,3 @@
-
 using Hospital.DataAccess.ADO;
 using Hospital.DataAccess.Entity;
 using NUnit.Framework;
@@ -9,7 +8,10 @@ using TicketManagement.IntegrationTests;
 
 namespace Hospital.XUnitTest
 {
-    public class HospitalTestRegistrationCardRepositoryADO
+    /// <summary>
+    /// class for test RegistrationCardRepositoryAdo
+    /// </summary>
+    public class HospitalTestRegistrationCardRepositoryAdo
     {
         /// <summary>
         ///object for database management
@@ -34,10 +36,10 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenReturnAllRegistrationCard()
         {
             // Arrange
-            RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
+            var doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
-            IEnumerable<RegistrationCard> result = doc.Get();
+            var result = doc.Get();
 
             // Assert
             Assert.NotNull(result);
@@ -51,8 +53,8 @@ namespace Hospital.XUnitTest
         public async Task CreateEntity_WhenRegistrationCar_ThenCreateRegistrationCar()
         {
             // Arrange
-            List<RegistrationCard> registrationCards = new List<RegistrationCard>();
-            RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
+            var registrationCards = new List<RegistrationCard>();
+            var doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.CreateEntity(RegistrationCardData);
@@ -74,8 +76,8 @@ namespace Hospital.XUnitTest
         public async Task Update_WhenRegistrationCard_ThenUpdateRegistrationCard()
         {
             // Arrange
-            List<RegistrationCard> registrationCards = new List<RegistrationCard>();
-            RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
+            var registrationCards = new List<RegistrationCard>();
+            var doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Update(RegistrationCardData);
@@ -97,8 +99,8 @@ namespace Hospital.XUnitTest
         public async Task Delete_WhenRegistrationCard_ThenDeleteRegistrationCard()
         {
             // Arrange
-            List<RegistrationCard> registrationCards = new List<RegistrationCard>();
-            RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
+            var registrationCards = new List<RegistrationCard>();
+            var doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Delete(RegistrationCardData);
@@ -116,10 +118,10 @@ namespace Hospital.XUnitTest
         public void GetAllEntityById_WhenId_5_ThenReturnRegistrationCardWhithId_5()
         {
             // Arrange
-            RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
+            var doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
-            IEnumerable<RegistrationCard> result = doc.GetAllEntityBy(el => el.Id == 5);
+            var result = doc.GetAllEntityBy(el => el.Id == 5);
 
             // Assert
             Assert.NotNull(result);
@@ -132,7 +134,7 @@ namespace Hospital.XUnitTest
         {
             get
             {
-                return new RegistrationCard() { Id = 3, PatientId = 3, DoctorId = 3, DiagnosisId = 2, DateAdmission = DateTime.UtcNow.Date };  
+                return new RegistrationCard() { Id = 3, PatientId = 3, DoctorId = 3, DiagnosisId = 2, DateAdmission = DateTime.UtcNow.Date };
             }
         }
 

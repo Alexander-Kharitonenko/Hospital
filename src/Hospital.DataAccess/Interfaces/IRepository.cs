@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace Hospital.DataAccess.Interfaces
 {
     /// <summary>
-    /// 
+    /// interface for implementation Repository
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">the parameter indicates which entity the repository is working with</typeparam>
     public interface IRepository<T> where T : class, IEntity
     {
         /// <summary>

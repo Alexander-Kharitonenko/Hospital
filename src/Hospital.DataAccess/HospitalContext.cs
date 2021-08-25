@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Hospital.DataAccess
 {
+    /// <summary>
+    /// class for interacting with the database
+    /// </summary>
     public class HospitalContext : DbContext
     {
         /// <summary>

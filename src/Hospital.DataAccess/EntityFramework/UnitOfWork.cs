@@ -1,12 +1,12 @@
 ﻿using Hospital.DataAccess.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hospital.DataAccess.EntityFramework
 {
+    /// <summary>
+    /// the class allows you to work with all repositories
+    /// </summary>
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
         /// <summary>
@@ -42,7 +42,7 @@ namespace Hospital.DataAccess.EntityFramework
         /// <param name="patientRepository">repository field</param>
         /// <param name="registrationCardRepository">repository field</param>
         /// <param name="contextDb">field context</param>
-        public UnitOfWork(IDoctorRepository doctorRepository, IMedicalHistoryRepository medicalHistoryRepository, IPatientRepository patientRepository, IRegistrationCardRepository registrationCardRepository, HospitalContext contextDb) 
+        public UnitOfWork(IDoctorRepository doctorRepository, IMedicalHistoryRepository medicalHistoryRepository, IPatientRepository patientRepository, IRegistrationCardRepository registrationCardRepository, HospitalContext contextDb)
         {
             DoctorRepository = doctorRepository;
             MedicalHistoryRepository = medicalHistoryRepository;
@@ -87,8 +87,8 @@ namespace Hospital.DataAccess.EntityFramework
         /// <returns>number of changes</returns>
         public async Task<int> SaveChangesAsync()
         {
-           var result = await ContextDb.SaveChangesAsync();
-           return result;
+            var result = await ContextDb.SaveChangesAsync();
+            return result;
         }
     }
 }

@@ -1,13 +1,16 @@
 using Hospital.DataAccess.ADO;
 using Hospital.DataAccess.Entity;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicketManagement.IntegrationTests;
+
 namespace Hospital.XUnitTest
 {
-    public class HospitalTestPatientRepositoryADO
+    /// <summary>
+    /// class for test PatientRepositoryAdo
+    /// </summary>
+    public class HospitalTestPatientRepositoryAdo
     {
         /// <summary>
         ///object for database management
@@ -32,10 +35,10 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenGetAllPatient()
         {
             // Arrange
-            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
+            var doc = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
-            IEnumerable<Patient> result = doc.Get();
+            var result = doc.Get();
 
             // Assert
             Assert.NotNull(result);
@@ -49,8 +52,8 @@ namespace Hospital.XUnitTest
         public async Task CreateEntity_WhenCreatePatient_ThenCreatePatient()
         {
             // Arrange
-            List<Patient> patients = new List<Patient>();
-            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
+            var patients = new List<Patient>();
+            var doc = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.CreateEntity(PatientData);
@@ -72,8 +75,8 @@ namespace Hospital.XUnitTest
         public async Task UpdateEntity_WhenPatient_ThenUpdatePatient()
         {
             // Arrange
-            List<Patient> patients = new List<Patient>();
-            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
+            var patients = new List<Patient>();
+            var doc = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Update(PatientData);
@@ -95,8 +98,8 @@ namespace Hospital.XUnitTest
         public async Task Delete_WhenPatient_ThenDeletePatient()
         {
             // Arrange
-            List<Patient> patients = new List<Patient>();
-            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
+            var patients = new List<Patient>();
+            var doc = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Delete(PatientData);
@@ -106,21 +109,26 @@ namespace Hospital.XUnitTest
             Assert.IsNull(result);
         }
 
+        /// <summary>
+        ///  method to test GetAllEntityById method
+        /// </summary>
+        /// <returns>void</returns>
         [Test]
         public void GetAllEntityById_WhenId_5_ThenReturnPatientWhithId_5()
         {
             // Arrange
-            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
+            var doc = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
-            IEnumerable<Patient> result = doc.GetAllEntityBy(el => el.Id == 5);
+            var result = doc.GetAllEntityBy(el => el.Id == 5);
 
             // Assert
             Assert.NotNull(result);
         }
 
-
-
+        /// <summary>
+        /// initial data
+        /// </summary>
         public static Patient PatientData
         {
             get
@@ -129,6 +137,9 @@ namespace Hospital.XUnitTest
             }
         }
 
+        /// <summary>
+        /// runs at the end of the test and drops the database
+        /// </summary>
         [TearDown]
         public void End()
         {

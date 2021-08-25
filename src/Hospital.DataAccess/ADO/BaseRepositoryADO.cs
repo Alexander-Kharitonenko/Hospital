@@ -2,21 +2,27 @@
 using Hospital.DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RepositoryADO.InterfaceForRepository
 {
-    public abstract class BaseRepositoryADO<T> : IRepository<T> where T : class, IEntity
+    /// <summary>
+    /// Base implementation class
+    /// </summary>
+    /// <typeparam name="T">a parameter responsible for the entity with which the class works</typeparam>
+    public abstract class BaseRepositoryAdo<T> : IRepository<T> where T : class, IEntity
     {
         /// <summary>
         /// field contains сonnection string
         /// </summary>
         protected readonly string ConnectionString;
 
-        public BaseRepositoryADO(string connectionString) 
+        /// <summary>
+        /// constructor for initializing class fields
+        /// </summary>
+        /// <param name="connectionString">database connection field</param>
+        public BaseRepositoryAdo(string connectionString)
         {
             ConnectionString = connectionString;
         }
@@ -58,6 +64,6 @@ namespace RepositoryADO.InterfaceForRepository
         /// </summary>
         /// <param name="entity">object to Update</param>
         /// <returns>void</returns>
-        public abstract Task Update(T entity);  
+        public abstract Task Update(T entity);
     }
 }

@@ -1,16 +1,18 @@
-﻿
-using Hospital.DataAccess.Entity;
+﻿using Hospital.DataAccess.Entity;
 using Hospital.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hospital.DataAccess.EntityFramework
 {
+    /// <summary>
+    /// stores the general logic of working with all repositories
+    /// </summary>
+    /// <typeparam name="T">the parameter indicates which entity the repository is working with</typeparam>
     public abstract class Repository<T> : IRepository<T> where T : class, IEntity
     {
         /// <summary>
@@ -27,7 +29,7 @@ namespace Hospital.DataAccess.EntityFramework
         /// constructor for initializing fields
         /// </summary>
         /// <param name="contextDb">object for working with a table</param>
-        public Repository(HospitalContext contextDb) 
+        public Repository(HospitalContext contextDb)
         {
             ContextDb = contextDb;
             Table = contextDb.Set<T>();
@@ -72,7 +74,7 @@ namespace Hospital.DataAccess.EntityFramework
         {
             IEnumerable<T> GetAllEntity = Table.Where(predicate).ToList();
             return GetAllEntity;
-            
+
         }
 
         /// <summary>
@@ -81,8 +83,8 @@ namespace Hospital.DataAccess.EntityFramework
         /// <returns></returns>
         public async Task<int> SaveChanges()
         {
-           var result = await ContextDb.SaveChangesAsync();
-           return result;
+            var result = await ContextDb.SaveChangesAsync();
+            return result;
         }
 
         /// <summary>
@@ -91,7 +93,7 @@ namespace Hospital.DataAccess.EntityFramework
         /// <param name="entity">object for working with a table</param>
         /// <returns>void</returns>
         public async Task Update(T entity)
-        {         
+        {
             Table.Update(entity);
         }
     }

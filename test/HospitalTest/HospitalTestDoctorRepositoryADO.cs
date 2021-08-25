@@ -1,18 +1,16 @@
-using Hospital.DataAccess;
 using Hospital.DataAccess.ADO;
 using Hospital.DataAccess.Entity;
-using Hospital.DataAccess.EntityFramework;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicketManagement.IntegrationTests;
 
-
 namespace Hospital.XUnitTest
 {
-    public class HospitalTestDoctorRepositoryADO
+    /// <summary>
+    /// class for test DoctorRepositoryAdo
+    /// </summary>
+    public class HospitalTestDoctorRepositoryAdo
     {
         /// <summary>
         ///object for database management
@@ -37,10 +35,10 @@ namespace Hospital.XUnitTest
         public void Get_WhenGetDoctor_ThenGetDoctor()
         {
             // Arrange
-            DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
+            var doc = new DoctorRepositoryAdo(config.ConnectionString);
 
             // Act
-            IEnumerable<Doctor> result = doc.Get();
+            var result = doc.Get();
 
             // Assert
             Assert.IsNotNull(result);
@@ -54,12 +52,12 @@ namespace Hospital.XUnitTest
         public async Task CreateEntity_WhenAddingDoctor_ThenDoctorAdded()
         {
             // Arrange
-            List<Doctor> doctor = new List<Doctor>();
-            DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
+            var doctor = new List<Doctor>();
+            var doc = new DoctorRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.CreateEntity(DoctorData);
-            IEnumerable<Doctor> result = doc.GetAllEntityBy(el => el.Id == 6);
+            var result = doc.GetAllEntityBy(el => el.Id == 6);
             foreach (var i in result)
             {
                 doctor.Add(i);
@@ -77,12 +75,12 @@ namespace Hospital.XUnitTest
         public async Task UpdateDoctor_WhenDoctorApdates_ThenDoctorUpdated()
         {
             // Arrange
-            List<Doctor> doctor = new List<Doctor>();
-            DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
+            var doctor = new List<Doctor>();
+            var doc = new DoctorRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Update(DoctorData);
-            IEnumerable<Doctor> result = doc.GetAllEntityBy(el => el.Id == 3);
+            var result = doc.GetAllEntityBy(el => el.Id == 3);
             foreach (var i in result)
             {
                 doctor.Add(i);
@@ -100,10 +98,10 @@ namespace Hospital.XUnitTest
         public void GetAllEntityById_WhenId_5_ThenReturnDoctorWhisId_5()
         {
             // Arrange
-            DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
+            var doc = new DoctorRepositoryAdo(config.ConnectionString);
 
             // Act
-            IEnumerable<Doctor> result = doc.GetAllEntityBy(el => el.Id == 5);
+            var result = doc.GetAllEntityBy(el => el.Id == 5);
 
             // Assert
             Assert.IsNotNull(result);
@@ -117,7 +115,7 @@ namespace Hospital.XUnitTest
         public async Task Delete_WhenId_Doctor_3_ThenDeleteDoctor()
         {
             // Arrange       
-            DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
+            var doc = new DoctorRepositoryAdo(config.ConnectionString);
 
             //Act
             await doc.Delete(DoctorData);

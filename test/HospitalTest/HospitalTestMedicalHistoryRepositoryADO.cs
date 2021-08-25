@@ -8,9 +8,10 @@ using TicketManagement.IntegrationTests;
 
 namespace Hospital.XUnitTest
 {
-   
-   
-    public class HospitalTestMedicalHistoryRepositoryADO
+    /// <summary>
+    /// class for test MedicalHistoryRepositoryAdo
+    /// </summary>
+    public class HospitalTestMedicalHistoryRepositoryAdo
     {
         /// <summary>
         ///object for database management
@@ -35,7 +36,7 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenReturnMedicalHistory()
         {
             // Arrange
-            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
+            var doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
             var result = doc.Get();
@@ -52,8 +53,8 @@ namespace Hospital.XUnitTest
         public async Task CreateEntity_WhenMedicalHistory_ThenCreateMedicalHistory()
         {
             // Arrange
-            List<MedicalHistory> histors = new List<MedicalHistory>();
-            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
+            var histors = new List<MedicalHistory>();
+            var doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.CreateEntity(MedicalHistoryData);
@@ -75,8 +76,8 @@ namespace Hospital.XUnitTest
         public async Task Update_WhenMedicalHistory_ThenUpdateMedicalHistory()
         {
             // Arrange
-            List<MedicalHistory> histors = new List<MedicalHistory>();
-            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
+            var histors = new List<MedicalHistory>();
+            var doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Update(MedicalHistoryData);
@@ -98,8 +99,8 @@ namespace Hospital.XUnitTest
         public async Task Delete_WhenMedicalHistory_ThenDeleteMedicalHistory()
         {
             // Arrange
-            List<MedicalHistory> histors = new List<MedicalHistory>();
-            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
+            var histors = new List<MedicalHistory>();
+            var doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Delete(MedicalHistoryData);
@@ -118,7 +119,7 @@ namespace Hospital.XUnitTest
         public void GetAllEntityById_WhenId_5_ThenReturnMedicalHistoryWhithId_5()
         {
             // Arrange
-            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
+            var doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
             var result = doc.GetAllEntityBy(el => el.Id == 5);
