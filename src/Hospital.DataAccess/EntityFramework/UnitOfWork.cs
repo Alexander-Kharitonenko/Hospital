@@ -78,7 +78,6 @@ namespace Hospital.DataAccess.EntityFramework
         {
             ContextDb?.Dispose();
             GC.SuppressFinalize(this);
-
         }
 
         /// <summary>

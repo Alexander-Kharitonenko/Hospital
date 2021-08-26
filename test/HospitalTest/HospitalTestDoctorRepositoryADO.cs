@@ -78,7 +78,7 @@ namespace Hospital.XUnitTest
             // Act
             await doc.Update(DoctorData);
             doctor.AddRange(doc.Get());
-            
+
             // Assert
             Assert.AreEqual(doctor[2].LastName, DoctorData.LastName);
         }
@@ -88,20 +88,26 @@ namespace Hospital.XUnitTest
         /// </summary>
         /// <returns>void</returns>
         [Test]
-        public async Task Delete_WhenId_Doctor_3_ThenDeleteDoctor()
+        public async Task Delete_WhenIdDoctor_ThenDeleteDoctor()
         {
             // Arrange
+            const int allRecordsAfterDeletion = 4;
             var doctor = new List<Doctor>();
             var doc = new DoctorRepositoryAdo(config.ConnectionString);
 
             //Act    
             await doc.Delete(DoctorData);
             doctor.AddRange(doc.Get());
-           
+
             //Assert
-            Assert.AreEqual(4, doctor.Count);
+            Assert.AreEqual(allRecordsAfterDeletion, doctor.Count);
         }
 
+        /// <summary>
+        /// initial data for DoctorData
+        /// </summary>
+        private const int Id = 3;
+       
         /// <summary>
         /// initial data
         /// </summary>
@@ -109,7 +115,7 @@ namespace Hospital.XUnitTest
         {
             get
             {
-                return new Doctor() { Id = 3, FirstName = "TestName", Patronymic = "TestPatronymic", LastName = "TestLastName", NumberPhone = "TestNumberPhone" };
+                return new Doctor() { Id = Id, FirstName = "TestName", Patronymic = "TestPatronymic", LastName = "TestLastName", NumberPhone = "TestNumberPhone" };
             }
         }
 

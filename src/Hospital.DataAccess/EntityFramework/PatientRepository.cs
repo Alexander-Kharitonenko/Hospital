@@ -14,8 +14,6 @@ namespace Hospital.DataAccess.EntityFramework
         /// <param name="contextDb">context for database</param>
         public PatientRepository(HospitalContext contextDb) : base(contextDb)
         {
-
         }
-
     }
 }

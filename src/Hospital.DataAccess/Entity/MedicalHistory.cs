@@ -2,6 +2,9 @@
 
 namespace Hospital.DataAccess.Entity
 {
+    /// <summary>
+    /// class describes an entity MedicalHistory
+    /// </summary>
     public class MedicalHistory : IEntity
     {
         /// <summary>

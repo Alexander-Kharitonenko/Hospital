@@ -93,17 +93,38 @@ namespace Hospital.XUnitTest
         public async Task Delete_WhenRegistrationCard_ThenDeleteRegistrationCard()
         {
             // Arrange
+            const int allRecordsAfterDeletion = 4;
             var registrationCards = new List<RegistrationCard>();
             var doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Delete(RegistrationCardData);
             registrationCards.AddRange(doc.Get());
-            
+
 
             // Assert
-            Assert.AreEqual(4, registrationCards.Count);
+            Assert.AreEqual(allRecordsAfterDeletion, registrationCards.Count);
         }
+
+        /// <summary>
+        /// initial data RegistrationCardData
+        /// </summary>
+        private const int Id = 3;
+
+        /// <summary>
+        /// initial data RegistrationCardData
+        /// </summary>
+        private const int PatientId = 3;
+
+        /// <summary>
+        /// initial data RegistrationCardData
+        /// </summary>
+        private const int DoctorId = 3;
+
+        /// <summary>
+        /// initial data RegistrationCardData
+        /// </summary>
+        private const int DiagnosisId = 2;
 
         /// <summary>
         /// initial data
@@ -112,7 +133,7 @@ namespace Hospital.XUnitTest
         {
             get
             {
-                return new RegistrationCard() { Id = 3, PatientId = 3, DoctorId = 3, DiagnosisId = 2, DateAdmission = DateTime.UtcNow.Date };
+                return new RegistrationCard() { Id = Id, PatientId = PatientId, DoctorId = DoctorId, DiagnosisId = DiagnosisId, DateAdmission = DateTime.UtcNow.Date };
             }
         }
 

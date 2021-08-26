@@ -1,7 +1,10 @@
 ﻿using System;
 
 namespace Hospital.DataAccess.Entity
-{
+{   
+    /// <summary>
+    /// class describes an entity Doctor
+    /// </summary>
     public class Doctor : IEntity
     {
         /// <summary>

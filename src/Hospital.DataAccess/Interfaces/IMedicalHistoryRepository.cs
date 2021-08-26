@@ -7,6 +7,5 @@ namespace Hospital.DataAccess.Interfaces
     /// </summary>
     public interface IMedicalHistoryRepository : IRepository<MedicalHistory>
     {
-
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Hospital.DataAccess;
 using Hospital.DataAccess.Entity;
 using Hospital.DataAccess.EntityFramework;
-using Hospital.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
@@ -14,7 +13,7 @@ namespace HospitalTest
     /// <summary>
     /// class for test RepositoryEF
     /// </summary>
-    public class HospitalTestRepositoryEF
+    public class HospitalTestRepositoryEntityFramework
     {
         /// <summary>
         ///object for database management
@@ -84,9 +83,10 @@ namespace HospitalTest
         /// </summary>
         /// <returns>IEnumerable<Doctor></returns>
         [Test]
-        public async Task CreateEFCore_WhenAddingRegistrationСard_ThenRegistrationСardAdd()
+        public async Task Create_WhenAddingRegistrationСard_ThenRegistrationСardAdd()
         {
             // Arrange
+            const int numberOfChanges = 1;
             int result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
@@ -100,7 +100,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(1, result);
+            Assert.AreEqual(numberOfChanges, result);
         }
 
         /// <summary>
@@ -108,11 +108,13 @@ namespace HospitalTest
         /// </summary>
         /// <returns>void</returns>
         [Test]
-        public async Task DeleteEFCore_WhenRegistrationСard_ThenDeleteRegistrationСard()
+        public async Task Delete_WhenRegistrationСard_ThenDeleteRegistrationСard()
         {
             // Arrange
+            const int numberOfChanges = 1;
+            int Id = 3;
             int result;
-            var card = new RegistrationCard() { Id = 3 };
+            var card = new RegistrationCard() { Id = Id };
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
 
@@ -127,7 +129,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(1, result);
+            Assert.AreEqual(numberOfChanges, result);
         }
 
         /// <summary>
@@ -135,11 +137,15 @@ namespace HospitalTest
         /// </summary>
         /// <returns>void</returns>
         [Test]
-        public async Task UpdateEFCore_WhenRegistrationСard_ThenUpdateRegistrationСard()
+        public async Task Update_WhenRegistrationСard_ThenUpdateRegistrationСard()
         {
-            // Arrange
+            int Id = 3;
+            int DoctorId = 3;
+            int PatientId = 4;
+            int DiagnosisId = 2;
+            const int numberOfChanges = 1;
             int result;
-            var card = new RegistrationCard() { Id = 3, DoctorId = 4, PatientId = 5, DiagnosisId = 4, DateAdmission = DateTime.UtcNow.Date };
+            var card = new RegistrationCard() { Id = Id, DoctorId = DoctorId, PatientId = PatientId, DiagnosisId = DiagnosisId, DateAdmission = DateTime.UtcNow.Date };
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
 
@@ -154,8 +160,23 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(1, result);
+            Assert.AreEqual(numberOfChanges, result);
         }
+
+        /// <summary>
+        /// initial data for RegistrationCardData
+        /// </summary>
+        private const int DoctorId = 3;
+
+        /// <summary>
+        /// initial data for RegistrationCardData
+        /// </summary>
+        private const int PatientId = 4;
+
+        /// <summary>
+        /// initial data for RegistrationCardData
+        /// </summary>
+        private const int DiagnosisId = 2;
 
         /// <summary>
         /// initial data
@@ -164,7 +185,7 @@ namespace HospitalTest
         {
             get
             {
-                return new RegistrationCard() { DoctorId = 3, PatientId = 4, DiagnosisId = 2, DateAdmission = DateTime.UtcNow.Date };
+                return new RegistrationCard() { DoctorId = DoctorId, PatientId = PatientId, DiagnosisId = DiagnosisId, DateAdmission = DateTime.UtcNow.Date };
             }
         }
 

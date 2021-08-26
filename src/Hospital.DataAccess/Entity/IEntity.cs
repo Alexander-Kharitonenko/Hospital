@@ -2,6 +2,9 @@
 
 namespace Hospital.DataAccess.Entity
 {
+    /// <summary>
+    /// interface describes an  base entity
+    /// </summary>
     public interface IEntity
     {
         /// <summary>

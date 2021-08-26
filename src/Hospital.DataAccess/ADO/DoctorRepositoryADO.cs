@@ -1,11 +1,9 @@
 ﻿using Hospital.DataAccess.Entity;
 using Hospital.DataAccess.Interfaces;
-using RepositoryADO.InterfaceForRepository;
-using System;
+using Hospital.DataAccess.ADO;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Hospital.DataAccess.ADO

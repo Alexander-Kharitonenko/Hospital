@@ -2,10 +2,9 @@
 using Hospital.DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace RepositoryADO.InterfaceForRepository
+namespace Hospital.DataAccess.ADO
 {
     /// <summary>
     /// Base implementation class

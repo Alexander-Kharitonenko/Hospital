@@ -14,7 +14,6 @@ namespace Hospital.DataAccess.EntityFramework
         /// <param name="contextDb">context for database</param>
         public RegistrationCardRepository(HospitalContext contextDb) : base(contextDb)
         {
-
         }
     }
 }

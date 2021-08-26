@@ -1,7 +1,6 @@
 using Hospital.DataAccess.ADO;
 using Hospital.DataAccess.Entity;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicketManagement.IntegrationTests;
@@ -92,6 +91,7 @@ namespace Hospital.XUnitTest
         public async Task Delete_WhenMedicalHistory_ThenDeleteMedicalHistory()
         {
             // Arrange
+            const int allRecordsAfterDeletion = 4;
             var histors = new List<MedicalHistory>();
             var doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
@@ -100,8 +100,13 @@ namespace Hospital.XUnitTest
             histors.AddRange(doc.Get());
 
             //Assert
-            Assert.AreEqual(4, histors.Count);
+            Assert.AreEqual(allRecordsAfterDeletion, histors.Count);
         }
+
+        /// <summary>
+        /// initial data for MedicalHistoryData
+        /// </summary>
+        private const int Id = 3;
 
         /// <summary>
         /// initial data
@@ -110,7 +115,7 @@ namespace Hospital.XUnitTest
         {
             get
             {
-                return new MedicalHistory() { Id = 3, Diagnosis = "TestDiagnosis" };
+                return new MedicalHistory() { Id = Id, Diagnosis = "TestDiagnosis" };
             }
         }
 

@@ -2,6 +2,9 @@
 
 namespace Hospital.DataAccess.Entity
 {
+    /// <summary>
+    /// class describes an entity RegistrationCard
+    /// </summary>
     public class RegistrationCard : IEntity
     {
         /// <summary>

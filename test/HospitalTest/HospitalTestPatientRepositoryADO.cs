@@ -92,16 +92,22 @@ namespace Hospital.XUnitTest
         public async Task Delete_WhenPatient_ThenDeletePatient()
         {
             // Arrange
+            const int allRecordsAfterDeletion = 4;
             var patients = new List<Patient>();
             var doc = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Delete(PatientData);
             patients.AddRange(doc.Get());
- 
+
             //Assert
-            Assert.AreEqual(4, patients.Count);
+            Assert.AreEqual(allRecordsAfterDeletion, patients.Count);
         }
+
+        /// <summary>
+        /// initial data PatientData
+        /// </summary>
+        private const int Id = 3;
 
         /// <summary>
         /// initial data
@@ -110,7 +116,7 @@ namespace Hospital.XUnitTest
         {
             get
             {
-                return new Patient() { Id = 3, FirstName = "TestFirstName", Patronymic = "TestPatronymic", LastName = "TestLastName", Gender = "TestGender", ResidenceAddress = "TestResidenceAddress" };
+                return new Patient() { Id = Id, FirstName = "TestFirstName", Patronymic = "TestPatronymic", LastName = "TestLastName", Gender = "TestGender", ResidenceAddress = "TestResidenceAddress" };
             }
         }
 

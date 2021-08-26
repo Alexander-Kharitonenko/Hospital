@@ -9,15 +9,11 @@
 // </summary>
 //-----------------------------------------------------------------------
 
-using Hospital.DataAccess;
 using Microsoft.Extensions.Configuration;
 using Microsoft.SqlServer.Dac;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace TicketManagement.IntegrationTests
 {
