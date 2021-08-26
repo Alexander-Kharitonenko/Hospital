@@ -55,29 +55,9 @@ namespace HospitalTest
         }
 
         /// <summary>
-        ///  method to test Delete method
+        ///  method to Save Changes
         /// </summary>
         /// <returns>void</returns>
-        [Test]
-        public void GetBy_WhenGetByName_ThenGetAllEntityWhithName()
-        {
-            // Arrange
-            IEnumerable<RegistrationCard> result;
-            var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-            var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
-
-            // Act 
-            using (var ct = new HospitalContext(options))
-            {
-                var doc = new RegistrationCardRepository(ct);
-                result = doc.GetAllEntityBy(el => el.Id == 4);
-            }
-
-            // Assert
-            Assert.NotNull(result);
-        }
-
-
         [Test]
         public async Task SaveChanges_WenAddEntity_ThenSaveChangesEntity()
         {

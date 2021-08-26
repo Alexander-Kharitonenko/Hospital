@@ -1,4 +1,4 @@
-using Hospital.DataAccess.ADO;
+﻿using Hospital.DataAccess.ADO;
 using Hospital.DataAccess.Entity;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -57,14 +57,11 @@ namespace Hospital.XUnitTest
 
             // Act
             await doc.CreateEntity(DoctorData);
-            var result = doc.GetAllEntityBy(el => el.Id == 6);
-            foreach (var i in result)
-            {
-                doctor.Add(i);
-            }
+            doctor.AddRange(doc.Get());
+            var result = doctor[5];
 
             // Assert
-            Assert.AreEqual(doctor[0].LastName, DoctorData.LastName);
+            Assert.AreEqual(result.LastName, DoctorData.LastName);
         }
 
         /// <summary>
@@ -80,31 +77,10 @@ namespace Hospital.XUnitTest
 
             // Act
             await doc.Update(DoctorData);
-            var result = doc.GetAllEntityBy(el => el.Id == 3);
-            foreach (var i in result)
-            {
-                doctor.Add(i);
-            }
-
+            doctor.AddRange(doc.Get());
+            
             // Assert
-            Assert.AreEqual(doctor[0].LastName, DoctorData.LastName);
-        }
-
-        /// <summary>
-        /// method to test GetBy method
-        /// </summary>
-        /// <returns>IEnumerable<Doctor></returns>
-        [Test]
-        public void GetAllEntityById_WhenId_5_ThenReturnDoctorWhisId_5()
-        {
-            // Arrange
-            var doc = new DoctorRepositoryAdo(config.ConnectionString);
-
-            // Act
-            var result = doc.GetAllEntityBy(el => el.Id == 5);
-
-            // Assert
-            Assert.IsNotNull(result);
+            Assert.AreEqual(doctor[2].LastName, DoctorData.LastName);
         }
 
         /// <summary>
@@ -114,15 +90,16 @@ namespace Hospital.XUnitTest
         [Test]
         public async Task Delete_WhenId_Doctor_3_ThenDeleteDoctor()
         {
-            // Arrange       
+            // Arrange
+            var doctor = new List<Doctor>();
             var doc = new DoctorRepositoryAdo(config.ConnectionString);
 
-            //Act
+            //Act    
             await doc.Delete(DoctorData);
-            var result = doc.GetAllEntityBy(el => el.Id == 3);
-
+            doctor.AddRange(doc.Get());
+           
             //Assert
-            Assert.IsNull(result);
+            Assert.AreEqual(4, doctor.Count);
         }
 
         /// <summary>

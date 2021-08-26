@@ -58,21 +58,18 @@ namespace Hospital.XUnitTest
 
             // Act
             await doc.CreateEntity(MedicalHistoryData);
-            var result =  doc.GetAllEntityBy(el => el.Id == 6);
-            foreach (var i in result)
-            {
-                histors.Add(i);
-            }
+            histors.AddRange(doc.Get());
+            var result = histors[5];
 
             // Assert
-            Assert.AreEqual(histors[0].Diagnosis, MedicalHistoryData.Diagnosis);
+            Assert.AreEqual(result.Diagnosis, MedicalHistoryData.Diagnosis);
         }
 
         /// <summary>
         /// method to test Update method
         /// </summary>
         /// <returns>void</returns>
-        [Test]   
+        [Test]
         public async Task Update_WhenMedicalHistory_ThenUpdateMedicalHistory()
         {
             // Arrange
@@ -81,14 +78,10 @@ namespace Hospital.XUnitTest
 
             // Act
             await doc.Update(MedicalHistoryData);
-            var result = doc.GetAllEntityBy(el => el.Id == 3);
-            foreach (var i in result)
-            {
-                histors.Add(i);
-            }
+            histors.AddRange(doc.Get());
 
             // Assert
-            Assert.AreEqual(histors[0].Diagnosis, MedicalHistoryData.Diagnosis);
+            Assert.AreEqual(histors[2].Diagnosis, MedicalHistoryData.Diagnosis);
         }
 
         /// <summary>
@@ -104,28 +97,10 @@ namespace Hospital.XUnitTest
 
             // Act
             await doc.Delete(MedicalHistoryData);
-            var result = doc.GetAllEntityBy(el => el.Id == 3);
-            
-            // Assert
-            Assert.IsNull(result);
-        }
+            histors.AddRange(doc.Get());
 
-        
-        ///  /// <summary>
-        /// method to test GetBy method
-        /// </summary>
-        /// <returns>IEnumerable<Doctor></returns>
-        [Test]
-        public void GetAllEntityById_WhenId_5_ThenReturnMedicalHistoryWhithId_5()
-        {
-            // Arrange
-            var doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
-
-            // Act
-            var result = doc.GetAllEntityBy(el => el.Id == 5);
-
-            // Assert
-            Assert.IsNotNull(result);
+            //Assert
+            Assert.AreEqual(4, histors.Count);
         }
 
         /// <summary>

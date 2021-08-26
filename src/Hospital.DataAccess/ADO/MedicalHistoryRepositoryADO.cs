@@ -98,50 +98,6 @@ namespace Hospital.DataAccess.ADO
         }
 
         /// <summary>
-        /// returns all elements that match a condition
-        /// </summary>
-        /// <param name="predicate">condition</param>
-        /// <returns>IEnumerable<Doctor></returns>
-        public override IEnumerable<MedicalHistory> GetAllEntityBy(Expression<Func<MedicalHistory, bool>> predicate)
-        {
-            var result = new List<MedicalHistory>();
-            int item;
-            var argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
-            var x = int.TryParse(argument, out item);
-            var predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
-            var sqlExpression = $"SELECT * FROM MedicalHistorys WHERE {predicateString}";
-
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
-                var getAllId = "SELECT * FROM MedicalHistorys Id";
-
-                var commandforGetAllId = new SqlCommand(getAllId, connection);
-                var readerId = commandforGetAllId.ExecuteReader();
-                var Id = new List<int>();
-                while (readerId.Read())
-                {
-                    Id.Add(readerId.GetInt32(0));
-                }
-
-                if (Id.Any(el => el == item && item > 0))
-                {
-                    var command = new SqlCommand(sqlExpression, connection);
-                    var reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        result.Add(new MedicalHistory() { Id = reader.GetInt32(0), Diagnosis = reader.GetString(1) });
-                    }
-                    return result;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
-        /// <summary>
         /// Update a object to the database
         /// </summary>
         /// <param name="entity">object to Update</param>

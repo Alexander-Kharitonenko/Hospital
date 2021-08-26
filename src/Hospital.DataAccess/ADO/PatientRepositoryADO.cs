@@ -95,51 +95,7 @@ namespace Hospital.DataAccess.ADO
                 return result;
             }
         }
-
-        /// <summary>
-        /// returns all elements that match a condition
-        /// </summary>
-        /// <param name="predicate">condition</param>
-        /// <returns>IEnumerable<Doctor></returns>
-        public override IEnumerable<Patient> GetAllEntityBy(Expression<Func<Patient, bool>> predicate)
-        {
-            var result = new List<Patient>();
-            int item;
-            var argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
-            var x = int.TryParse(argument, out item);
-            var predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
-            var sqlExpression = $"SELECT * FROM Patients WHERE {predicateString}";
-
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
-                var getAllId = "SELECT * FROM Patients Id";
-
-                var commandforGetAllId = new SqlCommand(getAllId, connection);
-                var readerId = commandforGetAllId.ExecuteReader();
-                var Id = new List<int>();
-                while (readerId.Read())
-                {
-                    Id.Add(readerId.GetInt32(0));
-                }
-
-                if (Id.Any(el => el == item && item > 0))
-                {
-                    var command = new SqlCommand(sqlExpression, connection);
-                    var reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        result.Add(new Patient() { Id = reader.GetInt32(0), FirstName = reader.GetString(2), Patronymic = reader.GetString(3), LastName = reader.GetString(1), Gender = reader.GetString(4), ResidenceAddress = reader.GetString(5) });
-                    }
-                    return result;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
+               
         /// <summary>
         /// Update a object to the database
         /// </summary>

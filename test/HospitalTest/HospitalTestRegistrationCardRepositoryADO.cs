@@ -58,14 +58,11 @@ namespace Hospital.XUnitTest
 
             // Act
             await doc.CreateEntity(RegistrationCardData);
-            var result = doc.GetAllEntityBy(el => el.Id == 6);
-            foreach (var i in result)
-            {
-                registrationCards.Add(i);
-            }
+            registrationCards.AddRange(doc.Get());
+            var result = registrationCards[2];
 
             // Assert
-            Assert.AreEqual(RegistrationCardData.PatientId, registrationCards[0].PatientId);
+            Assert.AreEqual(result.Id, RegistrationCardData.Id);
         }
 
         /// <summary>
@@ -81,11 +78,8 @@ namespace Hospital.XUnitTest
 
             // Act
             await doc.Update(RegistrationCardData);
-            var result = doc.GetAllEntityBy(el => el.Id == 3);
-            foreach (var i in result)
-            {
-                registrationCards.Add(i);
-            }
+            registrationCards.AddRange(doc.Get());
+            var result = registrationCards[2];
 
             // Assert
             Assert.AreEqual(RegistrationCardData.PatientId, registrationCards[0].PatientId);
@@ -104,27 +98,11 @@ namespace Hospital.XUnitTest
 
             // Act
             await doc.Delete(RegistrationCardData);
-            var result = doc.GetAllEntityBy(el => el.Id == 3);
+            registrationCards.AddRange(doc.Get());
+            
 
             // Assert
-            Assert.IsNull(result);
-        }
-
-        /// <summary>
-        /// method to test GetBy method
-        /// </summary>
-        /// <returns>IEnumerable<Doctor></returns>
-        [Test]
-        public void GetAllEntityById_WhenId_5_ThenReturnRegistrationCardWhithId_5()
-        {
-            // Arrange
-            var doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
-
-            // Act
-            var result = doc.GetAllEntityBy(el => el.Id == 5);
-
-            // Assert
-            Assert.NotNull(result);
+            Assert.AreEqual(4, registrationCards.Count);
         }
 
         /// <summary>

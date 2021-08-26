@@ -66,18 +66,6 @@ namespace Hospital.DataAccess.EntityFramework
         }
 
         /// <summary>
-        /// method for  get all entity by id
-        /// </summary>
-        /// <param name="predicate">object for working with a table</param>
-        /// <returns></returns>
-        public IEnumerable<T> GetAllEntityBy(Expression<Func<T, bool>> predicate)
-        {
-            IEnumerable<T> GetAllEntity = Table.Where(predicate).ToList();
-            return GetAllEntity;
-
-        }
-
-        /// <summary>
         /// method for save changes 
         /// </summary>
         /// <returns></returns>

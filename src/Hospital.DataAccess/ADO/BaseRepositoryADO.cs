@@ -46,14 +46,6 @@ namespace RepositoryADO.InterfaceForRepository
         /// </summary>
         /// <returns>void</returns>
         public abstract IEnumerable<T> Get();
-
-        /// <summary>
-        /// returns all elements that match a condition
-        /// </summary>
-        /// <param name="predicate">condition</param>
-        /// <returns>IEnumerable<Doctor></returns>
-        public abstract IEnumerable<T> GetAllEntityBy(Expression<Func<T, bool>> predicate);
-
         public Task<int> SaveChanges()
         {
             throw new NotImplementedException();

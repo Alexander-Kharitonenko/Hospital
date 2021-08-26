@@ -32,7 +32,7 @@ namespace Hospital.DataAccess.ADO
         {
             if (entity != null)
             {
-                var sqlExpression = $"INSERT INTO Doctors (FirstName,Patronymic,LastName,NumberPhone) VALUES ('{entity.FirstName}','{entity.Patronymic}', '{entity.LastName}', '{entity.NumberPhone}')";
+                var sqlExpression = $"INSERT INTO Doctors (FirstName,Patronymic,LastName,NumberPhone) VALUES ('{entity.LastName}', '{entity.FirstName}', '{entity.Patronymic}', '{entity.NumberPhone}')";
                 using (var connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
@@ -98,49 +98,6 @@ namespace Hospital.DataAccess.ADO
         }
 
         /// <summary>
-        /// returns all elements that match a condition
-        /// </summary>
-        /// <param name="predicate">condition</param>
-        /// <returns>IEnumerable<Doctor></returns>
-        public override IEnumerable<Doctor> GetAllEntityBy(Expression<Func<Doctor, bool>> predicate)
-        {
-            var result = new List<Doctor>();
-            int item;
-            var argument = predicate.ToString().Replace("el => (el.Id == ", string.Empty).Replace(")", string.Empty); ;
-            var IsСonversion = int.TryParse(argument, out item);
-            var predicateString = predicate.ToString().Replace("el => (el.", string.Empty).Replace(")", string.Empty).Replace("==", "=");
-            var sqlExpression = $"SELECT * FROM Doctors WHERE {predicateString}";
-
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
-                var getAllId = "SELECT * FROM Doctors Id";
-                var commandforGetAllId = new SqlCommand(getAllId, connection);
-                var readerId = commandforGetAllId.ExecuteReader();
-                var Id = new List<int>();
-                while (readerId.Read())
-                {
-                    Id.Add(readerId.GetInt32(0));
-                }
-
-                if (Id.Any(el => el == item && item > 0))
-                {
-                    var command = new SqlCommand(sqlExpression, connection);
-                    var reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        result.Add(new Doctor() { Id = reader.GetInt32(0), FirstName = reader.GetString(2), Patronymic = reader.GetString(3), LastName = reader.GetString(1), NumberPhone = reader.GetString(4) });
-                    }
-                    return result;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
-        /// <summary>
         /// Update a object to the database
         /// </summary>
         /// <param name="entity">object to Update</param>
@@ -149,7 +106,7 @@ namespace Hospital.DataAccess.ADO
         {
             if (entity != null)
             {
-                var sqlExpression = $"UPDATE Doctors SET FirstName = '{entity.FirstName}',Patronymic = '{entity.Patronymic}',LastName = '{entity.LastName}',NumberPhone = '{entity.NumberPhone}' WHERE Id={entity.Id}";
+                var sqlExpression = $"UPDATE Doctors SET FirstName = '{entity.LastName}', Patronymic = '{entity.FirstName}', LastName ='{entity.Patronymic}', NumberPhone = '{entity.NumberPhone}' WHERE Id={entity.Id}";
                 using (var connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();

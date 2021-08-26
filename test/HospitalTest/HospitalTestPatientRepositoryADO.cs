@@ -57,14 +57,11 @@ namespace Hospital.XUnitTest
 
             // Act
             await doc.CreateEntity(PatientData);
-            var result = doc.GetAllEntityBy(el => el.Id == 6);
-            foreach (var i in result)
-            {
-                patients.Add(i);
-            }
+            patients.AddRange(doc.Get());
+            var result = patients[5];
 
             // Assert
-            Assert.AreEqual(patients[0].LastName, PatientData.LastName);
+            Assert.AreEqual(result.LastName, PatientData.LastName);
         }
 
         /// <summary>
@@ -80,14 +77,11 @@ namespace Hospital.XUnitTest
 
             // Act
             await doc.Update(PatientData);
-            var result = doc.GetAllEntityBy(el => el.Id == 3);
-            foreach (var i in result)
-            {
-                patients.Add(i);
-            }
+            patients.AddRange(doc.Get());
+            var result = patients[2];
 
             // Assert
-            Assert.AreEqual(patients[0].LastName, PatientData.LastName);
+            Assert.AreEqual(result.LastName, PatientData.LastName);
         }
 
         /// <summary>
@@ -103,27 +97,10 @@ namespace Hospital.XUnitTest
 
             // Act
             await doc.Delete(PatientData);
-            var result = doc.GetAllEntityBy(el => el.Id == 3);
-
-            // Assert
-            Assert.IsNull(result);
-        }
-
-        /// <summary>
-        ///  method to test GetAllEntityById method
-        /// </summary>
-        /// <returns>void</returns>
-        [Test]
-        public void GetAllEntityById_WhenId_5_ThenReturnPatientWhithId_5()
-        {
-            // Arrange
-            var doc = new PatientRepositoryAdo(config.ConnectionString);
-
-            // Act
-            var result = doc.GetAllEntityBy(el => el.Id == 5);
-
-            // Assert
-            Assert.NotNull(result);
+            patients.AddRange(doc.Get());
+ 
+            //Assert
+            Assert.AreEqual(4, patients.Count);
         }
 
         /// <summary>
