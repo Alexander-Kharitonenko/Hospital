@@ -1,8 +1,0 @@
-﻿CREATE TABLE [dbo].[Doctors]
-(
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-	LastName NVARCHAR(MAX),
-	FirstName NVARCHAR(MAX),
-	Patronymic NVARCHAR(MAX),
-	NumberPhone NVARCHAR(MAX)
-)

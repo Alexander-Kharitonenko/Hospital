@@ -1,0 +1,24 @@
+C:\Users\Alexander\Desktop\C#\MBicycle.Kharitonenko\src\Hospital.DataAccess\bin\Debug\net5.0\Hospital.DataAccess.deps.json
+C:\Users\Alexander\Desktop\C#\MBicycle.Kharitonenko\src\Hospital.DataAccess\bin\Debug\net5.0\Hospital.DataAccess.dll
+C:\Users\Alexander\Desktop\C#\MBicycle.Kharitonenko\src\Hospital.DataAccess\bin\Debug\net5.0\ref\Hospital.DataAccess.dll
+C:\Users\Alexander\Desktop\C#\MBicycle.Kharitonenko\src\Hospital.DataAccess\bin\Debug\net5.0\Hospital.DataAccess.pdb
+C:\Users\Alexander\Desktop\C#\MBicycle.Kharitonenko\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.csproj.AssemblyReference.cache
+C:\Users\Alexander\Desktop\C#\MBicycle.Kharitonenko\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Alexander\Desktop\C#\MBicycle.Kharitonenko\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.AssemblyInfoInputs.cache
+C:\Users\Alexander\Desktop\C#\MBicycle.Kharitonenko\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.AssemblyInfo.cs
+C:\Users\Alexander\Desktop\C#\MBicycle.Kharitonenko\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Alexander\Desktop\C#\MBicycle.Kharitonenko\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.dll
+C:\Users\Alexander\Desktop\C#\MBicycle.Kharitonenko\src\Hospital.DataAccess\obj\Debug\net5.0\ref\Hospital.DataAccess.dll
+C:\Users\Alexander\Desktop\C#\MBicycle.Kharitonenko\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.pdb
+E:\Загрузки\Домашние задание по C#\Hospital\src\Hospital.DataAccess\bin\Debug\net5.0\Hospital.DataAccess.deps.json
+E:\Загрузки\Домашние задание по C#\Hospital\src\Hospital.DataAccess\bin\Debug\net5.0\Hospital.DataAccess.dll
+E:\Загрузки\Домашние задание по C#\Hospital\src\Hospital.DataAccess\bin\Debug\net5.0\ref\Hospital.DataAccess.dll
+E:\Загрузки\Домашние задание по C#\Hospital\src\Hospital.DataAccess\bin\Debug\net5.0\Hospital.DataAccess.pdb
+E:\Загрузки\Домашние задание по C#\Hospital\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.csproj.AssemblyReference.cache
+E:\Загрузки\Домашние задание по C#\Hospital\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+E:\Загрузки\Домашние задание по C#\Hospital\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.AssemblyInfoInputs.cache
+E:\Загрузки\Домашние задание по C#\Hospital\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.AssemblyInfo.cs
+E:\Загрузки\Домашние задание по C#\Hospital\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.csproj.CoreCompileInputs.cache
+E:\Загрузки\Домашние задание по C#\Hospital\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.dll
+E:\Загрузки\Домашние задание по C#\Hospital\src\Hospital.DataAccess\obj\Debug\net5.0\ref\Hospital.DataAccess.dll
+E:\Загрузки\Домашние задание по C#\Hospital\src\Hospital.DataAccess\obj\Debug\net5.0\Hospital.DataAccess.pdb
