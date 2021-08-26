@@ -109,7 +109,7 @@ namespace Hospital.DataAccess.ADO
                 var sqlExpression = $"UPDATE RegistrationСards SET PatientId = '{entity.PatientId}',DoctorId = '{entity.DoctorId}',DiagnosisId = '{entity.DiagnosisId}',DateAdmission = {data} WHERE Id={entity.Id}";
                 using (var connection = new SqlConnection(ConnectionString))
                 {
-                    var getAllId = "SELECT * FROM RegistrationСards Id";
+                    var getAllId = $"SELECT Id FROM RegistrationСards WHERE Id={entity.Id}";
                     await connection.OpenAsync();
                     var commandforGetAllId = new SqlCommand(getAllId, connection);
                     var readerId = commandforGetAllId.ExecuteReader();
@@ -119,7 +119,7 @@ namespace Hospital.DataAccess.ADO
                         Id.Add(readerId.GetInt32(0));
                     }
 
-                    if (Id.Any(el => el >= entity.Id && entity.Id > 0))
+                    if (Id.Any(el => el == entity.Id && entity.Id > 0))
                     {
                         var command = new SqlCommand(sqlExpression, connection);
                         command.ExecuteNonQuery();

@@ -108,7 +108,7 @@ namespace Hospital.DataAccess.ADO
                 using (var connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
-                    var getAllId = "SELECT * FROM Doctors Id";
+                    var getAllId = $"SELECT Id FROM Doctors WHERE Id ={entity.Id}";
 
                     var commandforGetAllId = new SqlCommand(getAllId, connection);
                     var readerId = commandforGetAllId.ExecuteReader();
@@ -118,7 +118,7 @@ namespace Hospital.DataAccess.ADO
                         Id.Add(readerId.GetInt32(0));
                     }
 
-                    if (Id.Any(el => el >= entity.Id && entity.Id > 0))
+                    if (Id.Any(el => el == entity.Id && entity.Id > 0))
                     {
                         var command = new SqlCommand(sqlExpression, connection);
                         command.ExecuteNonQuery();
