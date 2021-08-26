@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Hospital.DataAccess.ADO
 {
-    public class DoctorRepositoryAdo : BaseRepositoryAdo<Doctor>, IDoctorRepository
+    public class DoctorRepositoryADO : BaseRepositoryADO<Doctor>, IDoctorRepository
     {
-        public DoctorRepositoryAdo(string connectionString) : base(connectionString)
+        public DoctorRepositoryADO(string connectionString) : base(connectionString)
         {
         }
 
@@ -67,6 +67,7 @@ namespace Hospital.DataAccess.ADO
                     }
                 }
             }
+
         }
 
         /// <summary>

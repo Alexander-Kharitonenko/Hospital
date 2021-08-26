@@ -17,29 +17,15 @@
                 <th scope="col">Обновление</th>
                 <th scope="col">Удаление</th>
             </tr>
-        <tbody>
-            <tr>
-                <td>
-                    <select id="select_value" onchange="onSelectRegion()" form="data">
-                        @{
-                            foreach (var doc in Model.AllDoctor)
-                            {
-                                await Html.RenderPartialAsync("DoctorTable", doc);
-                            }
-                        }
-                    </select>
-                   
-                </td>
-                @*<td>@Model.DoctorId</td>
-                <td>@Model.DiagnosisId</td>
-                <td>@Model.DateAdmission</td>*@
-                <td><a class="btn btn-primary" asp-action="AddRole" asp-controller="Role">Редактировать</a></td>
-                <td><a class="btn btn-danger" asp-action="AddRole" asp-controller="Role">Удалить</a></td>
-            </tr>
-        </tbody>
+            @{
+                foreach (var el in Model.AllCard)
+                {
+                    await Html.RenderPartialAsync("RegistrationCardTable", el);
+                }
+            }
 
         </thead>
 
     </table>
-    
+   
 </div>

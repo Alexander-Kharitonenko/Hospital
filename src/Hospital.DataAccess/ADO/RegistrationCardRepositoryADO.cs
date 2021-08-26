@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Hospital.DataAccess.ADO
 {
-    public class RegistrationCardRepositoryAdo : BaseRepositoryAdo<RegistrationCard> , IRegistrationCardRepository
+    public class RegistrationCardRepositoryADO : BaseRepositoryADO<RegistrationCard> , IRegistrationCardRepository
     {
-        public RegistrationCardRepositoryAdo(string connectionString) : base(connectionString)
+        public RegistrationCardRepositoryADO(string connectionString) : base(connectionString)
         { }
 
         /// <summary>
