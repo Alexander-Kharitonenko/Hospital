@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace RepositoryADO.InterfaceForRepository
 {
-    public abstract class BaseRepositoryADO<T> : IRepository<T> where T : class, IEntity
+    public abstract class BaseRepositoryAdo<T> : IRepository<T> where T : class, IEntity
     {
         /// <summary>
         /// field contains сonnection string
         /// </summary>
         protected readonly string ConnectionString;
 
-        public BaseRepositoryADO(string connectionString) 
+        public BaseRepositoryAdo(string connectionString) 
         {
             ConnectionString = connectionString;
         }

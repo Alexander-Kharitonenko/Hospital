@@ -28,31 +28,31 @@ namespace Hospital.MVCApplication
             services.AddDbContext<HospitalContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //RepositoryEFCore
-            services.AddScoped<IRepository<Doctor>, DoctorRepository>();
-            services.AddScoped<IRepository<Patient>, PatientRepository>();
-            services.AddScoped<IRepository<MedicalHistory>, MedicalHistoryRepository>();
-            services.AddScoped<IRepository<RegistrationCard>, RegistrationCardRepository>();
+            //services.AddScoped<IRepository<Doctor>, DoctorRepository>();
+            //services.AddScoped<IRepository<Patient>, PatientRepository>();
+            //services.AddScoped<IRepository<MedicalHistory>, MedicalHistoryRepository>();
+            //services.AddScoped<IRepository<RegistrationCard>, RegistrationCardRepository>();
 
 
 
-            services.AddScoped<IDoctorRepository, DoctorRepository>();
-            services.AddScoped<IPatientRepository, PatientRepository>();
-            services.AddScoped<IMedicalHistoryRepository, MedicalHistoryRepository>();
-            services.AddScoped<IRegistrationCardRepository, RegistrationCardRepository>();
+            //services.AddScoped<IDoctorRepository, DoctorRepository>();
+            //services.AddScoped<IPatientRepository, PatientRepository>();
+            //services.AddScoped<IMedicalHistoryRepository, MedicalHistoryRepository>();
+            //services.AddScoped<IRegistrationCardRepository, RegistrationCardRepository>();
 
             //services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //RepositoryADO
 
-            //services.AddScoped<BaseRepositoryADO<Doctor>>(option => new DoctorRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddScoped<BaseRepositoryADO<Patient>>(option => new PatientRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddScoped<BaseRepositoryADO<MedicalHistory>>(option => new MedicalHistoryRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddScoped<BaseRepositoryADO<RegistrationCard>>(option => new RegistrationCardRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<BaseRepositoryAdo<Doctor>>(option => new DoctorRepositoryAdo(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<BaseRepositoryAdo<Patient>>(option => new PatientRepositoryAdo(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<BaseRepositoryAdo<MedicalHistory>>(option => new MedicalHistoryRepositoryAdo(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<BaseRepositoryAdo<RegistrationCard>>(option => new RegistrationCardRepositoryAdo(Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddScoped<IDoctorRepository>(option => new DoctorRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddScoped<IPatientRepository>(option => new PatientRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddScoped<IMedicalHistoryRepository>(option => new MedicalHistoryRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddScoped<IRegistrationCardRepository>(option => new RegistrationCardRepositoryADO(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IDoctorRepository>(option => new DoctorRepositoryAdo(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IPatientRepository>(option => new PatientRepositoryAdo(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IMedicalHistoryRepository>(option => new MedicalHistoryRepositoryAdo(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IRegistrationCardRepository>(option => new RegistrationCardRepositoryAdo(Configuration.GetConnectionString("DefaultConnection")));
 
             //Services
             services.AddScoped<IDoctorServices, DoctorServices>();

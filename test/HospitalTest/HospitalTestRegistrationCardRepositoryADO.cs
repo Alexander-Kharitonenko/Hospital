@@ -34,7 +34,7 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenReturnAllRegistrationCard()
         {
             // Arrange
-            RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
+            RegistrationCardRepositoryAdo doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
             IEnumerable<RegistrationCard> result = doc.Get();
@@ -52,7 +52,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             List<RegistrationCard> registrationCards = new List<RegistrationCard>();
-            RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
+            RegistrationCardRepositoryAdo doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.CreateEntity(RegistrationCardData);
@@ -75,7 +75,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             List<RegistrationCard> registrationCards = new List<RegistrationCard>();
-            RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
+            RegistrationCardRepositoryAdo doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Update(RegistrationCardData);
@@ -98,7 +98,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             List<RegistrationCard> registrationCards = new List<RegistrationCard>();
-            RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
+            RegistrationCardRepositoryAdo doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Delete(RegistrationCardData);
@@ -116,7 +116,7 @@ namespace Hospital.XUnitTest
         public void GetAllEntityById_WhenId_5_ThenReturnRegistrationCardWhithId_5()
         {
             // Arrange
-            RegistrationCardRepositoryADO doc = new RegistrationCardRepositoryADO(config.ConnectionString);
+            RegistrationCardRepositoryAdo doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
             IEnumerable<RegistrationCard> result = doc.GetAllEntityBy(el => el.Id == 5);

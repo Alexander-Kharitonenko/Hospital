@@ -32,7 +32,7 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenGetAllPatient()
         {
             // Arrange
-            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
+            PatientRepositoryAdo doc = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
             IEnumerable<Patient> result = doc.Get();
@@ -50,7 +50,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             List<Patient> patients = new List<Patient>();
-            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
+            PatientRepositoryAdo doc = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.CreateEntity(PatientData);
@@ -73,7 +73,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             List<Patient> patients = new List<Patient>();
-            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
+            PatientRepositoryAdo doc = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Update(PatientData);
@@ -96,7 +96,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             List<Patient> patients = new List<Patient>();
-            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
+            PatientRepositoryAdo doc = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Delete(PatientData);
@@ -110,7 +110,7 @@ namespace Hospital.XUnitTest
         public void GetAllEntityById_WhenId_5_ThenReturnPatientWhithId_5()
         {
             // Arrange
-            PatientRepositoryADO doc = new PatientRepositoryADO(config.ConnectionString);
+            PatientRepositoryAdo doc = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
             IEnumerable<Patient> result = doc.GetAllEntityBy(el => el.Id == 5);

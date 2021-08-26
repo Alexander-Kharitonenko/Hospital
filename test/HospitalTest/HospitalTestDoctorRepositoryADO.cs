@@ -37,7 +37,7 @@ namespace Hospital.XUnitTest
         public void Get_WhenGetDoctor_ThenGetDoctor()
         {
             // Arrange
-            DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
+            DoctorRepositoryAdo doc = new DoctorRepositoryAdo(config.ConnectionString);
 
             // Act
             IEnumerable<Doctor> result = doc.Get();
@@ -55,7 +55,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             List<Doctor> doctor = new List<Doctor>();
-            DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
+            DoctorRepositoryAdo doc = new DoctorRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.CreateEntity(DoctorData);
@@ -78,7 +78,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             List<Doctor> doctor = new List<Doctor>();
-            DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
+            DoctorRepositoryAdo doc = new DoctorRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Update(DoctorData);
@@ -100,7 +100,7 @@ namespace Hospital.XUnitTest
         public void GetAllEntityById_WhenId_5_ThenReturnDoctorWhisId_5()
         {
             // Arrange
-            DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
+            DoctorRepositoryAdo doc = new DoctorRepositoryAdo(config.ConnectionString);
 
             // Act
             IEnumerable<Doctor> result = doc.GetAllEntityBy(el => el.Id == 5);
@@ -117,7 +117,7 @@ namespace Hospital.XUnitTest
         public async Task Delete_WhenId_Doctor_3_ThenDeleteDoctor()
         {
             // Arrange       
-            DoctorRepositoryADO doc = new DoctorRepositoryADO(config.ConnectionString);
+            DoctorRepositoryAdo doc = new DoctorRepositoryAdo(config.ConnectionString);
 
             //Act
             await doc.Delete(DoctorData);

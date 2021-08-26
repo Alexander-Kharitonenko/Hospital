@@ -35,7 +35,7 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenReturnMedicalHistory()
         {
             // Arrange
-            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
+            MedicalHistoryRepositoryAdo doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
             var result = doc.Get();
@@ -53,7 +53,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             List<MedicalHistory> histors = new List<MedicalHistory>();
-            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
+            MedicalHistoryRepositoryAdo doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.CreateEntity(MedicalHistoryData);
@@ -76,7 +76,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             List<MedicalHistory> histors = new List<MedicalHistory>();
-            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
+            MedicalHistoryRepositoryAdo doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Update(MedicalHistoryData);
@@ -99,7 +99,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             List<MedicalHistory> histors = new List<MedicalHistory>();
-            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
+            MedicalHistoryRepositoryAdo doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
             await doc.Delete(MedicalHistoryData);
@@ -118,7 +118,7 @@ namespace Hospital.XUnitTest
         public void GetAllEntityById_WhenId_5_ThenReturnMedicalHistoryWhithId_5()
         {
             // Arrange
-            MedicalHistoryRepositoryADO doc = new MedicalHistoryRepositoryADO(config.ConnectionString);
+            MedicalHistoryRepositoryAdo doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
             var result = doc.GetAllEntityBy(el => el.Id == 5);
