@@ -17,16 +17,22 @@ namespace HospitalMVCApplication.Controllers
     public class HomeController : Controller
     {
         private readonly IRegistrationCardServices CardServices;
+        private readonly IDoctorServices DoctorServices;
 
-        public HomeController(IRegistrationCardServices cardServices)
+        public HomeController(IRegistrationCardServices cardServices, IDoctorServices doctorServices)
         {
             CardServices = cardServices;
+            DoctorServices = doctorServices;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            ViewModelForCard Model = new ViewModelForCard() { AllCard = CardServices.GetAllRegistrationCard() };
+            ViewModelForCard Model = new ViewModelForCard()
+            {
+                AllCard = CardServices.GetAllRegistrationCard(),
+                AllDoctor = DoctorServices.GetAllDoctor()
+            };
             return View(Model);
         }
 

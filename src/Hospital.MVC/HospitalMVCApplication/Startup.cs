@@ -1,22 +1,15 @@
 using Hospital.DataAccess;
-using Hospital.DataAccess.ADO;
 using Hospital.DataAccess.Entity;
 using Hospital.DataAccess.EntityFramework;
 using Hospital.DataAccess.Interfaces;
+using Hospital.Services.ImplementServices;
+using Hospital.Services.InterfaceServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RepositoryADO.InterfaceForRepository;
-using Hospital.Services.ImplementServices;
-using Hospital.Services.InterfaceServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Hospital.MVCApplication
 {

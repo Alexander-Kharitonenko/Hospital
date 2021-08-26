@@ -9,5 +9,6 @@ namespace HospitalMVCApplication.Models.ModelForRegistrationCard
     public class ViewModelForCard
     {
         public IEnumerable<RegistrationCard> AllCard { get; set; }
+        public IEnumerable<Doctor> AllDoctor { get; set; }
     }
 }
