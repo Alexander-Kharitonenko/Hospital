@@ -1,36 +1,36 @@
 ﻿using Hospital.DataAccess.Entity;
 using Hospital.DataAccess.Interfaces;
-using Hospital.DataAccess.ADO;
+using Hospital.DataAccess.RepositoryAdo;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Hospital.DataAccess.ADO
+namespace Hospital.DataAccess.RepositoryAdo
 {
     /// <summary>
-    /// contains the logic for working with DoctorRepository using ADO technology
+    /// contains the logic for working with RegistrationCardRepository using ADO technology
     /// </summary>
-    public class DoctorRepositoryAdo : BaseRepositoryAdo<Doctor>, IDoctorRepository
+    public class RegistrationCardRepositoryAdo : BaseRepositoryAdo<RegistrationCard>, IRegistrationCardRepository
     {
         /// <summary>
         /// constructor for initializing class fields
         /// </summary>
         /// <param name="connectionString">database connection field</param>
-        public DoctorRepositoryAdo(string connectionString) : base(connectionString)
-        {
-        }
+        public RegistrationCardRepositoryAdo(string connectionString) : base(connectionString)
+        { }
 
         /// <summary>
         /// add a new object to the database
         /// </summary>
         /// <param name="entity">object to add</param>
         /// <returns>void</returns>
-        public async override Task CreateEntity(Doctor entity)
+        public async override Task CreateEntity(RegistrationCard entity)
         {
+            var data = entity.DateAdmission.ToShortDateString().Replace(".", "-").ToString();
             if (entity != null)
             {
-                var sqlExpression = $"INSERT INTO Doctors (FirstName,Patronymic,LastName,NumberPhone) VALUES ('{entity.LastName}', '{entity.FirstName}', '{entity.Patronymic}', '{entity.NumberPhone}')";
+                var sqlExpression = $"INSERT INTO RegistrationСards (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', {data})";
                 using (var connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
@@ -45,18 +45,17 @@ namespace Hospital.DataAccess.ADO
         /// </summary>
         /// <param name="entity">object to Delete</param>
         /// <returns>void</returns>
-        public async override Task Delete(Doctor entity)
+        public async override Task Delete(RegistrationCard entity)
         {
-            var result = new List<Doctor>();
-            var getEntityById = $"SELECT * FROM Doctors WHERE Id ={entity.Id}";
+            var result = new List<RegistrationCard>();
+            var getEntityById = $"SELECT * FROM RegistrationСards WHERE Id ={entity.Id}";
 
             if (entity != null)
             {
-                var sqlExpression = $"DELETE FROM Doctors WHERE Id={entity.Id}";
+                var sqlExpression = $"DELETE FROM RegistrationСards WHERE Id= {entity.Id}";
                 using (var connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
-
                     var commandforGetAllId = new SqlCommand(getEntityById, connection);
                     var readerId = commandforGetAllId.ExecuteReader();
                     var Id = new List<int>();
@@ -67,7 +66,7 @@ namespace Hospital.DataAccess.ADO
 
                     if (Id.Any(el => el == entity.Id && entity.Id > 0))
                     {
-                        var command = new SqlCommand(sqlExpression, connection);
+                        SqlCommand command = new SqlCommand(sqlExpression, connection);
                         command.ExecuteNonQuery();
                     }
                 }
@@ -78,10 +77,10 @@ namespace Hospital.DataAccess.ADO
         /// get all object from database
         /// </summary>
         /// <returns>void</returns>
-        public override IEnumerable<Doctor> Get()
+        public override IEnumerable<RegistrationCard> Get()
         {
-            var result = new List<Doctor>();
-            var sqlExpression = "SELECT * FROM Doctors";
+            var result = new List<RegistrationCard>();
+            var sqlExpression = "SELECT * FROM RegistrationСards";
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
@@ -89,7 +88,7 @@ namespace Hospital.DataAccess.ADO
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    result.Add(new Doctor() { Id = reader.GetInt32(0), FirstName = reader.GetString(3), Patronymic = reader.GetString(1), LastName = reader.GetString(2), NumberPhone = reader.GetString(4) });
+                    result.Add(new RegistrationCard() { Id = reader.GetInt32(0), PatientId = reader.GetInt32(2), DoctorId = reader.GetInt32(1), DiagnosisId = reader.GetInt32(4), DateAdmission = reader.GetDateTime(3) });
                 }
                 return result;
             }
@@ -100,16 +99,18 @@ namespace Hospital.DataAccess.ADO
         /// </summary>
         /// <param name="entity">object to Update</param>
         /// <returns>void</returns>
-        public async override Task Update(Doctor entity)
+        public async override Task Update(RegistrationCard entity)
         {
             if (entity != null)
             {
-                var sqlExpression = $"UPDATE Doctors SET FirstName = '{entity.LastName}', Patronymic = '{entity.FirstName}', LastName ='{entity.Patronymic}', NumberPhone = '{entity.NumberPhone}' WHERE Id={entity.Id}";
+                //'{x.ToString()}' and DATE
+                //{x} and DATETIME
+                var data = entity.DateAdmission.ToShortDateString().Replace(".", "-");
+                var sqlExpression = $"UPDATE RegistrationСards SET PatientId = '{entity.PatientId}',DoctorId = '{entity.DoctorId}',DiagnosisId = '{entity.DiagnosisId}',DateAdmission = {data} WHERE Id={entity.Id}";
                 using (var connection = new SqlConnection(ConnectionString))
                 {
+                    var getAllId = $"SELECT Id FROM RegistrationСards WHERE Id={entity.Id}";
                     await connection.OpenAsync();
-                    var getAllId = $"SELECT Id FROM Doctors WHERE Id ={entity.Id}";
-
                     var commandforGetAllId = new SqlCommand(getAllId, connection);
                     var readerId = commandforGetAllId.ExecuteReader();
                     var Id = new List<int>();

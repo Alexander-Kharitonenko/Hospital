@@ -1,6 +1,6 @@
 ﻿using Hospital.DataAccess;
 using Hospital.DataAccess.Entity;
-using Hospital.DataAccess.EntityFramework;
+using Hospital.DataAccess.RepositoryEntityFramework;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
@@ -43,10 +43,10 @@ namespace HospitalTest
             var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
 
             // Act 
-            using (var ct = new HospitalContext(options))
+            using (var context = new HospitalContext(options))
             {
-                var doc = new RegistrationCardRepository(ct);
-                result = doc.Get();
+                var registrationCardRepository = new RegistrationCardRepository(context);
+                result = registrationCardRepository.Get();
             }
 
             // Assert
@@ -92,11 +92,11 @@ namespace HospitalTest
             var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
 
             // Act 
-            using (var ct = new HospitalContext(options))
+            using (var context = new HospitalContext(options))
             {
-                var Rc = new RegistrationCardRepository(ct);
-                await Rc.CreateEntity(RegistrationCardData);
-                result = await Rc.SaveChanges();
+                var registrationCardRepository = new RegistrationCardRepository(context);
+                await registrationCardRepository.CreateEntity(RegistrationCardData);
+                result = await registrationCardRepository.SaveChanges();
             }
 
             // Assert
@@ -112,19 +112,19 @@ namespace HospitalTest
         {
             // Arrange
             const int numberOfChanges = 1;
-            int Id = 3;
+            int id = 3;
             int result;
-            var card = new RegistrationCard() { Id = Id };
+            var card = new RegistrationCard() { Id = id };
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
 
             // Act 
-            using (var ct = new HospitalContext(options))
+            using (var context = new HospitalContext(options))
             {
 
-                var Rc = new RegistrationCardRepository(ct);
-                await Rc.Delete(card);
-                result = await Rc.SaveChanges();
+                var registrationCardRepository = new RegistrationCardRepository(context);
+                await registrationCardRepository.Delete(card);
+                result = await registrationCardRepository.SaveChanges();
 
             }
 
@@ -139,23 +139,23 @@ namespace HospitalTest
         [Test]
         public async Task Update_WhenRegistrationСard_ThenUpdateRegistrationСard()
         {
-            int Id = 3;
-            int DoctorId = 3;
-            int PatientId = 4;
-            int DiagnosisId = 2;
+            int id = 3;
+            int doctorId = 3;
+            int patientId = 4;
+            int diagnosisId = 2;
             const int numberOfChanges = 1;
             int result;
-            var card = new RegistrationCard() { Id = Id, DoctorId = DoctorId, PatientId = PatientId, DiagnosisId = DiagnosisId, DateAdmission = DateTime.UtcNow.Date };
+            var card = new RegistrationCard() { Id = id, DoctorId = doctorId, PatientId = patientId, DiagnosisId = diagnosisId, DateAdmission = DateTime.UtcNow.Date };
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
 
             // Act 
-            using (var ct = new HospitalContext(options))
+            using (var context = new HospitalContext(options))
             {
 
-                var Rc = new RegistrationCardRepository(ct);
-                await Rc.Update(card);
-                result = await Rc.SaveChanges();
+                var registrationCardRepository = new RegistrationCardRepository(context);
+                await registrationCardRepository.Update(card);
+                result = await registrationCardRepository.SaveChanges();
 
             }
 
@@ -166,17 +166,17 @@ namespace HospitalTest
         /// <summary>
         /// initial data for RegistrationCardData
         /// </summary>
-        private const int DoctorId = 3;
+        private const int _doctorId = 3;
 
         /// <summary>
         /// initial data for RegistrationCardData
         /// </summary>
-        private const int PatientId = 4;
+        private const int _patientId = 4;
 
         /// <summary>
         /// initial data for RegistrationCardData
         /// </summary>
-        private const int DiagnosisId = 2;
+        private const int _diagnosisId = 2;
 
         /// <summary>
         /// initial data
@@ -185,7 +185,7 @@ namespace HospitalTest
         {
             get
             {
-                return new RegistrationCard() { DoctorId = DoctorId, PatientId = PatientId, DiagnosisId = DiagnosisId, DateAdmission = DateTime.UtcNow.Date };
+                return new RegistrationCard() { DoctorId = _doctorId, PatientId = _patientId, DiagnosisId = _diagnosisId, DateAdmission = DateTime.UtcNow.Date };
             }
         }
 

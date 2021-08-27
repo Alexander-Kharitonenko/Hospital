@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Hospital.DataAccess.EntityFramework
+namespace Hospital.DataAccess.RepositoryEntityFramework
 {
     /// <summary>
     /// stores the general logic of working with all repositories

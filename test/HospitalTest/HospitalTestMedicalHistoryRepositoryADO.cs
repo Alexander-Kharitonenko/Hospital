@@ -1,4 +1,4 @@
-using Hospital.DataAccess.ADO;
+using Hospital.DataAccess.RepositoryAdo;
 using Hospital.DataAccess.Entity;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -35,10 +35,10 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenReturnMedicalHistory()
         {
             // Arrange
-            var doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
+            var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
-            var result = doc.Get();
+            var result = medicalHistoryRepositoryAdo.Get();
 
             // Assert
             Assert.IsNotNull(result);
@@ -53,11 +53,11 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             var histors = new List<MedicalHistory>();
-            var doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
+            var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
-            await doc.CreateEntity(MedicalHistoryData);
-            histors.AddRange(doc.Get());
+            await medicalHistoryRepositoryAdo.CreateEntity(MedicalHistoryData);
+            histors.AddRange(medicalHistoryRepositoryAdo.Get());
             var result = histors[5];
 
             // Assert
@@ -73,11 +73,11 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             var histors = new List<MedicalHistory>();
-            var doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
+            var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
-            await doc.Update(MedicalHistoryData);
-            histors.AddRange(doc.Get());
+            await medicalHistoryRepositoryAdo.Update(MedicalHistoryData);
+            histors.AddRange(medicalHistoryRepositoryAdo.Get());
 
             // Assert
             Assert.AreEqual(histors[2].Diagnosis, MedicalHistoryData.Diagnosis);
@@ -93,11 +93,11 @@ namespace Hospital.XUnitTest
             // Arrange
             const int allRecordsAfterDeletion = 4;
             var histors = new List<MedicalHistory>();
-            var doc = new MedicalHistoryRepositoryAdo(config.ConnectionString);
+            var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(config.ConnectionString);
 
             // Act
-            await doc.Delete(MedicalHistoryData);
-            histors.AddRange(doc.Get());
+            await medicalHistoryRepositoryAdo.Delete(MedicalHistoryData);
+            histors.AddRange(medicalHistoryRepositoryAdo.Get());
 
             //Assert
             Assert.AreEqual(allRecordsAfterDeletion, histors.Count);
@@ -106,7 +106,7 @@ namespace Hospital.XUnitTest
         /// <summary>
         /// initial data for MedicalHistoryData
         /// </summary>
-        private const int Id = 3;
+        private const int _id = 3;
 
         /// <summary>
         /// initial data
@@ -115,7 +115,7 @@ namespace Hospital.XUnitTest
         {
             get
             {
-                return new MedicalHistory() { Id = Id, Diagnosis = "TestDiagnosis" };
+                return new MedicalHistory() { Id = _id, Diagnosis = "TestDiagnosis" };
             }
         }
 

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Hospital.DataAccess.ADO
+namespace Hospital.DataAccess.RepositoryAdo
 {
     /// <summary>
     /// Base implementation class

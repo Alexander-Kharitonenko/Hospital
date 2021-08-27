@@ -1,4 +1,4 @@
-using Hospital.DataAccess.ADO;
+using Hospital.DataAccess.RepositoryAdo;
 using Hospital.DataAccess.Entity;
 using NUnit.Framework;
 using System;
@@ -36,10 +36,10 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenReturnAllRegistrationCard()
         {
             // Arrange
-            var doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
+            var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
-            var result = doc.Get();
+            var result = registrationCardRepositoryAdo.Get();
 
             // Assert
             Assert.NotNull(result);
@@ -54,11 +54,11 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             var registrationCards = new List<RegistrationCard>();
-            var doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
+            var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
-            await doc.CreateEntity(RegistrationCardData);
-            registrationCards.AddRange(doc.Get());
+            await registrationCardRepositoryAdo.CreateEntity(RegistrationCardData);
+            registrationCards.AddRange(registrationCardRepositoryAdo.Get());
             var result = registrationCards[2];
 
             // Assert
@@ -74,11 +74,11 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             var registrationCards = new List<RegistrationCard>();
-            var doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
+            var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
-            await doc.Update(RegistrationCardData);
-            registrationCards.AddRange(doc.Get());
+            await registrationCardRepositoryAdo.Update(RegistrationCardData);
+            registrationCards.AddRange(registrationCardRepositoryAdo.Get());
             var result = registrationCards[2];
 
             // Assert
@@ -95,11 +95,11 @@ namespace Hospital.XUnitTest
             // Arrange
             const int allRecordsAfterDeletion = 4;
             var registrationCards = new List<RegistrationCard>();
-            var doc = new RegistrationCardRepositoryAdo(config.ConnectionString);
+            var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(config.ConnectionString);
 
             // Act
-            await doc.Delete(RegistrationCardData);
-            registrationCards.AddRange(doc.Get());
+            await registrationCardRepositoryAdo.Delete(RegistrationCardData);
+            registrationCards.AddRange(registrationCardRepositoryAdo.Get());
 
 
             // Assert
@@ -109,22 +109,22 @@ namespace Hospital.XUnitTest
         /// <summary>
         /// initial data RegistrationCardData
         /// </summary>
-        private const int Id = 3;
+        private const int _id = 3;
 
         /// <summary>
         /// initial data RegistrationCardData
         /// </summary>
-        private const int PatientId = 3;
+        private const int _patientId = 3;
 
         /// <summary>
         /// initial data RegistrationCardData
         /// </summary>
-        private const int DoctorId = 3;
+        private const int _doctorId = 3;
 
         /// <summary>
         /// initial data RegistrationCardData
         /// </summary>
-        private const int DiagnosisId = 2;
+        private const int _diagnosisId = 2;
 
         /// <summary>
         /// initial data
@@ -133,7 +133,7 @@ namespace Hospital.XUnitTest
         {
             get
             {
-                return new RegistrationCard() { Id = Id, PatientId = PatientId, DoctorId = DoctorId, DiagnosisId = DiagnosisId, DateAdmission = DateTime.UtcNow.Date };
+                return new RegistrationCard() { Id = _id, PatientId = _patientId, DoctorId = _doctorId, DiagnosisId = _diagnosisId, DateAdmission = DateTime.UtcNow.Date };
             }
         }
 

@@ -1,7 +1,7 @@
 ﻿using Hospital.DataAccess.Entity;
 using Hospital.DataAccess.Interfaces;
 
-namespace Hospital.DataAccess.EntityFramework
+namespace Hospital.DataAccess.RepositoryEntityFramework
 {
     /// <summary>
     /// stores the logic of the repository with the Doctor

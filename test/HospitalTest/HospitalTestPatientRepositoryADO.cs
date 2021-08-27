@@ -1,4 +1,4 @@
-using Hospital.DataAccess.ADO;
+using Hospital.DataAccess.RepositoryAdo;
 using Hospital.DataAccess.Entity;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -35,10 +35,10 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenGetAllPatient()
         {
             // Arrange
-            var doc = new PatientRepositoryAdo(config.ConnectionString);
+            var patientRepositoryAdo = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
-            var result = doc.Get();
+            var result = patientRepositoryAdo.Get();
 
             // Assert
             Assert.NotNull(result);
@@ -53,11 +53,11 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             var patients = new List<Patient>();
-            var doc = new PatientRepositoryAdo(config.ConnectionString);
+            var patientRepositoryAdo = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
-            await doc.CreateEntity(PatientData);
-            patients.AddRange(doc.Get());
+            await patientRepositoryAdo.CreateEntity(PatientData);
+            patients.AddRange(patientRepositoryAdo.Get());
             var result = patients[5];
 
             // Assert
@@ -73,11 +73,11 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             var patients = new List<Patient>();
-            var doc = new PatientRepositoryAdo(config.ConnectionString);
+            var patientRepositoryAdo = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
-            await doc.Update(PatientData);
-            patients.AddRange(doc.Get());
+            await patientRepositoryAdo.Update(PatientData);
+            patients.AddRange(patientRepositoryAdo.Get());
             var result = patients[2];
 
             // Assert
@@ -94,11 +94,11 @@ namespace Hospital.XUnitTest
             // Arrange
             const int allRecordsAfterDeletion = 4;
             var patients = new List<Patient>();
-            var doc = new PatientRepositoryAdo(config.ConnectionString);
+            var patientRepositoryAdo = new PatientRepositoryAdo(config.ConnectionString);
 
             // Act
-            await doc.Delete(PatientData);
-            patients.AddRange(doc.Get());
+            await patientRepositoryAdo.Delete(PatientData);
+            patients.AddRange(patientRepositoryAdo.Get());
 
             //Assert
             Assert.AreEqual(allRecordsAfterDeletion, patients.Count);
@@ -107,7 +107,7 @@ namespace Hospital.XUnitTest
         /// <summary>
         /// initial data PatientData
         /// </summary>
-        private const int Id = 3;
+        private const int _id = 3;
 
         /// <summary>
         /// initial data
@@ -116,7 +116,7 @@ namespace Hospital.XUnitTest
         {
             get
             {
-                return new Patient() { Id = Id, FirstName = "TestFirstName", Patronymic = "TestPatronymic", LastName = "TestLastName", Gender = "TestGender", ResidenceAddress = "TestResidenceAddress" };
+                return new Patient() { Id = _id, FirstName = "TestFirstName", Patronymic = "TestPatronymic", LastName = "TestLastName", Gender = "TestGender", ResidenceAddress = "TestResidenceAddress" };
             }
         }
 

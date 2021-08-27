@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Hospital.DataAccess.EntityFramework
+namespace Hospital.DataAccess.RepositoryEntityFramework
 {
     /// <summary>
     /// the class allows you to work with all repositories
