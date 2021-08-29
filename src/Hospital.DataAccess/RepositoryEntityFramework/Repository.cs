@@ -50,7 +50,7 @@ namespace Hospital.DataAccess.RepositoryEntityFramework
         /// <returns></returns>
         public async Task Delete(T Entity)
         {
-            T result = await Table.FirstOrDefaultAsync(el => el.Id == Entity.Id);
+            var result = await Table.FirstOrDefaultAsync(el => el.Id == Entity.Id);
             Table.Remove(result);
         }
 

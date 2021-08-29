@@ -59,13 +59,13 @@ namespace Hospital.DataAccess.RepositoryAdo
 
                     var commandforGetAllId = new SqlCommand(getEntityById, connection);
                     var readerId = commandforGetAllId.ExecuteReader();
-                    var Id = new List<int>();
+                    var id = new List<int>();
                     while (readerId.Read())
                     {
-                        Id.Add(readerId.GetInt32(0));
+                        id.Add(readerId.GetInt32(0));
                     }
 
-                    if (Id.Any(el => el == entity.Id && entity.Id > 0))
+                    if (id.Any(el => el == entity.Id && entity.Id > 0))
                     {
                         var command = new SqlCommand(sqlExpression, connection);
                         command.ExecuteNonQuery();
@@ -112,13 +112,13 @@ namespace Hospital.DataAccess.RepositoryAdo
 
                     var commandforGetAllId = new SqlCommand(getAllId, connection);
                     var readerId = commandforGetAllId.ExecuteReader();
-                    var Id = new List<int>();
+                    var id = new List<int>();
                     while (readerId.Read())
                     {
-                        Id.Add(readerId.GetInt32(0));
+                        id.Add(readerId.GetInt32(0));
                     }
 
-                    if (Id.Any(el => el == entity.Id && entity.Id > 0))
+                    if (id.Any(el => el == entity.Id && entity.Id > 0))
                     {
                         var command = new SqlCommand(sqlExpression, connection);
                         command.ExecuteNonQuery();

@@ -101,7 +101,6 @@ namespace Hospital.XUnitTest
             await registrationCardRepositoryAdo.Delete(RegistrationCardData);
             registrationCards.AddRange(registrationCardRepositoryAdo.Get());
 
-
             // Assert
             Assert.AreEqual(allRecordsAfterDeletion, registrationCards.Count);
         }

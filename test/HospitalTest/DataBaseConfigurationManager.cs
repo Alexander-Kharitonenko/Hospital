@@ -73,7 +73,6 @@ namespace TicketManagement.IntegrationTests
             };
 
             var dacServiceInstance = new DacServices(_connectionString);
-
             var dacpacPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + DacPacString;
 
             if (File.Exists(dacpacPath))

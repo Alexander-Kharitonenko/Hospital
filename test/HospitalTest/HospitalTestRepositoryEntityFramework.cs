@@ -121,11 +121,9 @@ namespace HospitalTest
             // Act 
             using (var context = new HospitalContext(options))
             {
-
                 var registrationCardRepository = new RegistrationCardRepository(context);
                 await registrationCardRepository.Delete(card);
                 result = await registrationCardRepository.SaveChanges();
-
             }
 
             // Assert
@@ -152,11 +150,9 @@ namespace HospitalTest
             // Act 
             using (var context = new HospitalContext(options))
             {
-
                 var registrationCardRepository = new RegistrationCardRepository(context);
                 await registrationCardRepository.Update(card);
                 result = await registrationCardRepository.SaveChanges();
-
             }
 
             // Assert
