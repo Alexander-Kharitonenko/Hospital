@@ -19,6 +19,37 @@ namespace Hospital.XUnitTest
         DataBaseConfigurationManager Config = new DataBaseConfigurationManager();
 
         /// <summary>
+        /// initial data RegistrationCardData
+        /// </summary>
+        private const int ARBITRARY_VALUE_ID = 3;
+
+        /// <summary>
+        /// initial data RegistrationCardData
+        /// </summary>
+        private const int ARBITRARY_VALUE_PATIENT_ID = 3;
+
+        /// <summary>
+        /// initial data RegistrationCardData
+        /// </summary>
+        private const int ARBITRARY_VALUE_DOCTOR_ID = 3;
+
+        /// <summary>
+        /// initial data RegistrationCardData
+        /// </summary>
+        private const int ARBITRARY_VALUE_DIAGNOSIS_ID = 2;
+
+        /// <summary>
+        /// initial data
+        /// </summary>
+        public static RegistrationCard RegistrationCardData
+        {
+            get
+            {
+                return new RegistrationCard() { Id = ARBITRARY_VALUE_ID, PatientId = ARBITRARY_VALUE_PATIENT_ID, DoctorId = ARBITRARY_VALUE_DOCTOR_ID, DiagnosisId = ARBITRARY_VALUE_DIAGNOSIS_ID, DateAdmission = DateTime.UtcNow.Date };
+            }
+        }
+
+        /// <summary>
         /// runs at the beginning of the test and creates the database
         /// </summary>
         /// <returns>void</returns>
@@ -103,37 +134,6 @@ namespace Hospital.XUnitTest
 
             // Assert
             Assert.AreEqual(allRecordsAfterDeletion, registrationCards.Count);
-        }
-
-        /// <summary>
-        /// initial data RegistrationCardData
-        /// </summary>
-        private const int _id = 3;
-
-        /// <summary>
-        /// initial data RegistrationCardData
-        /// </summary>
-        private const int _patientId = 3;
-
-        /// <summary>
-        /// initial data RegistrationCardData
-        /// </summary>
-        private const int _doctorId = 3;
-
-        /// <summary>
-        /// initial data RegistrationCardData
-        /// </summary>
-        private const int _diagnosisId = 2;
-
-        /// <summary>
-        /// initial data
-        /// </summary>
-        public static RegistrationCard RegistrationCardData
-        {
-            get
-            {
-                return new RegistrationCard() { Id = _id, PatientId = _patientId, DoctorId = _doctorId, DiagnosisId = _diagnosisId, DateAdmission = DateTime.UtcNow.Date };
-            }
         }
 
         /// <summary>

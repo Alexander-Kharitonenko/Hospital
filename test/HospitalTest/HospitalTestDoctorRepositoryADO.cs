@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicketManagement.IntegrationTests;
+using System.Linq;
 
 namespace Hospital.XUnitTest
 {
@@ -16,6 +17,34 @@ namespace Hospital.XUnitTest
         ///object for database management
         /// </summary>
         DataBaseConfigurationManager Config = new DataBaseConfigurationManager();
+
+        /// <summary>
+        /// list with reference values ​​for comparison
+        /// </summary>
+        List<Doctor> ComparisonList = new List<Doctor>()
+        {
+                new Doctor() { Id = 1, LastName ="Gulagina", Patronymic ="Anatolyevna", FirstName ="Julia", NumberPhone ="+ 375251111111"},
+                new Doctor() { Id = 2, LastName ="Vasiliev", Patronymic ="Valentinovich", FirstName ="Valery", NumberPhone ="+ 375252222222"},
+                new Doctor() { Id = 3, LastName ="Ugarov",Patronymic ="Mikhailovich", FirstName ="Victor", NumberPhone ="+ 375253333333"},
+                new Doctor() { Id = 4, LastName ="Demchuk", Patronymic ="Pavlovich", FirstName ="Alexey", NumberPhone ="+ 375254444444"},
+                new Doctor() { Id = 5, LastName ="Grishina",  Patronymic ="Konstantinovna", FirstName ="Olga", NumberPhone ="+ 375255555555"},
+        };
+    
+        /// <summary>
+        /// initial data for DoctorData
+        /// </summary>
+        private const int ARBITRARY_VALUE_ID = 3;
+
+        /// <summary>
+        /// initial data
+        /// </summary>
+        public static Doctor DoctorData
+        {
+            get
+            {
+                return new Doctor() { Id = ARBITRARY_VALUE_ID, FirstName = "TestName", Patronymic = "TestPatronymic", LastName = "TestLastName", NumberPhone = "TestNumberPhone" };
+            }
+        }
 
         /// <summary>
         /// runs at the beginning of the test and creates the database
@@ -35,13 +64,14 @@ namespace Hospital.XUnitTest
         public void Get_WhenGetDoctor_ThenGetDoctor()
         {
             // Arrange
+            var ArbitraryValueIndex = 4;
             var doctorRepositoryAdo = new DoctorRepositoryAdo(Config.ConnectionString);
 
             // Act
-            var result = doctorRepositoryAdo.Get();
+            var result = doctorRepositoryAdo.Get().ToList();
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.AreEqual(result[ArbitraryValueIndex].LastName , ComparisonList[ArbitraryValueIndex].LastName);
         }
 
         /// <summary>
@@ -52,13 +82,14 @@ namespace Hospital.XUnitTest
         public async Task CreateEntity_WhenAddingDoctor_ThenDoctorAdded()
         {
             // Arrange
+            var ArbitraryValueIndex = 5;
             var doctor = new List<Doctor>();
             var doctorRepositoryAdo = new DoctorRepositoryAdo(Config.ConnectionString);
 
             // Act
             await doctorRepositoryAdo.CreateEntity(DoctorData);
             doctor.AddRange(doctorRepositoryAdo.Get());
-            var result = doctor[5];
+            var result = doctor[ArbitraryValueIndex];
 
             // Assert
             Assert.AreEqual(result.LastName, DoctorData.LastName);
@@ -72,6 +103,7 @@ namespace Hospital.XUnitTest
         public async Task UpdateDoctor_WhenDoctorApdates_ThenDoctorUpdated()
         {
             // Arrange
+            var ArbitraryValueIndex = 2;
             var doctor = new List<Doctor>();
             var doctorRepositoryAdo = new DoctorRepositoryAdo(Config.ConnectionString);
 
@@ -80,7 +112,7 @@ namespace Hospital.XUnitTest
             doctor.AddRange(doctorRepositoryAdo.Get());
 
             // Assert
-            Assert.AreEqual(doctor[2].LastName, DoctorData.LastName);
+            Assert.AreEqual(doctor[ArbitraryValueIndex].LastName, DoctorData.LastName);
         }
 
         /// <summary>
@@ -101,22 +133,6 @@ namespace Hospital.XUnitTest
 
             //Assert
             Assert.AreEqual(allRecordsAfterDeletion, doctor.Count);
-        }
-
-        /// <summary>
-        /// initial data for DoctorData
-        /// </summary>
-        private const int _id = 3;
-       
-        /// <summary>
-        /// initial data
-        /// </summary>
-        public static Doctor DoctorData
-        {
-            get
-            {
-                return new Doctor() { Id = _id, FirstName = "TestName", Patronymic = "TestPatronymic", LastName = "TestLastName", NumberPhone = "TestNumberPhone" };
-            }
         }
 
         /// <summary>

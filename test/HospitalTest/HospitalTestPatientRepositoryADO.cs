@@ -1,9 +1,10 @@
-using Hospital.DataAccess.RepositoryAdo;
+﻿using Hospital.DataAccess.RepositoryAdo;
 using Hospital.DataAccess.Entity;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicketManagement.IntegrationTests;
+using System.Linq;
 
 namespace Hospital.XUnitTest
 {
@@ -16,6 +17,34 @@ namespace Hospital.XUnitTest
         ///object for database management
         /// </summary>
         DataBaseConfigurationManager Config = new DataBaseConfigurationManager();
+
+        /// <summary>
+        /// list with reference values ​​for comparison
+        /// </summary>
+        List<Patient> ComparisonList = new List<Patient>()
+        {
+                new Patient() { Id = 1, LastName ="Smirnov", Patronymic ="Ivanovich", FirstName ="Sergey", Gender ="Male", ResidenceAddress="Gomel, Trudovaya st., 5"},
+                new Patient() { Id = 2, LastName ="Lebedeva", Patronymic ="Nikolaevna", FirstName ="Natalya", Gender ="Female", ResidenceAddress="Gomel, Sadovaya st., 10"},
+                new Patient() { Id = 3, LastName ="Solovyova",Patronymic ="Alexandrovna", FirstName ="Ksenia", Gender ="Female", ResidenceAddress="Mozyr Lesnaya st., 7"},
+                new Patient() { Id = 4, LastName ="Orlov", Patronymic ="Viktorovich", FirstName ="Mikhail", Gender ="Male", ResidenceAddress="Mozyr Beregovaya st., 3"},
+                new Patient() { Id = 5, LastName ="Kovalev",  Patronymic ="Anatolyevich", FirstName ="Igor", Gender ="Male", ResidenceAddress="Gomel, street Klenovaya, 1"},
+        };
+
+        /// <summary>
+        /// initial data PatientData
+        /// </summary>
+        private const int ARBITRARY_VALUE_ID = 3;
+
+        /// <summary>
+        /// initial data
+        /// </summary>
+        public static Patient PatientData
+        {
+            get
+            {
+                return new Patient() { Id = ARBITRARY_VALUE_ID, FirstName = "TestFirstName", Patronymic = "TestPatronymic", LastName = "TestLastName", Gender = "TestGender", ResidenceAddress = "TestResidenceAddress" };
+            }
+        }
 
         /// <summary>
         /// runs at the beginning of the test and creates the database
@@ -35,13 +64,14 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenGetAllPatient()
         {
             // Arrange
+            var ArbitraryValueIndex = 4;
             var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
             // Act
-            var result = patientRepositoryAdo.Get();
+            var result = patientRepositoryAdo.Get().ToList();
 
             // Assert
-            Assert.NotNull(result);
+            Assert.AreEqual(result[ArbitraryValueIndex].LastName, ComparisonList[ArbitraryValueIndex].LastName);
         }
 
         /// <summary>
@@ -52,13 +82,14 @@ namespace Hospital.XUnitTest
         public async Task CreateEntity_WhenCreatePatient_ThenCreatePatient()
         {
             // Arrange
+            var ArbitraryValueIndex = 5;
             var patients = new List<Patient>();
             var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
             // Act
             await patientRepositoryAdo.CreateEntity(PatientData);
             patients.AddRange(patientRepositoryAdo.Get());
-            var result = patients[5];
+            var result = patients[ArbitraryValueIndex];
 
             // Assert
             Assert.AreEqual(result.LastName, PatientData.LastName);
@@ -72,13 +103,14 @@ namespace Hospital.XUnitTest
         public async Task UpdateEntity_WhenPatient_ThenUpdatePatient()
         {
             // Arrange
+            var ArbitraryValueIndex = 2;
             var patients = new List<Patient>();
             var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
             // Act
             await patientRepositoryAdo.Update(PatientData);
             patients.AddRange(patientRepositoryAdo.Get());
-            var result = patients[2];
+            var result = patients[ArbitraryValueIndex];
 
             // Assert
             Assert.AreEqual(result.LastName, PatientData.LastName);
@@ -102,22 +134,6 @@ namespace Hospital.XUnitTest
 
             //Assert
             Assert.AreEqual(allRecordsAfterDeletion, patients.Count);
-        }
-
-        /// <summary>
-        /// initial data PatientData
-        /// </summary>
-        private const int _id = 3;
-
-        /// <summary>
-        /// initial data
-        /// </summary>
-        public static Patient PatientData
-        {
-            get
-            {
-                return new Patient() { Id = _id, FirstName = "TestFirstName", Patronymic = "TestPatronymic", LastName = "TestLastName", Gender = "TestGender", ResidenceAddress = "TestResidenceAddress" };
-            }
         }
 
         /// <summary>
