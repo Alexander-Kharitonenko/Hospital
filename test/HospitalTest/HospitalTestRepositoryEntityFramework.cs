@@ -18,7 +18,7 @@ namespace HospitalTest
         /// <summary>
         ///object for database management
         /// </summary>
-        DataBaseConfigurationManager config = new DataBaseConfigurationManager();
+        DataBaseConfigurationManager Config = new DataBaseConfigurationManager();
 
         /// <summary>
         /// runs at the beginning of the test and creates the database
@@ -27,7 +27,7 @@ namespace HospitalTest
         [SetUp]
         public void Start()
         {
-            config.LoadDataBase();
+            Config.LoadDataBase();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace HospitalTest
             // Arrange
             IEnumerable<RegistrationCard> result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-            var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+            var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
 
             // Act 
             using (var context = new HospitalContext(options))
@@ -63,7 +63,7 @@ namespace HospitalTest
             // Arrange
             int result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-            var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+            var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
 
             //Act
             using (var context = new HospitalContext(options))
@@ -89,7 +89,7 @@ namespace HospitalTest
             const int numberOfChanges = 1;
             int result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-            var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+            var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
 
             // Act 
             using (var context = new HospitalContext(options))
@@ -116,7 +116,7 @@ namespace HospitalTest
             int result;
             var card = new RegistrationCard() { Id = id };
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-            var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+            var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
 
             // Act 
             using (var context = new HospitalContext(options))
@@ -145,7 +145,7 @@ namespace HospitalTest
             int result;
             var card = new RegistrationCard() { Id = id, DoctorId = doctorId, PatientId = patientId, DiagnosisId = diagnosisId, DateAdmission = DateTime.UtcNow.Date };
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
-            var options = optionsBuilder.UseSqlServer(config.ConnectionString).Options;
+            var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
 
             // Act 
             using (var context = new HospitalContext(options))
@@ -202,7 +202,7 @@ namespace HospitalTest
         [TearDown]
         public void End()
         {
-            config.DropDataBase();
+            Config.DropDataBase();
         }
     }
 }

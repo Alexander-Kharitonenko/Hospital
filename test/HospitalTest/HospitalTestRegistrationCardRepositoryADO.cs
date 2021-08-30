@@ -16,7 +16,7 @@ namespace Hospital.XUnitTest
         /// <summary>
         ///object for database management
         /// </summary>
-        DataBaseConfigurationManager config = new DataBaseConfigurationManager();
+        DataBaseConfigurationManager Config = new DataBaseConfigurationManager();
 
         /// <summary>
         /// runs at the beginning of the test and creates the database
@@ -25,7 +25,7 @@ namespace Hospital.XUnitTest
         [SetUp]
         public void Start()
         {
-            config.LoadDataBase();
+            Config.LoadDataBase();
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenReturnAllRegistrationCard()
         {
             // Arrange
-            var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(config.ConnectionString);
+            var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(Config.ConnectionString);
 
             // Act
             var result = registrationCardRepositoryAdo.Get();
@@ -54,7 +54,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             var registrationCards = new List<RegistrationCard>();
-            var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(config.ConnectionString);
+            var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(Config.ConnectionString);
 
             // Act
             await registrationCardRepositoryAdo.CreateEntity(RegistrationCardData);
@@ -74,7 +74,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             var registrationCards = new List<RegistrationCard>();
-            var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(config.ConnectionString);
+            var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(Config.ConnectionString);
 
             // Act
             await registrationCardRepositoryAdo.Update(RegistrationCardData);
@@ -95,7 +95,7 @@ namespace Hospital.XUnitTest
             // Arrange
             const int allRecordsAfterDeletion = 4;
             var registrationCards = new List<RegistrationCard>();
-            var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(config.ConnectionString);
+            var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(Config.ConnectionString);
 
             // Act
             await registrationCardRepositoryAdo.Delete(RegistrationCardData);
@@ -142,7 +142,7 @@ namespace Hospital.XUnitTest
         [TearDown]
         public void End()
         {
-            config.DropDataBase();
+            Config.DropDataBase();
         }
     }
 }

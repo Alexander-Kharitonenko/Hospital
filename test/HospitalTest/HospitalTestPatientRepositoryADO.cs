@@ -15,7 +15,7 @@ namespace Hospital.XUnitTest
         /// <summary>
         ///object for database management
         /// </summary>
-        DataBaseConfigurationManager config = new DataBaseConfigurationManager();
+        DataBaseConfigurationManager Config = new DataBaseConfigurationManager();
 
         /// <summary>
         /// runs at the beginning of the test and creates the database
@@ -24,7 +24,7 @@ namespace Hospital.XUnitTest
         [SetUp]
         public void Start()
         {
-            config.LoadDataBase();
+            Config.LoadDataBase();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenGetAllPatient()
         {
             // Arrange
-            var patientRepositoryAdo = new PatientRepositoryAdo(config.ConnectionString);
+            var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
             // Act
             var result = patientRepositoryAdo.Get();
@@ -53,7 +53,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             var patients = new List<Patient>();
-            var patientRepositoryAdo = new PatientRepositoryAdo(config.ConnectionString);
+            var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
             // Act
             await patientRepositoryAdo.CreateEntity(PatientData);
@@ -73,7 +73,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             var patients = new List<Patient>();
-            var patientRepositoryAdo = new PatientRepositoryAdo(config.ConnectionString);
+            var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
             // Act
             await patientRepositoryAdo.Update(PatientData);
@@ -94,7 +94,7 @@ namespace Hospital.XUnitTest
             // Arrange
             const int allRecordsAfterDeletion = 4;
             var patients = new List<Patient>();
-            var patientRepositoryAdo = new PatientRepositoryAdo(config.ConnectionString);
+            var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
             // Act
             await patientRepositoryAdo.Delete(PatientData);
@@ -126,7 +126,7 @@ namespace Hospital.XUnitTest
         [TearDown]
         public void End()
         {
-            config.DropDataBase();
+            Config.DropDataBase();
         }
     }
 }

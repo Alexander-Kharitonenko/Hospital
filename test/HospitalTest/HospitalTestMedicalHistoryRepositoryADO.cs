@@ -15,7 +15,7 @@ namespace Hospital.XUnitTest
         /// <summary>
         ///object for database management
         /// </summary>
-        DataBaseConfigurationManager config = new DataBaseConfigurationManager();
+        DataBaseConfigurationManager Config = new DataBaseConfigurationManager();
 
         /// <summary>
         /// runs at the beginning of the test and creates the database
@@ -24,7 +24,7 @@ namespace Hospital.XUnitTest
         [SetUp]
         public void Start()
         {
-            config.LoadDataBase();
+            Config.LoadDataBase();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenReturnMedicalHistory()
         {
             // Arrange
-            var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(config.ConnectionString);
+            var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(Config.ConnectionString);
 
             // Act
             var result = medicalHistoryRepositoryAdo.Get();
@@ -53,7 +53,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             var histors = new List<MedicalHistory>();
-            var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(config.ConnectionString);
+            var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(Config.ConnectionString);
 
             // Act
             await medicalHistoryRepositoryAdo.CreateEntity(MedicalHistoryData);
@@ -73,7 +73,7 @@ namespace Hospital.XUnitTest
         {
             // Arrange
             var histors = new List<MedicalHistory>();
-            var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(config.ConnectionString);
+            var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(Config.ConnectionString);
 
             // Act
             await medicalHistoryRepositoryAdo.Update(MedicalHistoryData);
@@ -93,7 +93,7 @@ namespace Hospital.XUnitTest
             // Arrange
             const int allRecordsAfterDeletion = 4;
             var histors = new List<MedicalHistory>();
-            var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(config.ConnectionString);
+            var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(Config.ConnectionString);
 
             // Act
             await medicalHistoryRepositoryAdo.Delete(MedicalHistoryData);
@@ -125,7 +125,7 @@ namespace Hospital.XUnitTest
         [TearDown]
         public void End()
         {
-            config.DropDataBase();
+            Config.DropDataBase();
         }
     }
 }
