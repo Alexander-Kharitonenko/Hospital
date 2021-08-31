@@ -64,14 +64,14 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenGetAllPatient()
         {
             // Arrange
-            var ArbitraryValueIndex = 4;
+            var arbitraryValueIndex = 4;
             var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
             // Act
             var result = patientRepositoryAdo.Get().ToList();
 
             // Assert
-            Assert.AreEqual(result[ArbitraryValueIndex].LastName, ComparisonList[ArbitraryValueIndex].LastName);
+            Assert.AreEqual(result[arbitraryValueIndex].LastName, ComparisonList[arbitraryValueIndex].LastName);
         }
 
         /// <summary>
@@ -82,14 +82,14 @@ namespace Hospital.XUnitTest
         public async Task CreateEntity_WhenCreatePatient_ThenCreatePatient()
         {
             // Arrange
-            var ArbitraryValueIndex = 5;
+            var arbitraryValueIndex = 5;
             var patients = new List<Patient>();
             var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
             // Act
             await patientRepositoryAdo.CreateEntity(PatientData);
             patients.AddRange(patientRepositoryAdo.Get());
-            var result = patients[ArbitraryValueIndex];
+            var result = patients[arbitraryValueIndex];
 
             // Assert
             Assert.AreEqual(result.LastName, PatientData.LastName);
@@ -103,14 +103,14 @@ namespace Hospital.XUnitTest
         public async Task UpdateEntity_WhenPatient_ThenUpdatePatient()
         {
             // Arrange
-            var ArbitraryValueIndex = 2;
+            var arbitraryValueIndex = 2;
             var patients = new List<Patient>();
             var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
             // Act
             await patientRepositoryAdo.Update(PatientData);
             patients.AddRange(patientRepositoryAdo.Get());
-            var result = patients[ArbitraryValueIndex];
+            var result = patients[arbitraryValueIndex];
 
             // Assert
             Assert.AreEqual(result.LastName, PatientData.LastName);

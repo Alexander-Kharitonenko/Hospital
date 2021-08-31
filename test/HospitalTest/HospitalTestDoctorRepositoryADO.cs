@@ -29,7 +29,7 @@ namespace Hospital.XUnitTest
                 new Doctor() { Id = 4, LastName ="Demchuk", Patronymic ="Pavlovich", FirstName ="Alexey", NumberPhone ="+ 375254444444"},
                 new Doctor() { Id = 5, LastName ="Grishina",  Patronymic ="Konstantinovna", FirstName ="Olga", NumberPhone ="+ 375255555555"},
         };
-    
+
         /// <summary>
         /// initial data for DoctorData
         /// </summary>
@@ -64,14 +64,14 @@ namespace Hospital.XUnitTest
         public void Get_WhenGetDoctor_ThenGetDoctor()
         {
             // Arrange
-            var ArbitraryValueIndex = 4;
+            var arbitraryValueIndex = 4;
             var doctorRepositoryAdo = new DoctorRepositoryAdo(Config.ConnectionString);
 
             // Act
             var result = doctorRepositoryAdo.Get().ToList();
 
             // Assert
-            Assert.AreEqual(result[ArbitraryValueIndex].LastName , ComparisonList[ArbitraryValueIndex].LastName);
+            Assert.AreEqual(result[arbitraryValueIndex].LastName , ComparisonList[arbitraryValueIndex].LastName);
         }
 
         /// <summary>
@@ -82,14 +82,14 @@ namespace Hospital.XUnitTest
         public async Task CreateEntity_WhenAddingDoctor_ThenDoctorAdded()
         {
             // Arrange
-            var ArbitraryValueIndex = 5;
+            var arbitraryValueIndex = 5;
             var doctor = new List<Doctor>();
             var doctorRepositoryAdo = new DoctorRepositoryAdo(Config.ConnectionString);
 
             // Act
             await doctorRepositoryAdo.CreateEntity(DoctorData);
             doctor.AddRange(doctorRepositoryAdo.Get());
-            var result = doctor[ArbitraryValueIndex];
+            var result = doctor[arbitraryValueIndex];
 
             // Assert
             Assert.AreEqual(result.LastName, DoctorData.LastName);
@@ -103,7 +103,7 @@ namespace Hospital.XUnitTest
         public async Task UpdateDoctor_WhenDoctorApdates_ThenDoctorUpdated()
         {
             // Arrange
-            var ArbitraryValueIndex = 2;
+            var arbitraryValueIndex = 2;
             var doctor = new List<Doctor>();
             var doctorRepositoryAdo = new DoctorRepositoryAdo(Config.ConnectionString);
 
@@ -112,7 +112,7 @@ namespace Hospital.XUnitTest
             doctor.AddRange(doctorRepositoryAdo.Get());
 
             // Assert
-            Assert.AreEqual(doctor[ArbitraryValueIndex].LastName, DoctorData.LastName);
+            Assert.AreEqual(doctor[arbitraryValueIndex].LastName, DoctorData.LastName);
         }
 
         /// <summary>

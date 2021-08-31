@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TicketManagement.IntegrationTests;
 
@@ -13,12 +14,35 @@ namespace HospitalTest
     /// <summary>
     /// class for test RepositoryEF
     /// </summary>
-    public class HospitalTestRepositoryEntityFramework
+    public class HospitalTestDoctorRepositoryEntityFramework
     {
         /// <summary>
         ///object for database management
         /// </summary>
         DataBaseConfigurationManager Config = new DataBaseConfigurationManager();
+
+        /// <summary>
+        /// initial data
+        /// </summary>
+        public static Doctor DoctorData
+        {
+            get
+            {
+                return new Doctor() { FirstName = "TestName", Patronymic = "TestPatronymic", LastName = "TestLastName", NumberPhone = "TestNumberPhone" };
+            }
+        }
+
+        /// <summary>
+        /// list with reference values ​​for comparison
+        /// </summary>
+        List<Doctor> ComparisonList = new List<Doctor>()
+        {
+                new Doctor() { Id = 1, LastName ="Gulagina", Patronymic ="Anatolyevna", FirstName ="Julia", NumberPhone ="+ 375251111111"},
+                new Doctor() { Id = 2, LastName ="Vasiliev", Patronymic ="Valentinovich", FirstName ="Valery", NumberPhone ="+ 375252222222"},
+                new Doctor() { Id = 3, LastName ="Ugarov",Patronymic ="Mikhailovich", FirstName ="Victor", NumberPhone ="+ 375253333333"},
+                new Doctor() { Id = 4, LastName ="Demchuk", Patronymic ="Pavlovich", FirstName ="Alexey", NumberPhone ="+ 375254444444"},
+                new Doctor() { Id = 5, LastName ="Grishina",  Patronymic ="Konstantinovna", FirstName ="Olga", NumberPhone ="+ 375255555555"},
+        };
 
         /// <summary>
         /// runs at the beginning of the test and creates the database
@@ -38,19 +62,20 @@ namespace HospitalTest
         public void Get_WhenGet_ThenGetAllEntity()
         {
             // Arrange
-            IEnumerable<RegistrationCard> result;
+            var arbitraryValueIndex = 4;
+            List<Doctor> result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
 
             // Act 
             using (var context = new HospitalContext(options))
             {
-                var registrationCardRepository = new RegistrationCardRepository(context);
-                result = registrationCardRepository.Get();
+                var doctorRepository = new DoctorRepository(context);
+                result = doctorRepository.Get().ToList();
             }
 
             // Assert
-            Assert.NotNull(result);
+            Assert.AreEqual(result[arbitraryValueIndex].LastName, ComparisonList[arbitraryValueIndex].LastName);
         }
 
         /// <summary>
@@ -62,6 +87,7 @@ namespace HospitalTest
         {
             // Arrange
             int result;
+            const int numberOfChanges = 1;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
 
@@ -70,12 +96,11 @@ namespace HospitalTest
             {
                 var repositorys = new UnitOfWork(new DoctorRepository(context), new MedicalHistoryRepository(context), new PatientRepository(context), new RegistrationCardRepository(context), context);
                 await repositorys.doctorRepository.CreateEntity(DoctorData);
-                await repositorys.registrationCardRepository.CreateEntity(RegistrationCardData);
                 result = await repositorys.SaveChangesAsync();
             }
 
             //Assert
-            Assert.NotNull(result);
+            Assert.AreEqual(numberOfChanges, result);
         }
 
         /// <summary>
@@ -83,7 +108,7 @@ namespace HospitalTest
         /// </summary>
         /// <returns>IEnumerable<Doctor></returns>
         [Test]
-        public async Task Create_WhenAddingRegistrationСard_ThenRegistrationСardAdd()
+        public async Task Create_WhenAddingDoctor_ThenDoctorAdd()
         {
             // Arrange
             const int numberOfChanges = 1;
@@ -94,9 +119,9 @@ namespace HospitalTest
             // Act 
             using (var context = new HospitalContext(options))
             {
-                var registrationCardRepository = new RegistrationCardRepository(context);
-                await registrationCardRepository.CreateEntity(RegistrationCardData);
-                result = await registrationCardRepository.SaveChanges();
+                var doctorRepository = new DoctorRepository(context);
+                await doctorRepository.CreateEntity(DoctorData);
+                result = await doctorRepository.SaveChanges();
             }
 
             // Assert
@@ -108,22 +133,22 @@ namespace HospitalTest
         /// </summary>
         /// <returns>void</returns>
         [Test]
-        public async Task Delete_WhenRegistrationСard_ThenDeleteRegistrationСard()
+        public async Task Delete_WhenDoctor_ThenDeleteDoctor()
         {
             // Arrange
             const int numberOfChanges = 1;
-            int id = 3;
+            int randomValueId = 3;
             int result;
-            var card = new RegistrationCard() { Id = id };
+            var doctor = new Doctor() { Id = randomValueId };
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
 
             // Act 
             using (var context = new HospitalContext(options))
             {
-                var registrationCardRepository = new RegistrationCardRepository(context);
-                await registrationCardRepository.Delete(card);
-                result = await registrationCardRepository.SaveChanges();
+                var doctorRepository = new DoctorRepository(context);
+                await doctorRepository.Delete(doctor);
+                result = await doctorRepository.SaveChanges();
             }
 
             // Assert
@@ -135,65 +160,25 @@ namespace HospitalTest
         /// </summary>
         /// <returns>void</returns>
         [Test]
-        public async Task Update_WhenRegistrationСard_ThenUpdateRegistrationСard()
+        public async Task Update_WhenDoctor_ThenDoctor()
         {
-            int id = 3;
-            int doctorId = 3;
-            int patientId = 4;
-            int diagnosisId = 2;
+            int randomValueId = 3;
             const int numberOfChanges = 1;
             int result;
-            var card = new RegistrationCard() { Id = id, DoctorId = doctorId, PatientId = patientId, DiagnosisId = diagnosisId, DateAdmission = DateTime.UtcNow.Date };
+            var doctor = new Doctor() { Id = randomValueId,FirstName = DoctorData.FirstName, LastName = DoctorData.LastName,Patronymic = DoctorData.Patronymic, NumberPhone = DoctorData.NumberPhone};
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
 
             // Act 
             using (var context = new HospitalContext(options))
             {
-                var registrationCardRepository = new RegistrationCardRepository(context);
-                await registrationCardRepository.Update(card);
-                result = await registrationCardRepository.SaveChanges();
+                var doctorRepository = new DoctorRepository(context);
+                await doctorRepository.Update(doctor);
+                result = await doctorRepository.SaveChanges();
             }
 
             // Assert
             Assert.AreEqual(numberOfChanges, result);
-        }
-
-        /// <summary>
-        /// initial data for RegistrationCardData
-        /// </summary>
-        private const int _doctorId = 3;
-
-        /// <summary>
-        /// initial data for RegistrationCardData
-        /// </summary>
-        private const int _patientId = 4;
-
-        /// <summary>
-        /// initial data for RegistrationCardData
-        /// </summary>
-        private const int _diagnosisId = 2;
-
-        /// <summary>
-        /// initial data
-        /// </summary>
-        public static RegistrationCard RegistrationCardData
-        {
-            get
-            {
-                return new RegistrationCard() { DoctorId = _doctorId, PatientId = _patientId, DiagnosisId = _diagnosisId, DateAdmission = DateTime.UtcNow.Date };
-            }
-        }
-
-        /// <summary>
-        /// initial data
-        /// </summary>
-        public static Doctor DoctorData
-        {
-            get
-            {
-                return new Doctor() { FirstName = "TestName", Patronymic = "TestPatronymic", LastName = "TestLastName", NumberPhone = "TestNumberPhone" };
-            }
         }
 
         /// <summary>

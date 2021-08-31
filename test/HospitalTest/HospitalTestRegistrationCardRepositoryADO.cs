@@ -1,10 +1,11 @@
-using Hospital.DataAccess.RepositoryAdo;
+﻿using Hospital.DataAccess.RepositoryAdo;
 using Hospital.DataAccess.Entity;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicketManagement.IntegrationTests;
+using System.Linq;
 
 namespace Hospital.XUnitTest
 {
@@ -50,6 +51,18 @@ namespace Hospital.XUnitTest
         }
 
         /// <summary>
+        /// list with reference values ​​for comparison
+        /// </summary>
+        List<RegistrationCard> ComparisonList = new List<RegistrationCard>()
+        {
+                new RegistrationCard() { Id = 1, DoctorId = 2 , PatientId = 3 , DateAdmission=new DateTime(2021,06, 11 ), DiagnosisId = 1},
+                new RegistrationCard() { Id = 2, DoctorId = 3 , PatientId = 2 , DateAdmission=new DateTime(2021,01, 03 ) , DiagnosisId = 5},
+                new RegistrationCard() { Id = 3,  DoctorId = 1 , PatientId = 5 , DateAdmission=new DateTime(2021,01, 10 ), DiagnosisId = 3},
+                new RegistrationCard() { Id = 4, DoctorId = 5, PatientId = 1 , DateAdmission= new DateTime(2021,9, 21 ), DiagnosisId = 4},
+                new RegistrationCard() { Id = 5, DoctorId = 4 , PatientId = 4 , DateAdmission= new DateTime(2021,12, 12 ), DiagnosisId = 2},
+        };
+
+        /// <summary>
         /// runs at the beginning of the test and creates the database
         /// </summary>
         /// <returns>void</returns>
@@ -67,13 +80,14 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenReturnAllRegistrationCard()
         {
             // Arrange
+            var arbitraryValueIndex = 4;
             var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(Config.ConnectionString);
 
             // Act
-            var result = registrationCardRepositoryAdo.Get();
+            var result = registrationCardRepositoryAdo.Get().ToList();
 
             // Assert
-            Assert.NotNull(result);
+            Assert.AreEqual(result[arbitraryValueIndex].DateAdmission, ComparisonList[arbitraryValueIndex].DateAdmission);
         }
 
         /// <summary>
@@ -84,13 +98,14 @@ namespace Hospital.XUnitTest
         public async Task CreateEntity_WhenRegistrationCar_ThenCreateRegistrationCar()
         {
             // Arrange
+            var arbitraryValueIndex = 2;
             var registrationCards = new List<RegistrationCard>();
             var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(Config.ConnectionString);
 
             // Act
             await registrationCardRepositoryAdo.CreateEntity(RegistrationCardData);
             registrationCards.AddRange(registrationCardRepositoryAdo.Get());
-            var result = registrationCards[2];
+            var result = registrationCards[arbitraryValueIndex];
 
             // Assert
             Assert.AreEqual(result.Id, RegistrationCardData.Id);
@@ -104,13 +119,14 @@ namespace Hospital.XUnitTest
         public async Task Update_WhenRegistrationCard_ThenUpdateRegistrationCard()
         {
             // Arrange
+            var arbitraryValueIndex = 2;
             var registrationCards = new List<RegistrationCard>();
             var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(Config.ConnectionString);
 
             // Act
             await registrationCardRepositoryAdo.Update(RegistrationCardData);
             registrationCards.AddRange(registrationCardRepositoryAdo.Get());
-            var result = registrationCards[2];
+            var result = registrationCards[arbitraryValueIndex];
 
             // Assert
             Assert.AreEqual(RegistrationCardData.PatientId, registrationCards[0].PatientId);

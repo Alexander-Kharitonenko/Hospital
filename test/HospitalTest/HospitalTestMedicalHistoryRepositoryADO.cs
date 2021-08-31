@@ -64,14 +64,14 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenReturnMedicalHistory()
         {
             // Arrange
-            var ArbitraryValueIndex = 4;
+            var arbitraryValueIndex = 4;
             var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(Config.ConnectionString);
 
             // Act
             var result = medicalHistoryRepositoryAdo.Get().ToList();
 
             // Assert
-            Assert.AreEqual(result[ArbitraryValueIndex].Diagnosis, ComparisonList[ArbitraryValueIndex].Diagnosis);
+            Assert.AreEqual(result[arbitraryValueIndex].Diagnosis, ComparisonList[arbitraryValueIndex].Diagnosis);
         }
 
         /// <summary>
@@ -82,14 +82,14 @@ namespace Hospital.XUnitTest
         public async Task CreateEntity_WhenMedicalHistory_ThenCreateMedicalHistory()
         {
             // Arrange
-            var ArbitraryValueIndex = 5;
+            var arbitraryValueIndex = 5;
             var histors = new List<MedicalHistory>();
             var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(Config.ConnectionString);
 
             // Act
             await medicalHistoryRepositoryAdo.CreateEntity(MedicalHistoryData);
             histors.AddRange(medicalHistoryRepositoryAdo.Get());
-            var result = histors[ArbitraryValueIndex];
+            var result = histors[arbitraryValueIndex];
 
             // Assert
             Assert.AreEqual(result.Diagnosis, MedicalHistoryData.Diagnosis);
@@ -103,7 +103,7 @@ namespace Hospital.XUnitTest
         public async Task Update_WhenMedicalHistory_ThenUpdateMedicalHistory()
         {
             // Arrange
-            var ArbitraryValueIndex = 2;
+            var arbitraryValueIndex = 2;
             var histors = new List<MedicalHistory>();
             var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(Config.ConnectionString);
 
@@ -112,7 +112,7 @@ namespace Hospital.XUnitTest
             histors.AddRange(medicalHistoryRepositoryAdo.Get());
 
             // Assert
-            Assert.AreEqual(histors[ArbitraryValueIndex].Diagnosis, MedicalHistoryData.Diagnosis);
+            Assert.AreEqual(histors[arbitraryValueIndex].Diagnosis, MedicalHistoryData.Diagnosis);
         }
 
         /// <summary>
