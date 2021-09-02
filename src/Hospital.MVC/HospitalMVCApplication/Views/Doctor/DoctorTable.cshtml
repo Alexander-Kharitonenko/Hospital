@@ -1,0 +1,13 @@
+﻿@model Doctor
+
+<tbody>
+    <tr>
+        <td>@Model.FirstName</td>
+        <td>@Model.LastName</td>
+        <td>@Model.Patronymic</td>
+        <td>@Model.NumberPhone</td>
+        <td><a class="btn btn-primary" asp-route-id="@Model.Id" asp-action="Edit" asp-controller="Doctor">Редактировать</a></td>
+        <td><a class="btn btn-danger" asp-action="AddRole" asp-controller="Role">Удалить</a></td>
+    </tr>
+</tbody>
+

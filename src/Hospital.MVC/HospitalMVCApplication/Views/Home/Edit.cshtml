@@ -1,0 +1,14 @@
+﻿@model ViewModelBaseTable 
+
+<form id="x" asp-action="Edit" asp-controller="Home" method="post">
+    <input type="text" name="card"/>
+    <select id="data" form="x">
+        <option value="@Model.Doctor">Doctor</option>
+        <option value="@Model.Patient">Patient</option>
+        <option value="@Model.Diagnosis">Diagnosis</option>
+        <option value="@Model.DateAdmission">DateAdmission</option>
+    </select>
+    <input type="submit" value="Отправить" />
+</form>
+
+   
