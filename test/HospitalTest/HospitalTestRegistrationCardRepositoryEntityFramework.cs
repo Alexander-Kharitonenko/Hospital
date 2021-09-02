@@ -88,7 +88,7 @@ namespace HospitalTest
         public void Get_WhenGet_ThenGetAllEntity()
         {
             // Arrange
-            var arbitraryValueIndex = 4;
+            const int ARBITRARY_VALUE_INDEX = 4;
             List<RegistrationCard> result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
@@ -101,7 +101,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(result[arbitraryValueIndex].DateAdmission, ComparisonList[arbitraryValueIndex].DateAdmission);
+            Assert.AreEqual(result[ARBITRARY_VALUE_INDEX].DateAdmission, ComparisonList[ARBITRARY_VALUE_INDEX].DateAdmission);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace HospitalTest
         {
             // Arrange
             int result;
-            const int numberOfChanges = 1;
+            const int NUMBER_OF_CHANGES = 2;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
 
@@ -127,7 +127,7 @@ namespace HospitalTest
             }
 
             //Assert
-            Assert.AreEqual(numberOfChanges, result);
+            Assert.AreEqual(NUMBER_OF_CHANGES, result);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace HospitalTest
         public async Task Create_WhenAddingRegistrationСard_ThenRegistrationСardAdd()
         {
             // Arrange
-            const int numberOfChanges = 1;
+            const int NUMBER_OF_CHANGES = 1;
             int result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
@@ -152,7 +152,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(numberOfChanges, result);
+            Assert.AreEqual(NUMBER_OF_CHANGES, result);
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace HospitalTest
         public async Task Delete_WhenRegistrationСard_ThenDeleteRegistrationСard()
         {
             // Arrange
-            const int numberOfChanges = 1;
+            const int NUMBER_OF_CHANGES = 1;
             int randomValueId = 3;
             int result;
             var card = new RegistrationCard() { Id = randomValueId };
@@ -179,7 +179,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(numberOfChanges, result);
+            Assert.AreEqual(NUMBER_OF_CHANGES, result);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace HospitalTest
             int randomValueDoctorId = 3;
             int randomValuePatientId = 4;
             int randomValueDiagnosisId = 2;
-            const int numberOfChanges = 1;
+            const int NUMBER_OF_CHANGES = 1;
             int result;
             var card = new RegistrationCard() { Id = randomValueId, DoctorId = randomValueDoctorId, PatientId = randomValuePatientId, DiagnosisId = randomValueDiagnosisId, DateAdmission = DateTime.UtcNow.Date };
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
@@ -208,7 +208,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(numberOfChanges, result);
+            Assert.AreEqual(NUMBER_OF_CHANGES, result);
         }
 
         /// <summary>

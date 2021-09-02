@@ -64,14 +64,14 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenReturnMedicalHistory()
         {
             // Arrange
-            var arbitraryValueIndex = 4;
+            const int ARBITRARY_VALUE_INDEX = 4;
             var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(Config.ConnectionString);
 
             // Act
             var result = medicalHistoryRepositoryAdo.Get().ToList();
 
             // Assert
-            Assert.AreEqual(result[arbitraryValueIndex].Diagnosis, ComparisonList[arbitraryValueIndex].Diagnosis);
+            Assert.AreEqual(result[ARBITRARY_VALUE_INDEX].Diagnosis, ComparisonList[ARBITRARY_VALUE_INDEX].Diagnosis);
         }
 
         /// <summary>
@@ -82,14 +82,14 @@ namespace Hospital.XUnitTest
         public async Task CreateEntity_WhenMedicalHistory_ThenCreateMedicalHistory()
         {
             // Arrange
-            var arbitraryValueIndex = 5;
+            const int ARBITRARY_VALUE_INDEX = 5;
             var histors = new List<MedicalHistory>();
             var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(Config.ConnectionString);
 
             // Act
             await medicalHistoryRepositoryAdo.CreateEntity(MedicalHistoryData);
             histors.AddRange(medicalHistoryRepositoryAdo.Get());
-            var result = histors[arbitraryValueIndex];
+            var result = histors[ARBITRARY_VALUE_INDEX];
 
             // Assert
             Assert.AreEqual(result.Diagnosis, MedicalHistoryData.Diagnosis);
@@ -103,7 +103,7 @@ namespace Hospital.XUnitTest
         public async Task Update_WhenMedicalHistory_ThenUpdateMedicalHistory()
         {
             // Arrange
-            var arbitraryValueIndex = 2;
+            const int ARBITRARY_VALUE_INDEX = 2;
             var histors = new List<MedicalHistory>();
             var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(Config.ConnectionString);
 
@@ -112,7 +112,7 @@ namespace Hospital.XUnitTest
             histors.AddRange(medicalHistoryRepositoryAdo.Get());
 
             // Assert
-            Assert.AreEqual(histors[arbitraryValueIndex].Diagnosis, MedicalHistoryData.Diagnosis);
+            Assert.AreEqual(histors[ARBITRARY_VALUE_INDEX].Diagnosis, MedicalHistoryData.Diagnosis);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Hospital.XUnitTest
         public async Task Delete_WhenMedicalHistory_ThenDeleteMedicalHistory()
         {
             // Arrange
-            const int allRecordsAfterDeletion = 4;
+            const int ALL_RECORDS_AFTER_DELETION = 4;
             var histors = new List<MedicalHistory>();
             var medicalHistoryRepositoryAdo = new MedicalHistoryRepositoryAdo(Config.ConnectionString);
 
@@ -132,7 +132,7 @@ namespace Hospital.XUnitTest
             histors.AddRange(medicalHistoryRepositoryAdo.Get());
 
             //Assert
-            Assert.AreEqual(allRecordsAfterDeletion, histors.Count);
+            Assert.AreEqual(ALL_RECORDS_AFTER_DELETION, histors.Count);
         }
 
         /// <summary>

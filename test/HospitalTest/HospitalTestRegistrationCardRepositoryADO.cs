@@ -80,14 +80,14 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenReturnAllRegistrationCard()
         {
             // Arrange
-            var arbitraryValueIndex = 4;
+            const int ARBITRARY_VALUE_INDEX = 4;
             var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(Config.ConnectionString);
 
             // Act
             var result = registrationCardRepositoryAdo.Get().ToList();
 
             // Assert
-            Assert.AreEqual(result[arbitraryValueIndex].DateAdmission, ComparisonList[arbitraryValueIndex].DateAdmission);
+            Assert.AreEqual(result[ARBITRARY_VALUE_INDEX].DateAdmission, ComparisonList[ARBITRARY_VALUE_INDEX].DateAdmission);
         }
 
         /// <summary>
@@ -98,14 +98,14 @@ namespace Hospital.XUnitTest
         public async Task CreateEntity_WhenRegistrationCar_ThenCreateRegistrationCar()
         {
             // Arrange
-            var arbitraryValueIndex = 2;
+            const int ARBITRARY_VALUE_INDEX = 2;
             var registrationCards = new List<RegistrationCard>();
             var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(Config.ConnectionString);
 
             // Act
             await registrationCardRepositoryAdo.CreateEntity(RegistrationCardData);
             registrationCards.AddRange(registrationCardRepositoryAdo.Get());
-            var result = registrationCards[arbitraryValueIndex];
+            var result = registrationCards[ARBITRARY_VALUE_INDEX];
 
             // Assert
             Assert.AreEqual(result.Id, RegistrationCardData.Id);
@@ -119,14 +119,14 @@ namespace Hospital.XUnitTest
         public async Task Update_WhenRegistrationCard_ThenUpdateRegistrationCard()
         {
             // Arrange
-            var arbitraryValueIndex = 2;
+            const int ARBITRARY_VALUE_INDEX = 2;
             var registrationCards = new List<RegistrationCard>();
             var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(Config.ConnectionString);
 
             // Act
             await registrationCardRepositoryAdo.Update(RegistrationCardData);
             registrationCards.AddRange(registrationCardRepositoryAdo.Get());
-            var result = registrationCards[arbitraryValueIndex];
+            var result = registrationCards[ARBITRARY_VALUE_INDEX];
 
             // Assert
             Assert.AreEqual(RegistrationCardData.PatientId, registrationCards[0].PatientId);
@@ -140,7 +140,7 @@ namespace Hospital.XUnitTest
         public async Task Delete_WhenRegistrationCard_ThenDeleteRegistrationCard()
         {
             // Arrange
-            const int allRecordsAfterDeletion = 4;
+            const int ALL_RECORDS_AFTER_DELETION = 4;
             var registrationCards = new List<RegistrationCard>();
             var registrationCardRepositoryAdo = new RegistrationCardRepositoryAdo(Config.ConnectionString);
 
@@ -149,7 +149,7 @@ namespace Hospital.XUnitTest
             registrationCards.AddRange(registrationCardRepositoryAdo.Get());
 
             // Assert
-            Assert.AreEqual(allRecordsAfterDeletion, registrationCards.Count);
+            Assert.AreEqual(ALL_RECORDS_AFTER_DELETION, registrationCards.Count);
         }
 
         /// <summary>

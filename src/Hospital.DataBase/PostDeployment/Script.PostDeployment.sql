@@ -18,12 +18,12 @@ INSERT INTO Patients (LastName, FirstName, Patronymic,Gender,ResidenceAddress)
          ('Kovalev', 'Igor', 'Anatolyevich', 'Male', 'Gomel, street Klenovaya, 1');
 
 
-  INSERT INTO Doctors (FirstName,Patronymic,LastName,NumberPhone)
-  VALUES ('Gulagina', 'Julia', 'Anatolyevna', '+ 375251111111'),
-         ('Vasiliev', 'Valery', 'Valentinovich', '+ 375252222222'),
-         ('Ugarov', 'Victor', 'Mikhailovich', '+ 375253333333'),
-         ('Demchuk', 'Alexey', 'Pavlovich', '+ 375254444444'),
-         ('Grishina', 'Olga', 'Konstantinovna', '+ 375255555555');
+  INSERT INTO Doctors (FirstName,Patronymic,LastName, NumberPhone)
+  VALUES ('Julia', 'Anatolyevna','Gulagina', '+ 375251111111'),
+         ( 'Valery', 'Valentinovich', 'Vasiliev','+ 375252222222'),
+         ( 'Victor', 'Mikhailovich', 'Ugarov','+ 375253333333'),
+         ( 'Alexey', 'Pavlovich','Demchuk', '+ 375254444444'),
+         ( 'Olga', 'Konstantinovna','Grishina', '+ 375255555555');
  
 
   INSERT INTO MedicalHistorys (Diagnosis)

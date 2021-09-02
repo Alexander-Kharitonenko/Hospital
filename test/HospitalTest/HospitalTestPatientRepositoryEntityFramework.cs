@@ -45,7 +45,7 @@ namespace HospitalTest
         {
             get
             {
-                return new Patient() { Id = ARBITRARY_VALUE_ID, FirstName = "TestFirstName", Patronymic = "TestPatronymic", LastName = "TestLastName", Gender = "TestGender", ResidenceAddress = "TestResidenceAddress" };
+                return new Patient() { FirstName = "TestFirstName", Patronymic = "TestPatronymic", LastName = "TestLastName", Gender = "TestGender", ResidenceAddress = "TestResidenceAddress" };
             }
         }
 
@@ -67,7 +67,7 @@ namespace HospitalTest
         public void Get_WhenGet_ThenGetAllEntity()
         {
             // Arrange
-            var arbitraryValueIndex = 4;
+            const int ARBITRARY_VALUE_INDEX = 4;
             List<Patient> result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
@@ -80,7 +80,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(result[arbitraryValueIndex].LastName, ComparisonList[arbitraryValueIndex].LastName);
+            Assert.AreEqual(result[ARBITRARY_VALUE_INDEX].LastName, ComparisonList[ARBITRARY_VALUE_INDEX].LastName);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace HospitalTest
         {
             // Arrange
             int result;
-            const int numberOfChanges = 1;
+            const int NUMBER_OF_CHANGES = 1;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
 
@@ -105,7 +105,7 @@ namespace HospitalTest
             }
 
             //Assert
-            Assert.AreEqual(numberOfChanges, result);
+            Assert.AreEqual(NUMBER_OF_CHANGES, result);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace HospitalTest
         public async Task Create_WhenAddingPatient_ThenPatientAdd()
         {
             // Arrange
-            const int numberOfChanges = 1;
+            const int NUMBER_OF_CHANGES = 1;
             int result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
@@ -130,7 +130,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(numberOfChanges, result);
+            Assert.AreEqual(NUMBER_OF_CHANGES, result);
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace HospitalTest
         public async Task Delete_WhenPatient_ThenDeletePatient()
         {
             // Arrange
-            const int numberOfChanges = 1;
+            const int NUMBER_OF_CHANGES = 1;
             int randomValueId = 3;
             int result;
             var patient = new Patient() { Id = randomValueId };
@@ -157,7 +157,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(numberOfChanges, result);
+            Assert.AreEqual(NUMBER_OF_CHANGES, result);
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace HospitalTest
         public async Task Update_WhenPatient_ThenPatient()
         {
             int randomValueId = 3;
-            const int numberOfChanges = 1;
+            const int NUMBER_OF_CHANGES = 1;
             int result;
             var patient = new Patient() { Id = randomValueId,FirstName = PatientData.FirstName, LastName = PatientData.LastName,Patronymic = PatientData.Patronymic,Gender = PatientData.Gender, ResidenceAddress = PatientData.ResidenceAddress};
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
@@ -183,7 +183,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(numberOfChanges, result);
+            Assert.AreEqual(NUMBER_OF_CHANGES, result);
         }
 
         /// <summary>

@@ -62,7 +62,7 @@ namespace HospitalTest
         public void Get_WhenGet_ThenGetAllEntity()
         {
             // Arrange
-            var arbitraryValueIndex = 4;
+            const int ARBITRARY_VALUE_INDEX = 4;
             List<MedicalHistory> result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
@@ -75,7 +75,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(result[arbitraryValueIndex].Diagnosis, ComparisonList[arbitraryValueIndex].Diagnosis);
+            Assert.AreEqual(result[ARBITRARY_VALUE_INDEX].Diagnosis, ComparisonList[ARBITRARY_VALUE_INDEX].Diagnosis);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace HospitalTest
         {
             // Arrange
             int result;
-            const int numberOfChanges = 1;
+            const int NUMBER_OF_CHANGES = 1;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
 
@@ -100,7 +100,7 @@ namespace HospitalTest
             }
 
             //Assert
-            Assert.AreEqual(numberOfChanges, result);
+            Assert.AreEqual(NUMBER_OF_CHANGES, result);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace HospitalTest
         public async Task Create_WhenAddingMedicalHistory_ThenMedicalHistoryAdd()
         {
             // Arrange
-            const int numberOfChanges = 1;
+            const int NUMBER_OF_CHANGES = 1;
             int result;
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
             var options = optionsBuilder.UseSqlServer(Config.ConnectionString).Options;
@@ -125,7 +125,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(numberOfChanges, result);
+            Assert.AreEqual(NUMBER_OF_CHANGES, result);
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace HospitalTest
         public async Task Delete_WhenMedicalHistory_ThenDeleteMedicalHistory()
         {
             // Arrange
-            const int numberOfChanges = 1;
+            const int NUMBER_OF_CHANGES = 1;
             int randomValueId = 3;
             int result;
             var medicalHistory = new MedicalHistory() { Id = randomValueId };
@@ -152,7 +152,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(numberOfChanges, result);
+            Assert.AreEqual(NUMBER_OF_CHANGES, result);
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace HospitalTest
         public async Task Update_WhenMedicalHistory_ThenMedicalHistory()
         {
             int randomValueId = 3;
-            const int numberOfChanges = 1;
+            const int NUMBER_OF_CHANGES = 1;
             int result;
             var medicalHistory = new MedicalHistory() { Id = randomValueId, Diagnosis="TestDiagnisis"};
             var optionsBuilder = new DbContextOptionsBuilder<HospitalContext>();
@@ -178,7 +178,7 @@ namespace HospitalTest
             }
 
             // Assert
-            Assert.AreEqual(numberOfChanges, result);
+            Assert.AreEqual(NUMBER_OF_CHANGES, result);
         }
 
         /// <summary>

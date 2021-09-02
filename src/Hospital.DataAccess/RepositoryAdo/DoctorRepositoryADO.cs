@@ -89,7 +89,7 @@ namespace Hospital.DataAccess.RepositoryAdo
                 var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    result.Add(new Doctor() { Id = reader.GetInt32(0), FirstName = reader.GetString(3), Patronymic = reader.GetString(1), LastName = reader.GetString(2), NumberPhone = reader.GetString(4) });
+                    result.Add(new Doctor() { Id = reader.GetInt32(0), FirstName = reader.GetString(2), Patronymic = reader.GetString(3), LastName = reader.GetString(1), NumberPhone = reader.GetString(4) });
                 }
                 return result;
             }

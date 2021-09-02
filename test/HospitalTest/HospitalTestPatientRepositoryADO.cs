@@ -64,14 +64,14 @@ namespace Hospital.XUnitTest
         public void Get_WhenGet_ThenGetAllPatient()
         {
             // Arrange
-            var arbitraryValueIndex = 4;
+            const int ARBITRARY_VALUE_INDEX = 4;
             var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
             // Act
             var result = patientRepositoryAdo.Get().ToList();
 
             // Assert
-            Assert.AreEqual(result[arbitraryValueIndex].LastName, ComparisonList[arbitraryValueIndex].LastName);
+            Assert.AreEqual(result[ARBITRARY_VALUE_INDEX].LastName, ComparisonList[ARBITRARY_VALUE_INDEX].LastName);
         }
 
         /// <summary>
@@ -82,14 +82,14 @@ namespace Hospital.XUnitTest
         public async Task CreateEntity_WhenCreatePatient_ThenCreatePatient()
         {
             // Arrange
-            var arbitraryValueIndex = 5;
+            const int ARBITRARY_VALUE_INDEX = 5;
             var patients = new List<Patient>();
             var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
             // Act
             await patientRepositoryAdo.CreateEntity(PatientData);
             patients.AddRange(patientRepositoryAdo.Get());
-            var result = patients[arbitraryValueIndex];
+            var result = patients[ARBITRARY_VALUE_INDEX];
 
             // Assert
             Assert.AreEqual(result.LastName, PatientData.LastName);
@@ -103,14 +103,14 @@ namespace Hospital.XUnitTest
         public async Task UpdateEntity_WhenPatient_ThenUpdatePatient()
         {
             // Arrange
-            var arbitraryValueIndex = 2;
+            const int ARBITRARY_VALUE_INDEX = 2;
             var patients = new List<Patient>();
             var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
             // Act
             await patientRepositoryAdo.Update(PatientData);
             patients.AddRange(patientRepositoryAdo.Get());
-            var result = patients[arbitraryValueIndex];
+            var result = patients[ARBITRARY_VALUE_INDEX];
 
             // Assert
             Assert.AreEqual(result.LastName, PatientData.LastName);
@@ -124,7 +124,7 @@ namespace Hospital.XUnitTest
         public async Task Delete_WhenPatient_ThenDeletePatient()
         {
             // Arrange
-            const int allRecordsAfterDeletion = 4;
+            const int ALL_RECORDS_AFTER_DELETION = 4;
             var patients = new List<Patient>();
             var patientRepositoryAdo = new PatientRepositoryAdo(Config.ConnectionString);
 
@@ -133,7 +133,7 @@ namespace Hospital.XUnitTest
             patients.AddRange(patientRepositoryAdo.Get());
 
             //Assert
-            Assert.AreEqual(allRecordsAfterDeletion, patients.Count);
+            Assert.AreEqual(ALL_RECORDS_AFTER_DELETION, patients.Count);
         }
 
         /// <summary>
