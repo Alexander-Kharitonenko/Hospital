@@ -27,14 +27,16 @@ namespace Hospital.DataAccess.RepositoryAdo
         /// <returns>void</returns>
         public async override Task CreateEntity(RegistrationCard entity)
         {
-            var data = entity.DateAdmission.ToShortDateString().Replace(".", "-").ToString();
+            
             if (entity != null)
             {
-                var sqlExpression = $"INSERT INTO RegistrationСards (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', {data})";
+                var sqlExpression = $"INSERT INTO RegistrationСards (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', @DateAdmission)";
                 using (var connection = new SqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
-                    var command = new SqlCommand(sqlExpression, connection);
+                    var command = new SqlCommand(sqlExpression,connection);
+                    SqlParameter dateAdmissionParam = new SqlParameter("@DateAdmission", entity.DateAdmission);           
+                    command.Parameters.Add(dateAdmissionParam);                   
                     command.ExecuteNonQuery();
                 }
             }
@@ -103,10 +105,8 @@ namespace Hospital.DataAccess.RepositoryAdo
         {
             if (entity != null)
             {
-                //'{x.ToString()}' and DATE
-                //{x} and DATETIME
-                var data = entity.DateAdmission.ToShortDateString().Replace(".", "-");
-                var sqlExpression = $"UPDATE RegistrationСards SET PatientId = '{entity.PatientId}',DoctorId = '{entity.DoctorId}',DiagnosisId = '{entity.DiagnosisId}',DateAdmission = {data} WHERE Id={entity.Id}";
+
+                var sqlExpression = $"UPDATE RegistrationСards SET PatientId = '{entity.PatientId}',DoctorId = '{entity.DoctorId}',DiagnosisId = '{entity.DiagnosisId}',DateAdmission = @DateAdmission WHERE Id={entity.Id}";
                 using (var connection = new SqlConnection(ConnectionString))
                 {
                     var getAllId = $"SELECT Id FROM RegistrationСards WHERE Id={entity.Id}";
@@ -121,7 +121,9 @@ namespace Hospital.DataAccess.RepositoryAdo
 
                     if (id.Any(el => el == entity.Id && entity.Id > 0))
                     {
+                        SqlParameter dateAdmissionParam = new SqlParameter("@DateAdmission", entity.DateAdmission);
                         var command = new SqlCommand(sqlExpression, connection);
+                        command.Parameters.Add(dateAdmissionParam);
                         command.ExecuteNonQuery();
                     }
                 }
