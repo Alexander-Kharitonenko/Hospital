@@ -60,10 +60,10 @@
     <Folder Include="Table" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Table\Doctor.sql" />
-    <Build Include="Table\MedicalHistory.sql" />
-    <Build Include="Table\Patient.sql" />
-    <Build Include="Table\RegistrationСard.sql" />
+    <Build Include="Table\Doctors.sql" />
+    <Build Include="Table\MedicalHistorys.sql" />
+    <Build Include="Table\Patients.sql" />
+    <Build Include="Table\RegistrationСards.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment\Script.PostDeployment.sql" />

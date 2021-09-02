@@ -1,0 +1,133 @@
+﻿using Hospital.DataAccess.Entity;
+using Hospital.DataAccess.Interfaces;
+using Hospital.DataAccess.RepositoryAdo;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Hospital.DataAccess.RepositoryAdo
+{
+    /// <summary>
+    /// contains the logic for working with RegistrationCardRepository using ADO technology
+    /// </summary>
+    public class RegistrationCardRepositoryAdo : BaseRepositoryAdo<RegistrationCard>, IRegistrationCardRepository
+    {
+        /// <summary>
+        /// constructor for initializing class fields
+        /// </summary>
+        /// <param name="connectionString">database connection field</param>
+        public RegistrationCardRepositoryAdo(string connectionString) : base(connectionString)
+        { }
+
+        /// <summary>
+        /// add a new object to the database
+        /// </summary>
+        /// <param name="entity">object to add</param>
+        /// <returns>void</returns>
+        public async override Task CreateEntity(RegistrationCard entity)
+        {
+            
+            if (entity != null)
+            {
+                var sqlExpression = $"INSERT INTO RegistrationСards (DoctorId,PatientId,DiagnosisId,DateAdmission) VALUES ('{entity.DoctorId}', '{entity.PatientId}', '{entity.DiagnosisId}', @DateAdmission)";
+                using (var connection = new SqlConnection(ConnectionString))
+                {
+                    await connection.OpenAsync();
+                    var command = new SqlCommand(sqlExpression,connection);
+                    SqlParameter dateAdmissionParam = new SqlParameter("@DateAdmission", entity.DateAdmission);           
+                    command.Parameters.Add(dateAdmissionParam);                   
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Delete a object to the database
+        /// </summary>
+        /// <param name="entity">object to Delete</param>
+        /// <returns>void</returns>
+        public async override Task Delete(RegistrationCard entity)
+        {
+            var result = new List<RegistrationCard>();
+            var getEntityById = $"SELECT * FROM RegistrationСards WHERE Id ={entity.Id}";
+
+            if (entity != null)
+            {
+                var sqlExpression = $"DELETE FROM RegistrationСards WHERE Id= {entity.Id}";
+                using (var connection = new SqlConnection(ConnectionString))
+                {
+                    await connection.OpenAsync();
+                    var commandforGetAllId = new SqlCommand(getEntityById, connection);
+                    var readerId = commandforGetAllId.ExecuteReader();
+                    var id = new List<int>();
+                    while (readerId.Read())
+                    {
+                        id.Add(readerId.GetInt32(0));
+                    }
+
+                    if (id.Any(el => el == entity.Id && entity.Id > 0))
+                    {
+                        SqlCommand command = new SqlCommand(sqlExpression, connection);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// get all object from database
+        /// </summary>
+        /// <returns>void</returns>
+        public override IEnumerable<RegistrationCard> Get()
+        {
+            var result = new List<RegistrationCard>();
+            var sqlExpression = "SELECT * FROM RegistrationСards";
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var command = new SqlCommand(sqlExpression, connection);
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    result.Add(new RegistrationCard() { Id = reader.GetInt32(0), PatientId = reader.GetInt32(2), DoctorId = reader.GetInt32(1), DiagnosisId = reader.GetInt32(4), DateAdmission = reader.GetDateTime(3) });
+                }
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Update a object to the database
+        /// </summary>
+        /// <param name="entity">object to Update</param>
+        /// <returns>void</returns>
+        public async override Task Update(RegistrationCard entity)
+        {
+            if (entity != null)
+            {
+
+                var sqlExpression = $"UPDATE RegistrationСards SET PatientId = '{entity.PatientId}',DoctorId = '{entity.DoctorId}',DiagnosisId = '{entity.DiagnosisId}',DateAdmission = @DateAdmission WHERE Id={entity.Id}";
+                using (var connection = new SqlConnection(ConnectionString))
+                {
+                    var getAllId = $"SELECT Id FROM RegistrationСards WHERE Id={entity.Id}";
+                    await connection.OpenAsync();
+                    var commandforGetAllId = new SqlCommand(getAllId, connection);
+                    var readerId = commandforGetAllId.ExecuteReader();
+                    var id = new List<int>();
+                    while (readerId.Read())
+                    {
+                        id.Add(readerId.GetInt32(0));
+                    }
+
+                    if (id.Any(el => el == entity.Id && entity.Id > 0))
+                    {
+                        SqlParameter dateAdmissionParam = new SqlParameter("@DateAdmission", entity.DateAdmission);
+                        var command = new SqlCommand(sqlExpression, connection);
+                        command.Parameters.Add(dateAdmissionParam);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+    }
+}

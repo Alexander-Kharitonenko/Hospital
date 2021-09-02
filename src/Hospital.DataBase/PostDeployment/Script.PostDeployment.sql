@@ -10,7 +10,7 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-INSERT INTO Patient (LastName, FirstName, Patronymic,Gender,ResidenceAddress)
+INSERT INTO Patients (LastName, FirstName, Patronymic,Gender,ResidenceAddress)
   VALUES ('Smirnov', 'Sergey', 'Ivanovich', 'Male', 'Gomel, Trudovaya st., 5'),
          ('Lebedeva', 'Natalya', 'Nikolaevna', 'Female', 'Gomel, Sadovaya st., 10'),
          ('Solovyova', 'Ksenia', 'Alexandrovna', 'Female', 'Mozyr Lesnaya st., 7'),
@@ -18,15 +18,15 @@ INSERT INTO Patient (LastName, FirstName, Patronymic,Gender,ResidenceAddress)
          ('Kovalev', 'Igor', 'Anatolyevich', 'Male', 'Gomel, street Klenovaya, 1');
 
 
-  INSERT INTO Doctor (FirstName,Patronymic,LastName,NumberPhone)
-  VALUES ('Gulagina', 'Julia', 'Anatolyevna', '+ 375251111111'),
-         ('Vasiliev', 'Valery', 'Valentinovich', '+ 375252222222'),
-         ('Ugarov', 'Victor', 'Mikhailovich', '+ 375253333333'),
-         ('Demchuk', 'Alexey', 'Pavlovich', '+ 375254444444'),
-         ('Grishina', 'Olga', 'Konstantinovna', '+ 375255555555');
+  INSERT INTO Doctors (FirstName,Patronymic,LastName, NumberPhone)
+  VALUES ('Julia', 'Anatolyevna','Gulagina', '+ 375251111111'),
+         ( 'Valery', 'Valentinovich', 'Vasiliev','+ 375252222222'),
+         ( 'Victor', 'Mikhailovich', 'Ugarov','+ 375253333333'),
+         ( 'Alexey', 'Pavlovich','Demchuk', '+ 375254444444'),
+         ( 'Olga', 'Konstantinovna','Grishina', '+ 375255555555');
  
 
-  INSERT INTO MedicalHistory (Diagnosis)
+  INSERT INTO MedicalHistorys (Diagnosis)
   VALUES ('Stroke'),
          ('Diabetes'),
          ('Tuberculosis'),
@@ -34,7 +34,7 @@ INSERT INTO Patient (LastName, FirstName, Patronymic,Gender,ResidenceAddress)
          ('Brain cancer');
  
 
-  INSERT INTO RegistrationСard (DoctorId,PatientId,DateAdmission,DiagnosisId)
+  INSERT INTO RegistrationСards (DoctorId,PatientId,DateAdmission,DiagnosisId)
   VALUES (2,3,'2021-06-11',1),
          (3,2,'2021-01-03',5),
          (1,5,'2021-01-10',3),
