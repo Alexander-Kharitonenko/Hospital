@@ -8,48 +8,16 @@
             </tr>
 
             @{
-                if (Model.NameTable.Contains("Doctor"))
+                foreach (var el in @Model.Filter)
                 {
-                    foreach (var el in @Model.DoctorFilter)
-                    {
                         <tr>
                             <td>@el</td>
                         </tr>
-                    }
                 }
-                else if (Model.NameTable.Contains("Patient"))
-                {
-                    foreach (var el in @Model.PatientFilter)
-                    {
-                        <tr>
-                            <td>@el.LastName</td>
-                            <td>@el.FirstName</td>
-                            <td>@el.Patronymic</td>
-                            <td>@el.Gender</td>
-                            <td>@el.ResidenceAddress</td>
-                        </tr>
-                    }
-                }
-                else if (Model.NameTable.Contains("Diagnosis"))
-                {
-                    foreach (var el in @Model.MedicalHistoryFilter)
-                    {
-                        <tr>
-                            <td>@el.Diagnosis</td>
-                        </tr>
-                    }
-                }
-                else if (Model.NameTable.Contains("DateAdmission"))
-                {
-                    foreach (var el in @Model.RegistrationCardFilter)
-                    {
-                        <tr>
-                            <td>@el.DateAdmission</td>
-                        </tr>
-                    }
-                }
+                
+               
             }
-            }
+            
         </thead>
     </table>
 </div>

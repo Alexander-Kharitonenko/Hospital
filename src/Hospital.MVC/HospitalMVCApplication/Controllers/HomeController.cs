@@ -61,47 +61,67 @@ namespace HospitalMVCApplication.Controllers
         [HttpGet]
         public IActionResult CardByFilter(string filter) 
         {
-            
-
-            if (string.Equals(filter, "Doctor", StringComparison.OrdinalIgnoreCase))
+            if (filter.Contains("Doctor")|| filter.Contains("NumberPhone"))
             {
-                var model = new ViewModelForFilter<Doctor>();
-                var AllDoctor = new List<Doctor>();
+                var model = new ViewModelForFilter();
+                var allDoctor = new List<string>();
                 var allCardInDataBase = CardServices.registrationCardRepository.Get();
                 foreach (var element in allCardInDataBase)
                 {
+                    var selestBy = filter.Replace("Doctor", string.Empty);
                     var doctor = CardServices.doctorRepository.Get().FirstOrDefault(el => el.Id == element.Id);
-                    AllDoctor.Add(doctor);
+                    switch (selestBy) 
+                    {
+                        case "FirstName": allDoctor.Add(doctor.FirstName);break;
+                        case "LastName": allDoctor.Add(doctor.LastName); break;
+                        case "Patronymic": allDoctor.Add(doctor.Patronymic); break;
+                        case "NumberPhone": allDoctor.Add(doctor.NumberPhone); break;  
+                    }
+                    
                 }
-                model.Filter = AllDoctor;
+                model.Filter = allDoctor;
                 model.NameTable = filter;
                 return View(model);
             }
-            else if(string.Equals(filter, "Patient", StringComparison.OrdinalIgnoreCase)) 
+            else if(filter.Contains("Patient") || filter.Contains("ResidenceAddress") || filter.Contains("Gender")) 
             {
-                var model = new ViewModelForFilter<Patient>();
-                var AllPatient = new List<Patient>();
+                var model = new ViewModelForFilter();
+                var allPatient = new List<string>();
                 var allCardInDataBase = CardServices.registrationCardRepository.Get();
                 foreach (var element in allCardInDataBase)
                 {
+                    var selestBy = filter.Replace("Patient", string.Empty);
                     var patient = CardServices.patientRepository.Get().FirstOrDefault(el => el.Id == element.Id);
-                    AllPatient.Add(patient);
+                    switch (selestBy)
+                    {
+                        case "FirstName": allPatient.Add(patient.FirstName); break;
+                        case "LastName": allPatient.Add(patient.LastName); break;
+                        case "Patronymic": allPatient.Add(patient.Patronymic); break;
+                        case "Gender": allPatient.Add(patient.Gender); break;
+                        case "ResidenceAddress": allPatient.Add(patient.ResidenceAddress); break;
+                    }
+
                 }
-                model.Filter = AllPatient;
+                model.Filter = allPatient;
                 model.NameTable = filter;
                 return View(model);
             }
-            else if (string.Equals(filter, "Diagnosis", StringComparison.OrdinalIgnoreCase))
+            else if (filter.Contains("Diagnosis"))
             {
-                var model = new ViewModelForFilter<MedicalHistory>();
-                var AllDiagnosis = new List<MedicalHistory>();
-                var allCardInDataBase = CardServices.medicalHistoryRepository.Get();
+                var model = new ViewModelForFilter();
+                var allDiagnosis = new List<string>();
+                var allCardInDataBase = CardServices.registrationCardRepository.Get();
                 foreach (var element in allCardInDataBase)
                 {
-                    var diagnosis = CardServices.medicalHistoryRepository.Get().FirstOrDefault(el => el.Id == element.Id);
-                    AllDiagnosis.Add(diagnosis);
+                    
+                    var patient = CardServices.medicalHistoryRepository.Get().FirstOrDefault(el => el.Id == element.Id);
+                    switch (filter)
+                    {
+                        case "Diagnosis": allDiagnosis.Add(patient.Diagnosis); break;             
+                    }
+
                 }
-                model.Filter = AllDiagnosis;
+                model.Filter = allDiagnosis;
                 model.NameTable = filter;
                 return View(model);
             }

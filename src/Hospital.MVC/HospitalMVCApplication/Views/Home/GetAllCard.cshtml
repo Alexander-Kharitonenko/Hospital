@@ -8,8 +8,15 @@
     <div>
         <form id="reuqest" asp-action="GerCardByFilter" asp-controller="Home" method="post">
             <select id="select_value" name="filter" form="reuqest">
-                <option value="Doctor">Doctor</option>
-                <option value="Patient">Patient</option>
+                <option value="PatientFirstName">Patient First Name</option>
+                <option value="PatientLastName">Patient Last Name</option>
+                <option value="PatientPatronymic">Patient Patronymic</option>
+                <option value="Gender">Patient Gender</option>
+                <option value="ResidenceAddress">Patient Residence Address</option>
+                <option value="FirstName">Doctor First Name</option>
+                <option value="LastName">Doctor Last Name</option>
+                <option value="DoctorPatronymic">Doctor Patronymic</option>
+                <option value="NumberPhone">Doctor NumberPhone</option>
                 <option value="Diagnosis">Diagnosis</option>
             </select>
             <p><input type="submit" value="Отправить"></p>

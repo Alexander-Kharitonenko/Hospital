@@ -1,14 +1,21 @@
-﻿@model ViewModelBaseTable 
+﻿@model ViewModelBaseTable
 
-<form id="x" asp-action="Edit" asp-controller="Home" method="post">
-    <input type="text" name="card"/>
-    <select id="data" form="x">
-        <option value="@Model.Doctor">Doctor</option>
-        <option value="@Model.Patient">Patient</option>
-        <option value="@Model.Diagnosis">Diagnosis</option>
-        <option value="@Model.DateAdmission">DateAdmission</option>
-    </select>
+<form asp-action="Edit" asp-controller="Home" method="post">
+    <input type="text" name="card" />
     <input type="submit" value="Отправить" />
 </form>
 
-   
+@*<td>@el.Patient.LastName</td>
+<td>@el.Patient.Patronymic</td>
+<td>@el.Patient.FirstName</td>
+<td>@el.Patient.Gender</td>
+<td>@el.Patient.ResidenceAddress</td>
+
+<td>@el.Doctor.LastName</td>
+<td>@el.Doctor.Patronymic</td>
+<td>@el.Doctor.FirstName</td>
+<td>@el.Doctor.NumberPhone</td>
+
+<td>@el.Diagnosis.Diagnosis</td>
+
+<td>@el.DateAdmission</td>*@
