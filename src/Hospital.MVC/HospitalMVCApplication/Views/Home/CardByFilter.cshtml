@@ -4,20 +4,16 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">@Model.NameTable</th>
+                <th scope="col">@Model.NameFilter</th>
             </tr>
-
             @{
                 foreach (var el in @Model.Filter)
                 {
-                        <tr>
-                            <td>@el</td>
-                        </tr>
+                    <tr>
+                        <td>@el</td>
+                    </tr>
                 }
-                
-               
             }
-            
         </thead>
     </table>
 </div>

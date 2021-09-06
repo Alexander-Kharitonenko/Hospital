@@ -54,80 +54,105 @@ namespace HospitalMVCApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult GerCardByFilter(string filter) 
+        public IActionResult GetAllCard(ViewModelAllCard request) 
         {
-           return RedirectToAction(nameof(CardByFilter), "Home", new { filter = filter });
+            if (ModelState.IsValid) 
+            {
+                return RedirectToAction(nameof(CardByFilter), "Home", new { filter = request.NameFilter});
+            }
+
+            ViewModelAllCard allCard = new ViewModelAllCard();
+            var baseTable = new List<ViewModelBaseTable>();
+
+            var allCardInDataBase = CardServices.registrationCardRepository.Get();
+            foreach (var element in allCardInDataBase)
+            {
+                var doctor = CardServices.doctorRepository.Get().FirstOrDefault(el => el.Id == element.Id);
+                var patient = CardServices.patientRepository.Get().FirstOrDefault(el => el.Id == element.Id);
+                var diagnosis = CardServices.medicalHistoryRepository.Get().FirstOrDefault(el => el.Id == element.Id);
+                ViewModelBaseTable baseTabse = new ViewModelBaseTable()
+                {
+                    Id = element.Id,
+                    Doctor = doctor,
+                    Patient = patient,
+                    DateAdmission = element.DateAdmission.ToShortDateString(),
+                    Diagnosis = diagnosis
+                };
+                baseTable.Add(baseTabse);
+            }
+            allCard.AllCard = baseTable;
+            return View(allCard);
         }
 
 
         [HttpGet]
         public IActionResult CardByFilter(string filter) 
         {
-            if (filter.Contains("Doctor")|| filter.Contains("NumberPhone"))
+            if (filter.Contains("Doctor ", StringComparison.OrdinalIgnoreCase) || filter.Contains("Number Phone", StringComparison.OrdinalIgnoreCase))
             {
+                
                 var model = new ViewModelForFilter();
                 var allDoctor = new List<string>();
                 var allCardInDataBase = CardServices.registrationCardRepository.Get();
                 foreach (var element in allCardInDataBase)
                 {
-                    var selestBy = filter.Replace("Doctor", string.Empty);
+                    var selestBy = filter.Replace("Doctor ", string.Empty, StringComparison.OrdinalIgnoreCase).Replace(" ", string.Empty);
                     var doctor = CardServices.doctorRepository.Get().FirstOrDefault(el => el.Id == element.Id);
-                    switch (selestBy) 
+                    switch (true) 
                     {
-                        case "FirstName": allDoctor.Add(doctor.FirstName);break;
-                        case "LastName": allDoctor.Add(doctor.LastName); break;
-                        case "Patronymic": allDoctor.Add(doctor.Patronymic); break;
-                        case "NumberPhone": allDoctor.Add(doctor.NumberPhone); break;  
+                        case true when string.Equals("FirstName", selestBy, StringComparison.OrdinalIgnoreCase): allDoctor.Add(doctor.FirstName);break;
+                        case true when string.Equals("LastName", selestBy, StringComparison.OrdinalIgnoreCase): allDoctor.Add(doctor.LastName); break;
+                        case true when string.Equals("Patronymic", selestBy, StringComparison.OrdinalIgnoreCase): allDoctor.Add(doctor.Patronymic); break;
+                        case true when string.Equals("NumberPhone", selestBy, StringComparison.OrdinalIgnoreCase): allDoctor.Add(doctor.NumberPhone); break;
                     }
-                    
+
                 }
                 model.Filter = allDoctor;
-                model.NameTable = filter;
+                model.NameFilter = filter;
                 return View(model);
             }
-            else if(filter.Contains("Patient") || filter.Contains("ResidenceAddress") || filter.Contains("Gender")) 
+            else if(filter.Contains("Patient " , StringComparison.OrdinalIgnoreCase) || filter.Contains("Residence Address", StringComparison.OrdinalIgnoreCase) || filter.Contains("Gender" , StringComparison.OrdinalIgnoreCase)) 
             {
                 var model = new ViewModelForFilter();
                 var allPatient = new List<string>();
                 var allCardInDataBase = CardServices.registrationCardRepository.Get();
                 foreach (var element in allCardInDataBase)
                 {
-                    var selestBy = filter.Replace("Patient", string.Empty);
+                    var selestBy = filter.Replace("Patient ", string.Empty , StringComparison.OrdinalIgnoreCase).Replace(" ", string.Empty);
                     var patient = CardServices.patientRepository.Get().FirstOrDefault(el => el.Id == element.Id);
-                    switch (selestBy)
+                    switch (true)
                     {
-                        case "FirstName": allPatient.Add(patient.FirstName); break;
-                        case "LastName": allPatient.Add(patient.LastName); break;
-                        case "Patronymic": allPatient.Add(patient.Patronymic); break;
-                        case "Gender": allPatient.Add(patient.Gender); break;
-                        case "ResidenceAddress": allPatient.Add(patient.ResidenceAddress); break;
+                        case true when string.Equals("FirstName", selestBy, StringComparison.OrdinalIgnoreCase): allPatient.Add(patient.FirstName); break;
+                        case true when string.Equals("LastName", selestBy, StringComparison.OrdinalIgnoreCase): allPatient.Add(patient.LastName); break;
+                        case true when string.Equals("Patronymic", selestBy, StringComparison.OrdinalIgnoreCase): allPatient.Add(patient.Patronymic); break;
+                        case true when string.Equals("Gender", selestBy, StringComparison.OrdinalIgnoreCase): allPatient.Add(patient.Gender); break;
+                        case true when string.Equals("ResidenceAddress", selestBy, StringComparison.OrdinalIgnoreCase): allPatient.Add(patient.ResidenceAddress); break;
                     }
 
                 }
                 model.Filter = allPatient;
-                model.NameTable = filter;
+                model.NameFilter = filter;
                 return View(model);
             }
-            else if (filter.Contains("Diagnosis"))
+            else if (filter.Contains("Diagnosis" , StringComparison.OrdinalIgnoreCase))
             {
                 var model = new ViewModelForFilter();
                 var allDiagnosis = new List<string>();
                 var allCardInDataBase = CardServices.registrationCardRepository.Get();
                 foreach (var element in allCardInDataBase)
                 {
-                    
                     var patient = CardServices.medicalHistoryRepository.Get().FirstOrDefault(el => el.Id == element.Id);
-                    switch (filter)
+                    switch (true)
                     {
-                        case "Diagnosis": allDiagnosis.Add(patient.Diagnosis); break;             
+                        case true when string.Equals("Diagnosis", filter, StringComparison.OrdinalIgnoreCase): allDiagnosis.Add(patient.Diagnosis); break;             
                     }
 
                 }
                 model.Filter = allDiagnosis;
-                model.NameTable = filter;
+                model.NameFilter = filter;
                 return View(model);
             }
-            return BadRequest();
+            return BadRequest("Вы вели фильтр не верно или такого фильтра не существует");
         }
 
 
