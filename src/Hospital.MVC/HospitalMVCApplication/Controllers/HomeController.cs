@@ -171,6 +171,20 @@ namespace HospitalMVCApplication.Controllers
 
             return LocalRedirect(returnUrl);
         }
+
+        [HttpGet]
+        public IActionResult Remove(ViewModelBaseTable request)
+        {
+            return View(request);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Remove(int id)
+        {
+            var card = CardServices.registrationCardRepository.Get().FirstOrDefault(el => el.Id == id);
+            await CardServices.registrationCardRepository.Delete(card);
+            return RedirectToAction(nameof(GetAllCard));
+        }
     }
        
 }

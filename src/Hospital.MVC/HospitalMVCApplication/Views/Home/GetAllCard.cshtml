@@ -67,7 +67,7 @@
                         <td>@el.DateAdmission</td>
 
                         <td><a class="btn btn-primary" asp-route-id="@el.Id" asp-action="Edit" asp-controller="Home">@Localizer["Update"]</a></td>
-                        <td><a class="btn btn-danger" asp-action="AddRole" asp-controller="Role">@Localizer["Remove"]</a></td>
+                        <td><a class="btn btn-danger" asp-route-id="@el.Id" asp-action="Remove" asp-controller="Home">@Localizer["Remove"]</a></td>
                     </tr>
                 }
             }
