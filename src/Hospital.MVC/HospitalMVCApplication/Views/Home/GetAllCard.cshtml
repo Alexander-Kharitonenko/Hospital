@@ -1,4 +1,6 @@
 ﻿@model ViewModelAllCard
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "BaseTable";
@@ -20,53 +22,53 @@
                 <option value="Diagnosis">Diagnosis</option>
             </select>
             <p><input type="submit" value="Отправить"></p>
-        </form>    
+        </form>
     </div>
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Patient FirstName</th>
-                <th scope="col">Patient Patronymic</th>
-                <th scope="col">Patient LastName</th>
-                <th scope="col">Patient Gender</th>
-                <th scope="col">Patient ResidenceAddress</th>
+                <th scope="col">@Localizer["Patient First Name"]</th>
+                <th scope="col">@Localizer["Patient Patronymic"]</th>
+                <th scope="col">@Localizer["Patient Last Name"]</th>
+                <th scope="col">@Localizer["Gender"]</th>
+                <th scope="col">@Localizer["Residence Address"]</th>
 
-                <th scope="col">Doctor LastName</th>
-                <th scope="col">Doctor Patronymic</th>
-                <th scope="col">Doctor FirstName</th>
-                <th scope="col">Doctor NumberPhone</th>
+                <th scope="col">@Localizer["Doctor Last Name"]</th>
+                <th scope="col">@Localizer["Doctor Patronymic"]</th>
+                <th scope="col">@Localizer["Doctor First Name"]</th>
+                <th scope="col">@Localizer["Number Phone"]</th>
 
-                <th scope="col">Diagnosis</th>
+                <th scope="col">@Localizer["Diagnosis"]</th>
 
-                <th scope="col">DateAdmission</th>
+                <th scope="col">@Localizer["Date Admission"]</th>
 
-                <th scope="col">Update</th>
-                <th scope="col">Remove</th>
+                <th scope="col">@Localizer["Update"]</th>
+                <th scope="col">@Localizer["Remove"]</th>
             </tr>
 
             @{
 
                 foreach (var el in Model.AllCard)
                 {
-                        <tr>
-                            <td>@el.Patient.LastName</td>
-                            <td>@el.Patient.Patronymic</td>
-                            <td>@el.Patient.FirstName</td>
-                            <td>@el.Patient.Gender</td>
-                            <td>@el.Patient.ResidenceAddress</td>
+                    <tr>
+                        <td>@el.Patient.LastName</td>
+                        <td>@el.Patient.Patronymic</td>
+                        <td>@el.Patient.FirstName</td>
+                        <td>@el.Patient.Gender</td>
+                        <td>@el.Patient.ResidenceAddress</td>
 
-                            <td>@el.Doctor.LastName</td>
-                            <td>@el.Doctor.Patronymic</td>
-                            <td>@el.Doctor.FirstName</td>
-                            <td>@el.Doctor.NumberPhone</td>
+                        <td>@el.Doctor.LastName</td>
+                        <td>@el.Doctor.Patronymic</td>
+                        <td>@el.Doctor.FirstName</td>
+                        <td>@el.Doctor.NumberPhone</td>
 
-                            <td>@el.Diagnosis.Diagnosis</td>
+                        <td>@el.Diagnosis.Diagnosis</td>
 
-                            <td>@el.DateAdmission</td>
-                            
-                            <td><a class="btn btn-primary" asp-route-id="@el.Id" asp-action="Edit" asp-controller="Home">Редактировать</a></td>
-                            <td><a class="btn btn-danger" asp-action="AddRole" asp-controller="Role">Удалить</a></td>
-                        </tr>
+                        <td>@el.DateAdmission</td>
+
+                        <td><a class="btn btn-primary" asp-route-id="@el.Id" asp-action="Edit" asp-controller="Home">@Localizer["Update"]</a></td>
+                        <td><a class="btn btn-danger" asp-action="AddRole" asp-controller="Role">@Localizer["Remove"]</a></td>
+                    </tr>
                 }
             }
 

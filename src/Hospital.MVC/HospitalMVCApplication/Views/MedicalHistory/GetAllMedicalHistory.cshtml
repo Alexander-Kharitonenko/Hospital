@@ -1,4 +1,6 @@
 ﻿@model ViewModelForMedicalHistory
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "MedicalHistoryTable";
@@ -9,10 +11,10 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Diagnosis</th>
-                <th scope="col">Обновление</th>
-                <th scope="col">Удаление</th>
+                <th scope="col">@Localizer["Id"]</th>
+                <th scope="col">@Localizer["Diagnosis"]</th>
+                <th scope="col">@Localizer["Update"]</th>
+                <th scope="col">@Localizer["Remove"]</th>
             </tr>
             @{
                 foreach (var el in Model.AllMedicalHistories)
