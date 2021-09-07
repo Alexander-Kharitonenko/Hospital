@@ -49,5 +49,11 @@ namespace HospitalMVCApplication.Controllers
             return View(request);
         }
 
+        [HttpPost]
+        public IActionResult Remove() 
+        {
+            return View();
+        }
+
     }
 }

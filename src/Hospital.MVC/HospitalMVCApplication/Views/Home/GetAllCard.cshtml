@@ -9,8 +9,14 @@
 <div>
     <div>
         <form id="reuqest" asp-action="GetAllCard" asp-controller="Home" method="post">
-            <input type="text" asp-for="@Model.NameFilter" />
-            <p><input type="submit" value="Отправить"></p>
+            <div>
+                <div class="validation" asp-validation-summary="ModelOnly"></div>
+                <div>
+                    <input type="text" asp-for="@Model.NameFilter" />
+                    <span asp-validation-for="@Model.NameFilter"></span>
+                </div>       
+                <p><input type="submit" value="Отправить"></p>
+            </div>
         </form>
     </div>
     <table class="table">

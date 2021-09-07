@@ -11,6 +11,7 @@ namespace HospitalMVCApplication.Models.ModelForRegistrationCard
         public IEnumerable<ViewModelBaseTable> AllCard { get; set; }
 
         [Required(ErrorMessage = "поле должно быть заполненно")]
+        [RegularExpression(@"^(?!\s*$)[-a-zA-Z ]*$", ErrorMessage = "используйте только латинские символы")]
         public string NameFilter { get; set; }
     }
 }

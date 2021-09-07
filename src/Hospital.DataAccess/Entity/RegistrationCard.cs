@@ -16,16 +16,28 @@ namespace Hospital.DataAccess.Entity
         /// contains field number Patient
         /// </summary>
         public int PatientId { get; set; }
+        /// <summary>
+        /// navigation property
+        /// </summary>
+        public Patient Patient { get; set; }
 
         /// <summary>
         /// contains field number Doctor
         /// </summary>
         public int DoctorId { get; set; }
+        /// <summary>
+        /// navigation property
+        /// </summary>
+        public Doctor Doctor { get; set; }
 
         /// <summary>
         /// contains field number Diagnosis
         /// </summary>
         public int DiagnosisId { get; set;}
+        /// <summary>
+        /// navigation property
+        /// </summary>
+        public MedicalHistory Diagnosis { get; set; }
 
         /// <summary>
         /// contains field number date admission

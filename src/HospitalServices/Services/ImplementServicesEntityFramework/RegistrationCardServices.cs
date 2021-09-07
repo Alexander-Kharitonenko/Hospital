@@ -11,34 +11,52 @@ namespace Hospital.Services.ImplementServicesEntityFramework
 {
     public class RegistrationCardServices : IRegistrationCardServices
     {
-        public IRegistrationCardRepository Context;
-        public RegistrationCardServices(IRegistrationCardRepository context) 
+        public IUnitOfWork Context;
+        public RegistrationCardServices(IUnitOfWork context) 
         {
             Context = context;
         }
 
         public async Task Add(RegistrationCard registrationCard)
         {
-            await Context.CreateEntity(registrationCard);
-            await Context.SaveChanges();
+            await Context.registrationCardRepository.CreateEntity(registrationCard);
+            await Context.SaveChangesAsync();
         }
 
         public async Task DeleteRegistrationCard(RegistrationCard registrationCard)
         {
-            await Context.Delete(registrationCard);
-            await Context.SaveChanges();
+            await Context.registrationCardRepository.Delete(registrationCard);
+            await Context.SaveChangesAsync();
         }
 
         public IEnumerable<RegistrationCard> GetAllRegistrationCard()
         {
-            var result = Context.Get();
-            return result;
+            var allRegistrationCard = new List<RegistrationCard>();
+            var allCardInDataBase = Context.registrationCardRepository.Get();
+            foreach (var element in allCardInDataBase)
+            {
+                var doctor = Context.doctorRepository.Get().FirstOrDefault(el => el.Id == element.Id);
+                var patient = Context.patientRepository.Get().FirstOrDefault(el => el.Id == element.Id);
+                var diagnosis = Context.medicalHistoryRepository.Get().FirstOrDefault(el => el.Id == element.Id);
+                RegistrationCard card = new RegistrationCard()
+                {
+                    Id = element.Id,
+                    Doctor = doctor,
+                    Patient = patient,
+                    Diagnosis = diagnosis,
+                    DateAdmission = element.DateAdmission
+                };
+                allRegistrationCard.Add(card);
+            }
+
+            
+            return allRegistrationCard;
         }
 
         public async Task UpdateRegistrationCard(RegistrationCard registrationCard)
         {
-            await Context.Update(registrationCard);
-            await Context.SaveChanges();
+            await Context.registrationCardRepository.Update(registrationCard);
+            await Context.SaveChangesAsync();
         }
     }
 }
