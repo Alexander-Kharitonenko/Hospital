@@ -9,7 +9,7 @@ namespace HospitalMVCApplication.Models.ModelForRegistrationCard
 {
     public class ViewModelForFilter
     {      
-        public IEnumerable<string> Filter { get; set; }
+        public CardDTO Filter { get; set; }
         public string NameFilter { get; set; }
     }
 }

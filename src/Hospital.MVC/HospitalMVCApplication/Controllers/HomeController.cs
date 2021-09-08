@@ -1,4 +1,5 @@
-﻿using Hospital.DataAccess.Interfaces;
+﻿using Hospital.DataAccess.Entity;
+using Hospital.DataAccess.Interfaces;
 using Hospital.Services.InterfaceServices;
 using HospitalMVCApplication.Models.ModelForRegistrationCard;
 using Microsoft.AspNetCore.Http;
@@ -49,38 +50,30 @@ namespace HospitalMVCApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(CardByFilter), "Home", new { filter = request.NameFilter, nameFilter = request.NameFilter });
+                return RedirectToAction(nameof(CardByFilter), "Home", new { filter = request.NameFilter});
             }
             return View(request);
         }
 
         [HttpGet]
-        public IActionResult CardByFilter(string filter ,string  nameFilter)
+        public IActionResult CardByFilter(string filter)
         {
             if (CardServices.GetAllRegistrationCard().Any(el => el.Doctor.FirstName.Contains(filter)))
             {
-                var cards = CardServices.GetAllRegistrationCard().Where(el => el.Doctor.FirstName.Contains(filter));
-                IEnumerable<string> result = cards.Select(el => el.Doctor.FirstName);       
-                ViewModelForFilter model = new ViewModelForFilter() { Filter = result, NameFilter = nameFilter };
+                var cards = CardServices.GetAllRegistrationCard().Where(el => el.Doctor.FirstName.Contains(filter)).FirstOrDefault();
+                
+                ViewModelForFilter model = new ViewModelForFilter();
+                model.Filter = new CardDTO()
+                {
+                    DateAdmission = " ",
+                    Diagnosis = new MedicalHistory(),
+                    Doctor = new Doctor() { FirstName = cards.Doctor.FirstName },         
+                    Patient = new Patient(),         
+                };
                 return View(model);
-            }
-            if (CardServices.GetAllRegistrationCard().Any(el => el.Patient.FirstName.Contains(filter)))
-            {
-                var cards = CardServices.GetAllRegistrationCard().Where(el => el.Patient.FirstName.Contains(filter));
-                IEnumerable<string> result = cards.Select(el => el.Patient.FirstName);
-                ViewModelForFilter model = new ViewModelForFilter() { Filter = result, NameFilter = nameFilter };
-                return View(model);
-            }
-            if (CardServices.GetAllRegistrationCard().Any(el => el.Diagnosis.Diagnosis.Contains(filter)))
-            {
-                var cards = CardServices.GetAllRegistrationCard().Where(el => el.Diagnosis.Diagnosis.Contains(filter));
-                IEnumerable<string> result = cards.Select(el => el.Diagnosis.Diagnosis);
-                ViewModelForFilter model = new ViewModelForFilter() { Filter = result, NameFilter = nameFilter };
-                return View(model);
-            }        
+            }    
             return BadRequest("Вы вели фильтр не верно или такого фильтра не существует");
         }
-
 
         [HttpGet]
         public IActionResult Edit(int id)

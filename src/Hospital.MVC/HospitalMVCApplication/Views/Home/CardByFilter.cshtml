@@ -1,17 +1,51 @@
 ﻿@model ViewModelForFilter
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 <div>
     <table class="table">
         <thead>
-            @{
-                foreach (var el in @Model.Filter)
-                {
-                    <tr>
-                        <td>@el</td>
-                    </tr>
-                }
-            }
+            <tr>
+                <th scope="col">@Localizer["Patient First Name"]</th>
+                <th scope="col">@Localizer["Patient Patronymic"]</th>
+                <th scope="col">@Localizer["Patient Last Name"]</th>
+                <th scope="col">@Localizer["Gender"]</th>
+                <th scope="col">@Localizer["Residence Address"]</th>
+
+                <th scope="col">@Localizer["Doctor Last Name"]</th>
+                <th scope="col">@Localizer["Doctor Patronymic"]</th>
+                <th scope="col">@Localizer["Doctor First Name"]</th>
+                <th scope="col">@Localizer["Number Phone"]</th>
+
+                <th scope="col">@Localizer["Diagnosis"]</th>
+
+                <th scope="col">@Localizer["Date Admission"]</th>
+
+                <th scope="col">@Localizer["Update"]</th>
+                <th scope="col">@Localizer["Remove"]</th>
+            </tr>
         </thead>
-    </table>
+
+        <thead>
+            <tr>
+                <td>@Model.Filter.Patient.FirstName</td>
+                <td>@Model.Filter.Patient.Patronymic</td>
+                <td>@Model.Filter.Patient.LastName</td>
+                <td>@Model.Filter.Patient.Gender</td>
+                <td>@Model.Filter.Patient.ResidenceAddress</td>
+
+                <td>@Model.Filter.Doctor.LastName</td>
+                <td>@Model.Filter.Doctor.Patronymic</td>
+                <td>@Model.Filter.Doctor.FirstName</td>
+                <td>@Model.Filter.Doctor.NumberPhone</td>
+
+                <td>@Model.Filter.Diagnosis.Diagnosis</td>
+
+                <td>@Model.Filter.DateAdmission</td>
+
+                <td><a class="btn btn-primary" asp-route-id="@Model.Filter.Id" asp-action="Edit" asp-controller="Home">@Localizer["Update"]</a></td>
+                <td><a class="btn btn-danger" asp-route-id="@Model.Filter.Id" asp-action="Remove" asp-controller="Home">@Localizer["Remove"]</a></td>
+            </tr> 
+        </table>
 </div>
 
