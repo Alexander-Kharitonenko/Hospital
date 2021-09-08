@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HospitalMVCApplication.Models.ModelForDoctor
+namespace HospitalMVCApplication.Models.ModelForPatent
 {
-    public class RequestModelForDoctor
+    public class PatientDTO
     {
         /// <summary>
         ///  contains field number
@@ -13,23 +13,28 @@ namespace HospitalMVCApplication.Models.ModelForDoctor
         public int Id { get; set; }
 
         /// <summary>
-        ///  contains field number first name doctor
+        ///  contains field number first name patient
         /// </summary>
         public string FirstName { get; set; }
 
         /// <summary>
-        ///  contains field number last name doctor
+        ///  contains field number last name patient
         /// </summary>
         public string LastName { get; set; }
 
         /// <summary>
-        ///  contains field Patronymic doctor
+        ///  contains field Patronymic patient
         /// </summary>
         public string Patronymic { get; set; }
 
         /// <summary>
-        ///  contains field number phone doctor
+        ///  contains field gender patient
         /// </summary>
-        public string NumberPhone { get; set; }
+        public string Gender { get; set; }
+
+        /// <summary>
+        ///  contains field residence address patient
+        /// </summary>
+        public string ResidenceAddress { get; set; }
     }
 }

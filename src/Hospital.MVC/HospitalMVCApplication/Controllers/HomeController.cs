@@ -26,13 +26,11 @@ namespace HospitalMVCApplication.Controllers
         public IActionResult GetAllCard()
         {
             ViewModelAllCard allCard = new ViewModelAllCard();
-            var baseTable = new List<ViewModelBaseTable>();
-
+            var baseTable = new List<CardDTO>();
             var allCardInDataBase = CardServices.GetAllRegistrationCard();
             foreach (var element in allCardInDataBase)
             {
-
-                ViewModelBaseTable baseTabse = new ViewModelBaseTable()
+                CardDTO baseTabse = new CardDTO()
                 {
                     Id = element.Id,
                     Doctor = element.Doctor,
@@ -51,28 +49,35 @@ namespace HospitalMVCApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(CardByFilter), "Home", new { filter = request.NameFilter });
+                return RedirectToAction(nameof(CardByFilter), "Home", new { filter = request.NameFilter, nameFilter = request.NameFilter });
             }
-
-
             return View(request);
         }
 
-
         [HttpGet]
-        public IActionResult CardByFilter(string filter)
+        public IActionResult CardByFilter(string filter ,string  nameFilter)
         {
-            
-
-                if (CardServices.GetAllRegistrationCard().Any(el => el.Doctor.FirstName.Contains(filter)))
-                {
-                    var cards = CardServices.GetAllRegistrationCard().Where(el => el.Doctor.FirstName.Contains(filter));
-                    IEnumerable<string> result = cards.Select(el => el.Doctor.FirstName);
-                    ViewModelForFilter model = new ViewModelForFilter() { Filter = result };
-                    return View(model);
-                }
-            
-
+            if (CardServices.GetAllRegistrationCard().Any(el => el.Doctor.FirstName.Contains(filter)))
+            {
+                var cards = CardServices.GetAllRegistrationCard().Where(el => el.Doctor.FirstName.Contains(filter));
+                IEnumerable<string> result = cards.Select(el => el.Doctor.FirstName);       
+                ViewModelForFilter model = new ViewModelForFilter() { Filter = result, NameFilter = nameFilter };
+                return View(model);
+            }
+            if (CardServices.GetAllRegistrationCard().Any(el => el.Patient.FirstName.Contains(filter)))
+            {
+                var cards = CardServices.GetAllRegistrationCard().Where(el => el.Patient.FirstName.Contains(filter));
+                IEnumerable<string> result = cards.Select(el => el.Patient.FirstName);
+                ViewModelForFilter model = new ViewModelForFilter() { Filter = result, NameFilter = nameFilter };
+                return View(model);
+            }
+            if (CardServices.GetAllRegistrationCard().Any(el => el.Diagnosis.Diagnosis.Contains(filter)))
+            {
+                var cards = CardServices.GetAllRegistrationCard().Where(el => el.Diagnosis.Diagnosis.Contains(filter));
+                IEnumerable<string> result = cards.Select(el => el.Diagnosis.Diagnosis);
+                ViewModelForFilter model = new ViewModelForFilter() { Filter = result, NameFilter = nameFilter };
+                return View(model);
+            }        
             return BadRequest("Вы вели фильтр не верно или такого фильтра не существует");
         }
 
@@ -81,7 +86,7 @@ namespace HospitalMVCApplication.Controllers
         public IActionResult Edit(int id)
         {
             var CardWithDataBase = CardServices.GetAllRegistrationCard().FirstOrDefault(el => el.Id == id);
-            ViewModelBaseTable baseTabse = new ViewModelBaseTable()
+            CardDTO baseTabse = new CardDTO()
             {
                 Id = CardWithDataBase.Id,
                 Doctor = CardWithDataBase.Doctor,
@@ -89,14 +94,12 @@ namespace HospitalMVCApplication.Controllers
                 DateAdmission = CardWithDataBase.DateAdmission.ToString(),
                 Diagnosis = CardWithDataBase.Diagnosis
             };
-
             return View(baseTabse);
         }
 
         [HttpPost]
-        public IActionResult Edit(ViewModelBaseTable reqoest)
+        public IActionResult Edit(CardDTO reqoest)
         {
-
             return View();
         }
 
@@ -115,7 +118,7 @@ namespace HospitalMVCApplication.Controllers
         }
 
         [HttpGet]
-        public IActionResult Remove(ViewModelBaseTable request)
+        public IActionResult Remove(CardDTO request)
         {
             return View(request);
         }
@@ -128,5 +131,4 @@ namespace HospitalMVCApplication.Controllers
             return RedirectToAction(nameof(GetAllCard));
         }
     }
-
 }

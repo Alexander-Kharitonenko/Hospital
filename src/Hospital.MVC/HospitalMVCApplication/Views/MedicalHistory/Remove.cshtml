@@ -1,4 +1,4 @@
-﻿@model CardDTO
+﻿@model MedicalHistoryDTO
 
 @{
     ViewData["Title"] = "Remove";
@@ -7,7 +7,6 @@
 <h1>Вы дейсвительно хотите удалить запись?</h1>
 <form asp-action="Remove" , asp-controller="Home" method="post">
     <input type="hidden" asp-route-id="@Model.Id" value="@Model.Id" />
-    <a class="btn btn-light" asp-action="GetAllCard" asp-controller="Home">НЕТ</a>
-    <input class="btn btn-light" type="submit" value="ДА"/>
+    <a class="btn btn-light" asp-action="GetAllMedicalHistory" asp-controller="MedicalHistory">НЕТ</a>
+    <input class="btn btn-light" type="submit" value="ДА" />
 </form>
-

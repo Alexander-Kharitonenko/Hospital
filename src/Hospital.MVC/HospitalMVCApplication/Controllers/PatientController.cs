@@ -23,5 +23,19 @@ namespace HospitalMVCApplication.Controllers
             ViewModelForPatient Model = new ViewModelForPatient() { AllPatient = PatientServices.GetAllPatient() };
             return View(Model);
         }
+
+        [HttpGet]
+        public IActionResult Remove(PatientDTO request)
+        {
+            return View(request);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Remove(int id)
+        {
+            var doctor = PatientServices.GetAllPatient().FirstOrDefault(el => el.Id == id);
+            await PatientServices.DeletePatient(doctor);
+            return RedirectToAction(nameof(GetAllPatient));
+        }
     }
 }

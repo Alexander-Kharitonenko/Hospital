@@ -16,11 +16,26 @@ namespace HospitalMVCApplication.Controllers
         {
             MedicalHistoryServices = medicalHistoryServices;
         }
+
         [HttpGet]
         public IActionResult GetAllMedicalHistory()
         {
             ViewModelForMedicalHistory Model = new ViewModelForMedicalHistory() { AllMedicalHistories = MedicalHistoryServices.GetAllMedicalHistory() };
             return View(Model);
         }
+
+        [HttpGet]
+        public IActionResult Remove(MedicalHistoryDTO request)
+        {
+            return View(request);
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Remove(int id)
+        //{
+        //    var doctor = DoctorServices.GetAllDoctor().FirstOrDefault(el => el.Id == id);
+        //    await DoctorServices.DeleteDoctor(doctor);
+        //    return RedirectToAction(nameof(GetAllDoctor));
+        //}
     }
 }

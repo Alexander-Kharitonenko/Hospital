@@ -49,11 +49,18 @@ namespace HospitalMVCApplication.Controllers
             return View(request);
         }
 
-        [HttpPost]
-        public IActionResult Remove() 
+        [HttpGet]
+        public IActionResult Remove(DoctorDTO request)
         {
-            return View();
+            return View(request);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Remove(int id)
+        {
+            var doctor = DoctorServices.GetAllDoctor().FirstOrDefault(el => el.Id == id);
+            await DoctorServices.DeleteDoctor(doctor);
+            return RedirectToAction(nameof(GetAllDoctor));
+        }
     }
 }
